@@ -41,6 +41,9 @@ PAUSE_BETWEEN_CHUNKS_S = 0.5
 PAUSE_BETWEEN_SECTIONS_S = 1.2
 
 LINE_RE = re.compile(r"^(ALEX|CHINO)\s*\[([^\]]*)\]\s*:\s*(.+)$")
+MUSIC_RE = re.compile(r"^\[MUSIC:\s*([\w-]+)\s*\]$", re.I)
+MUSIC_DIR = Path(__file__).resolve().parent.parent / "assets" / "music"
+SPEECH_LUFS = -16  # music clips in assets/music are pre-leveled ~3-5 dB under this
 
 
 @dataclass
@@ -55,6 +58,7 @@ class Chunk:
     section: str
     turns: list[Turn] = field(default_factory=list)
     starts_section: bool = False
+    music: str | None = None  # set for [MUSIC: cue] chunks (no speech)
 
     @property
     def chars(self) -> int:
@@ -101,6 +105,15 @@ def parse_script(md: str) -> list[Chunk]:
             continue
         if line.startswith("### "):
             flush()  # each story starts a new chunk
+            continue
+        mm = MUSIC_RE.match(line)
+        if mm:
+            flush()
+            cue = mm.group(1).lower()
+            if not (MUSIC_DIR / f"{cue}.mp3").exists():
+                raise SystemExit(f"Unknown music cue '{cue}' (no assets/music/{cue}.mp3)")
+            chunks.append(Chunk(section=section, music=cue, starts_section=new_section))
+            new_section = False
             continue
         m = LINE_RE.match(line)
         if not m:
@@ -169,13 +182,33 @@ def make_silence(path: Path, seconds: float) -> None:
     )
 
 
-def concat_to_mp3(wavs: list[Path], out_mp3: Path, work: Path) -> None:
+def normalize_speech(src: Path, dst: Path) -> None:
+    """Level one TTS chunk to the podcast standard so every chunk (and the music) sits consistently."""
+    subprocess.run(
+        ["ffmpeg", "-y", "-loglevel", "error", "-i", str(src),
+         "-af", f"loudnorm=I={SPEECH_LUFS}:TP=-1.5:LRA=11", "-ar", "24000", "-ac", "1", "-c:a", "pcm_s16le", str(dst)],
+        check=True,
+    )
+
+
+def music_wav(cue: str, work: Path) -> Path:
+    out = work / f"music_{cue}.wav"
+    if not out.exists():
+        subprocess.run(
+            ["ffmpeg", "-y", "-loglevel", "error", "-i", str(MUSIC_DIR / f"{cue}.mp3"),
+             "-ar", "24000", "-ac", "1", "-c:a", "pcm_s16le", str(out)],
+            check=True,
+        )
+    return out
+
+
+def concat_to_mp3(wavs: list[Path], out_mp3: Path, work: Path, normalize: bool = True) -> None:
     listing = work / "concat.txt"
     listing.write_text("".join(f"file '{w.as_posix()}'\n" for w in wavs))
+    af = "loudnorm=I=-16:TP=-1.5:LRA=11" if normalize else "alimiter=limit=0.9"
     subprocess.run(
         ["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
-         "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",   # podcast loudness standard
-         "-ac", "1", "-ar", "44100", "-c:a", "libmp3lame", "-b:a", "64k", str(out_mp3)],
+         "-af", af, "-ac", "1", "-ar", "44100", "-c:a", "libmp3lame", "-b:a", "64k", str(out_mp3)],
         check=True,
     )
 
@@ -199,12 +232,16 @@ def main() -> int:
     meta = parse_front_matter(md)
     chunks = parse_script(md)
     n_turns = sum(len(c.turns) for c in chunks)
+    n_music = sum(1 for c in chunks if c.music)
     n_words = sum(len(t.text.split()) for c in chunks for t in c.turns)
-    print(f"{args.script.name}: {len(chunks)} chunks, {n_turns} turns, ~{n_words} words "
-          f"(~{n_words / 150:.0f} min)")
+    print(f"{args.script.name}: {len(chunks) - n_music} speech chunks, {n_music} music cues, {n_turns} turns, "
+          f"~{n_words} words (~{n_words / 150:.0f} min speech)")
     if args.dry_run:
         for i, c in enumerate(chunks):
-            print(f"  [{i:02d}] {c.section[:40]:40s} turns={len(c.turns):2d} chars={c.chars}")
+            if c.music:
+                print(f"  [{i:02d}] {c.section[:40]:40s} ♪ {c.music}")
+            else:
+                print(f"  [{i:02d}] {c.section[:40]:40s} turns={len(c.turns):2d} chars={c.chars}")
         return 0
 
     from google import genai  # imported here so --dry-run works without the SDK
@@ -218,15 +255,25 @@ def main() -> int:
         make_silence(short, PAUSE_BETWEEN_CHUNKS_S)
         make_silence(long_, PAUSE_BETWEEN_SECTIONS_S)
         wavs: list[Path] = []
+        prev_music = False
         for i, c in enumerate(chunks):
+            if c.music:
+                if wavs and not prev_music:
+                    wavs.append(short)
+                wavs.append(music_wav(c.music, work))
+                prev_music = True
+                continue
+            raw = work / f"chunk_{i:03d}_raw.wav"
             wav = work / f"chunk_{i:03d}.wav"
             print(f"  TTS chunk {i + 1}/{len(chunks)} ({c.section[:30]})")
-            tts_chunk(client, c, wav)
-            if wavs:
+            tts_chunk(client, c, raw)
+            normalize_speech(raw, wav)
+            if wavs and not prev_music:
                 wavs.append(long_ if c.starts_section else short)
             wavs.append(wav)
+            prev_music = False
         mp3 = args.out / f"{stem}.mp3"
-        concat_to_mp3(wavs, mp3, work)
+        concat_to_mp3(wavs, mp3, work, normalize=False)
 
     info = {
         "file": mp3.name,
