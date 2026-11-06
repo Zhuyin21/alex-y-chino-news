@@ -1,0 +1,47 @@
+name: Auto-merge daily episode
+
+# The daily scheduled task opens a PR from an `episode/*` branch. This workflow merges it
+# automatically, but ONLY if the PR changes nothing except files in episodes/*.md.
+# Anything else (code, workflows, settings) still waits for a human review.
+# Merges made with GITHUB_TOKEN don't trigger other workflows, so this job starts the
+# audio build itself afterwards.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  automerge:
+    if: startsWith(github.head_ref, 'episode/') && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Only episode files changed?
+        id: check
+        run: |
+          files=$(gh api "repos/$REPO/pulls/$PR/files" --paginate --jq '.[].filename')
+          echo "Changed files:"; echo "$files"
+          bad=$(echo "$files" | grep -vE '^episodes/[^/]+\.md$' || true)
+          if [ -n "$bad" ]; then
+            echo "::warning::Not auto-merging. Non-episode files changed:"; echo "$bad"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Merge
+        if: steps.check.outputs.ok == 'true'
+        run: gh api -X PUT "repos/$REPO/pulls/$PR/merge" -f merge_method=squash
+
+      - name: Start audio build
+        if: steps.check.outputs.ok == 'true'
+        run: gh workflow run audio.yml --repo "$REPO" --ref main
