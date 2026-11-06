@@ -25,8 +25,8 @@ from pathlib import Path
 
 MODEL = os.environ.get("TTS_MODEL", "gemini-3.8-flash-tts")
 VOICES = {
-    "ALEX": os.environ.get("VOICE_ALEX", "Sadaltager"),   # "Knowledgeable"
-    "CHINO": os.environ.get("VOICE_CHINO", "Puck"),       # "Upbeat"
+    "ALEX": os.environ.get("VOICE_ALEX") or "Algenib",     # "Gravelly"
+    "CHINO": os.environ.get("VOICE_CHINO") or "Fenrir",   # "Excitable"
 }
 # Persona hints prepended to every line's style so the accent/register stays consistent.
 PERSONA = {

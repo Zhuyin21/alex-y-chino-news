@@ -2,6 +2,11 @@ name: Voice audition
 
 on:
   workflow_dispatch:
+    inputs:
+      pairs:
+        description: "Voice pairs to compare, Alex:Chino, comma-separated (blank = default 5)"
+        required: false
+        default: "Algenib:Fenrir,Algenib:Achird"
 
 permissions:
   contents: write
@@ -13,6 +18,7 @@ jobs:
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GH_TOKEN: ${{ github.token }}
+      AUDITION_PAIRS: ${{ inputs.pairs }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
