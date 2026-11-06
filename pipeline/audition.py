@@ -28,12 +28,16 @@ _env = os.environ.get("AUDITION_PAIRS", "").strip()
 PAIRS = [tuple(p.split(":", 1)) for p in _env.split(",") if ":" in p] if _env else DEFAULT_PAIRS
 
 SAMPLE = [
-    ("CHINO", "excited, laughing", "¡Qué onda, Burque! It's Monday, and Doc, la neta, I'm still not over the weekend."),
-    ("ALEX", "playful, teasing", "Chino, it was two days. Scientifically, your recovery time should be like four hours, carnal."),
-    ("CHINO", "outraged, joking", "¿Cuatro horas? ¡No mames, wey! You've never been to a carne asada with my tíos."),
-    ("ALEX", "laughing, then warm", "Okay, fair. Ándale pues, let's get into the news before your abuela calls."),
-    ("CHINO", "dramatic, storytelling", "Oye, la neta, mi abuela ya me habló tres veces hoy. Dice que si no le llevo tamales el domingo, me deshereda. ¡Está cañón, carnal!"),
-    ("ALEX", "dry, amused", "Pues, statistically speaking, compa, I'd bring the tamales."),
+    ("CHINO", "excited, friendly", "¡Quiúbole, Burque! ¿Qué onda? It's Monday, y la neta, Doc, todavía ando bien desvelado del fin de semana."),
+    ("ALEX", "amused, relaxed", "Eee, Chino. It was two days, bro. You should've recovered by Sunday night."),
+    ("CHINO", "laughing", "¡No manches, Doc! You've never been to a carne asada with my tíos en Juárez. La troca parqueada en la banqueta, la música a todo lo que da, y burritos hasta las dos de la mañana."),
+    ("ALEX", "laughing, warm", "Uy, okay, that's fair. Suave. Ahí te watcho next time, pero first, the news."),
+    ("CHINO", "storytelling", "Simón. Nombre, y mi abuela ya me marcó tres veces hoy. Dice que si no le llevo tamales el domingo, me deshereda. ¡Qué caray!"),
+    ("ALEX", "dry, amused", "Ay, ay, ay. As an engineer, compa, the solution is simple: bring the tamales."),
+    ("CHINO", "shifting tone, calmer", "Órale pues. Ya, hablando en serio..."),
+    ("ALEX", "calm, serious", "In other news, and this one is more serious: let's talk about our water. Here in New Mexico, every drop counts."),
+    ("CHINO", "lighter, moving on", "Y cambiando de tema, Doc, vámonos pal' otro lado del charco."),
+    ("ALEX", "neutral, clear", "Switching gears to the world."),
 ]
 
 
