@@ -6,20 +6,10 @@
     <atom:link href="https://zhuyin21.github.io/alex-y-chino-news/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Daily Spanglish news podcast. Dr. Alex y Chino break down local (Albuquerque/Bernalillo), US, and world news. AI-generated from sourced scripts.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 06 Nov 2026 03:35:24 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 03:56:34 +0000</lastBuildDate>
     <itunes:author>Alex y Chino</itunes:author>
     <itunes:explicit>true</itunes:explicit>
     <itunes:category text="News"/>
-    <item>
-      <title>Episode 0: 2026-11-06</title>
-      <description>Governor-elect Haaland's first day · The rest of your ballot · The DWI scandal reaches deeper into BCSO · Flooding emergency in Sandoval County · River of Lights, and Lotaburger · Democrats take Congress · The Republican fallout · Texas turned upside down · Wall Street's AI hangover · Shake-up at the Justice Department · Ukraine: a deadly strike, and talk of talks · Iran war: shipping still under fire · Hong Kong: Joshua Wong gets 10 more years · Bomb hoaxes on European flights · New Zealand votes Saturday</description>
-      <link>https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-06_episode-000.md</link>
-      <guid isPermaLink="false">alex-y-chino-0-2026-11-06</guid>
-      <pubDate>Fri, 06 Nov 2026 13:00:00 +0000</pubDate>
-      <enclosure url="https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-06_episode-000/2026-11-06_episode-000.mp3" length="7440343" type="audio/mpeg"/>
-      <itunes:duration>15:29</itunes:duration>
-      <itunes:explicit>true</itunes:explicit>
-    </item>
     <item>
       <title>Ep 1: Haaland's first day, a deputy indicted, and Democrats take Congress</title>
       <description>Governor-elect Haaland's first day · The DWI scandal reaches deeper into BCSO · Rapid-fire local · Democrats take Congress · Texas, and the data center fight · Rapid-fire national · Ukraine · Iran war and Gulf shipping · Rapid-fire world</description>
