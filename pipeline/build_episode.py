@@ -148,6 +148,11 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: di
             out_wav.write_bytes(base64.b64decode(data))
             return
         except Exception as e:  # noqa: BLE001 - retry any API/network error
+            msg = str(e)
+            # Don't burn retries on errors that won't fix themselves (bad model/key/request).
+            if any(code in msg for code in ("Error code: 400", "Error code: 401", "Error code: 403", "Error code: 404")):
+                print(f"  non-retryable API error: {msg[:300]}", file=sys.stderr)
+                raise
             if i == attempts:
                 raise
             print(f"  attempt {i} failed ({e!r}); retrying in {delay:.0f}s", file=sys.stderr)
