@@ -1,0 +1,107 @@
+name: Build episode audio + feed
+
+on:
+  push:
+    branches: [main]
+    paths: ["episodes/*.md"]
+  workflow_dispatch:
+    inputs:
+      episode:
+        description: "Episode file to (re)build, e.g. 2026-11-06_episode-000 (blank = all missing)"
+        required: false
+      force:
+        description: "Rebuild even if audio already exists"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audio-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q -r pipeline/requirements.txt
+
+      - name: Check API key
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY secret is missing (Settings → Secrets and variables → Actions)"; exit 1
+          fi
+
+      - name: Find episodes that need audio
+        id: todo
+        run: |
+          todo=""
+          for f in episodes/*.md; do
+            stem=$(basename "$f" .md)
+            if [ -n "${{ inputs.episode }}" ] && [ "$stem" != "${{ inputs.episode }}" ]; then continue; fi
+            if [ "${{ inputs.force }}" != "true" ] && gh release view "$stem" --repo "$REPO" >/dev/null 2>&1; then continue; fi
+            todo="$todo $stem"
+          done
+          echo "Episodes to build:${todo:- none}"
+          echo "list=$todo" >> "$GITHUB_OUTPUT"
+
+      - name: Generate audio and publish
+        if: steps.todo.outputs.list != ''
+        run: |
+          mkdir -p docs build
+          [ -f docs/episodes.json ] || echo "[]" > docs/episodes.json
+          for stem in ${{ steps.todo.outputs.list }}; do
+            echo "::group::$stem"
+            python pipeline/build_episode.py "episodes/$stem.md" --out build
+            gh release delete "$stem" --repo "$REPO" --yes --cleanup-tag >/dev/null 2>&1 || true
+            gh release create "$stem" "build/$stem.mp3" --repo "$REPO" \
+              --title "$stem" --notes "Script + sources: https://github.com/$REPO/blob/main/episodes/$stem.md"
+            python - "$stem" <<'PY'
+          import json, sys, os
+          stem = sys.argv[1]
+          repo = os.environ["REPO"]
+          info = json.load(open(f"build/{stem}.json"))
+          eps = [e for e in json.load(open("docs/episodes.json")) if e.get("stem") != stem]
+          num = info["episode"] or "?"
+          eps.append({
+              "stem": stem,
+              "episode": num,
+              "air_date": info["air_date"],
+              "title": info["title"] or f"Episode {num}: {info['air_date']}",
+              "description": " · ".join(info["stories"]),
+              "url": f"https://github.com/{repo}/releases/download/{stem}/{info['file']}",
+              "bytes": info["bytes"],
+              "duration_s": info["duration_s"],
+              "notes_url": f"https://github.com/{repo}/blob/main/episodes/{stem}.md",
+          })
+          json.dump(eps, open("docs/episodes.json", "w"), indent=2)
+          PY
+            echo "::endgroup::"
+          done
+          python pipeline/build_feed.py
+
+      - name: Commit feed
+        if: steps.todo.outputs.list != ''
+        run: |
+          git config user.name "alex-y-chino-bot"
+          git config user.email "actions@github.com"
+          git add docs/
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish audio:${{ steps.todo.outputs.list }}"
+          git pull --rebase -q origin main
+          git push
