@@ -32,6 +32,8 @@ jobs:
       # Change voices without code: Settings → Secrets and variables → Actions → Variables
       VOICE_ALEX: ${{ vars.VOICE_ALEX }}
       VOICE_CHINO: ${{ vars.VOICE_CHINO }}
+      TTS_MODEL: ${{ vars.TTS_MODEL }}               # e.g. gemini-3.8-flash-lite-tts
+      TTS_SERVICE_TIER: ${{ vars.TTS_SERVICE_TIER }} # flex (default) or standard
     steps:
       - uses: actions/checkout@v4
 

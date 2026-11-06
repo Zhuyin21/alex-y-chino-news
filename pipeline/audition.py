@@ -25,7 +25,13 @@ DEFAULT_PAIRS = [  # (Alex voice, Chino voice)
 ]
 # Override with AUDITION_PAIRS="Algenib:Fenrir,Algenib:Achird"
 _env = os.environ.get("AUDITION_PAIRS", "").strip()
-PAIRS = [tuple(p.split(":", 1)) for p in _env.split(",") if ":" in p] if _env else DEFAULT_PAIRS
+def _parse(spec: str):
+    voices, _, model = spec.strip().partition("@")
+    a, c = voices.split(":", 1)
+    return a.strip(), c.strip(), (model.strip() or None)
+
+
+PAIRS = [_parse(p) for p in _env.split(",") if ":" in p] if _env else [(a, c, None) for a, c in DEFAULT_PAIRS]
 
 SAMPLE = [
     ("CHINO", "excited, friendly", "¡Quiúbole, Burque! ¿Qué onda? It's Monday, y la neta, Doc, todavía ando bien desvelado del fin de semana."),
@@ -52,17 +58,18 @@ def main() -> int:
         pause = work / "pause.wav"
         b.make_silence(pause, 1.5)
         wavs: list[Path] = []
-        for i, (alex, chino) in enumerate(PAIRS, 1):
+        for i, (alex, chino, model) in enumerate(PAIRS, 1):
             turns = [b.Turn("ALEX", "neutral, announcer", f"Pair number {i}.")]
             turns += [b.Turn(s, st, t) for s, st, t in SAMPLE]
             chunk = b.Chunk(section="audition", turns=turns)
             voices = {"ALEX": alex, "CHINO": chino}
-            print(f"Pair {i}: Alex={alex}, Chino={chino}")
+            print(f"Pair {i}: Alex={alex}, Chino={chino}, model={model or b.MODEL}")
             cw = work / f"pair_{i}.wav"
-            b.tts_chunk(client, chunk, cw, voices=voices)
+            used = b.tts_chunk(client, chunk, cw, voices=voices, model=model)
+            print(f"  served by tier: {used}")
             wavs += [cw, pause]
         b.concat_to_mp3(wavs, out / "audition.mp3", work)
-    legend = "\n".join(f"{i}. Alex = {a}, Chino = {c}" for i, (a, c) in enumerate(PAIRS, 1))
+    legend = "\n".join(f"{i}. Alex = {a}, Chino = {c}, model = {m or b.MODEL}" for i, (a, c, m) in enumerate(PAIRS, 1))
     (out / "audition.txt").write_text(legend + "\n")
     print(legend)
     return 0
