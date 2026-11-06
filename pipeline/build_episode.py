@@ -30,8 +30,10 @@ VOICES = {
 }
 # Persona hints prepended to every line's style so the accent/register stays consistent.
 PERSONA = {
-    "ALEX": "a scientist podcast host with dry humor, clear and measured, American English with natural Spanish words",
-    "CHINO": "a Mexican-American podcast host from Albuquerque, warm and funny, natural Spanglish, Mexican Spanish pronunciation for Spanish words",
+    "ALEX": ("a Mexican-American scientist podcast host from Las Cruces, relaxed and playful with a nerdy, "
+             "dry sense of humor, quick to laugh, natural Spanglish; Spanish words with native Mexican pronunciation"),
+    "CHINO": ("a Mexican podcast host raised in Albuquerque with family from Chihuahua, warm, loud and funny, "
+              "speaks lots of fluent Mexican norteño Spanish mixed with English; native Mexican accent in Spanish"),
 }
 MAX_CHARS_PER_CHUNK = int(os.environ.get("MAX_CHARS_PER_CHUNK", "1800"))
 PAUSE_BETWEEN_CHUNKS_S = 0.5
@@ -117,7 +119,7 @@ def story_titles(md: str) -> list[str]:
     return [re.sub(r"^\d+\.\s*", "", h).strip() for h in re.findall(r"^### (.+)$", body, re.M)]
 
 
-def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4) -> None:
+def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: dict | None = None) -> None:
     parts = [
         {
             "type": "text",
@@ -130,7 +132,7 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4) -> None:
         }
         for t in chunk.turns
     ]
-    speakers = [{"speaker": s, "voice": v} for s, v in VOICES.items()]
+    speakers = [{"speaker": s, "voice": v} for s, v in (voices or VOICES).items()]
     delay = 5.0
     for i in range(1, attempts + 1):
         try:
