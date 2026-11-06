@@ -13,12 +13,15 @@ A weekly tech, science and engineering special in the **same feed** as the daily
 3. **El Taller** (~5–7 min): the deep dive. Doc takes ONE big topic from the week and explains how it works, from first principles and with an everyday analogy. Chino asks the follow-up questions. End with "what to watch for next."
 4. **Ciencia en Nuevo México** (~2–3 min): a local science or tech story: Sandia, Los Alamos, UNM, NM Tech, NMSU, AFRL/Kirtland, Spaceport America, Intel Rio Rancho, or state energy projects. If there's nothing new this week, explain something interesting about one of these places, sourced.
 5. **¿Mito o Ciencia?** (~2 min): Chino brings a viral claim (TikTok, a forwarded WhatsApp message, an ad), and Doc checks it against the evidence. Verdict: **Mito**, **Ciencia** or **Más o menos**. Never mock the people who believed it.
-6. **Pregúntale a Doc** (~1–2 min, only when there's a question): answer a listener question. The questions come from GitHub issues in this repo whose titles start with `Pregunta:` and that were opened in the last 7 days. If there's no question, skip the segment.
+6. **Pregúntale a Doc** (~1–2 min, only when there's a question): answer a listener question. The questions come from open GitHub issues in this repo whose titles start with `Pregunta:`. Answer the oldest one that hasn't been answered yet; check past Saturday episodes to see which have been answered. If there's no question, skip the segment.
+
+**Listener topic requests:** an open issue titled `Tema: …` is Chuy's request for **El Taller**. If there's an unused one, it becomes that week's deep-dive topic.
 7. **Closer** (~30 sec): `[MUSIC: outro]`
 
 Use `[MUSIC: sting]` between segments. Use `[MUSIC: sting-serious]` only if a story involves harm (a safety recall with injuries, a disaster, etc.).
 
 ## Sourcing (stricter than the daily show)
+- The **Source quality** rules in `SHOW_BIBLE.md` apply. Never cite pricing or "explainer" blogs, vendor comparison pages or AI-generated sites. For pricing or specs, cite the company's official page.
 - **Science claims:** go to primary sources: the peer-reviewed paper (journal + DOI in the show notes), NASA, NSF, NIH, NOAA, DOE national labs, university press offices. Quality science journalism supports them: Nature News, Science News, New Scientist, Quanta, Ars Technica, IEEE Spectrum, Scientific American.
 - **Tech/product news:** the company's own announcement plus independent coverage (AP/Reuters tech, The Verge, Wired, Ars Technica, IEEE Spectrum). Company claims are always attributed on air ("según la compañía…", "Google says…") until independently verified.
 - **Preprints** (arXiv, bioRxiv, medRxiv) are flagged on air as not yet peer-reviewed. **Single studies** are framed as "one study," not as settled science.
