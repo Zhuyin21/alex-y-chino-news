@@ -1,0 +1,29 @@
+name: Voice audition
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q -r pipeline/requirements.txt
+      - run: python pipeline/audition.py
+      - name: Publish as release "voice-audition"
+        run: |
+          gh release delete voice-audition --yes --cleanup-tag >/dev/null 2>&1 || true
+          gh release create voice-audition build/audition.mp3 \
+            --title "Voice audition" --notes-file build/audition.txt --prerelease
