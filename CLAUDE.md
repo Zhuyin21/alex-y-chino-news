@@ -1,6 +1,7 @@
 # Instructions for Claude
 
 This repo produces a daily news podcast. Before writing or editing any episode, read `SHOW_BIBLE.md` and follow it exactly.
+**On Saturdays** the show is the special **Sábado de Tech con Alex y Chino**: also read `SABADO_TECH.md`, which overrides the bible's format, sourcing and AI-labeling rules for that episode.
 
 - New episodes go to `episodes/YYYY-MM-DD_episode-NNN.md`, numbered one higher than the latest episode.
 - Use the front matter and line format from the previous episode (`SPEAKER [style]: text`). The TTS pipeline parses this format.
