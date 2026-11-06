@@ -42,4 +42,4 @@ Subscribe in AntennaPod: `https://zhuyin21.github.io/alex-y-chino-news/feed.xml`
 
 ## Sábado de Tech
 Every Saturday there's a tech, science and engineering special in the same feed. See `SABADO_TECH.md` for its rules.
-**Ask Doc a question:** open an issue whose title starts with `Pregunta:` (for example, *"Pregunta: ¿cómo funcionan los paneles solares cuando está nublado?"*). Questions opened during the week can be answered in that Saturday's "Pregúntale a Doc" segment.
+**Ask Doc a question:** open an issue whose title starts with `Pregunta:` (for example, *"Pregunta: ¿cómo funcionan los paneles solares cuando está nublado?"*). Doc answers one per Saturday in "Pregúntale a Doc." **Pick the deep-dive topic:** open an issue titled `Tema: …` (for example, *"Tema: ¿cómo funcionan los reactores de fusión?"*) and it becomes that week's *El Taller*.

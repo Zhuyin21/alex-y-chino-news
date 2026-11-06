@@ -51,6 +51,14 @@ Keep banter tight: one good joke per story beats three okay ones. Cut background
 - **Ranking:** how many independent outlets cover the story, how much it affects New Mexico, and whether it's new since yesterday.
 - **Repeats:** a story that's both national and world news runs once. Yesterday's stories run only if there's a real update.
 
+## Source quality (the show notes are public, so every reference must be one you'd defend)
+- **Cite the original reporting, not a copy of it.** Link the outlet's own page (krqe.com, not a Yahoo/AOL/MSN syndication), the agency's own release, or the paper's DOI page.
+- **Tier 1 (preferred):** primary documents (court filings, DOJ/agency releases, official election results, NWS forecasts, peer-reviewed papers) and original reporting by established newsrooms with editors and corrections policies (AP, Reuters, NPR, the Journal, KOB/KOAT/KRQE, Source NM, Searchlight, City Desk ABQ, BBC, etc.).
+- **Tier 2 (supporting only, labeled):** advocacy or strongly partisan outlets, market newsletters and analyst notes (e.g., XTB), and trade blogs. They can only *corroborate* a Tier 1 source, and the show notes label them ("advocacy outlet," "market newsletter").
+- **Never cite:** Wikipedia (use it only to find leads, then cite what it cites), content farms, SEO "guides," AI-generated news sites, social media posts (unless the post itself is the story, e.g. an official account's statement), forums, or pages with no author, date or publisher.
+- **A fact without a Tier 1 source** gets attributed on air to its source ("según XTB…") or gets cut.
+- Every reference in the notes gets an outlet, a title, a date and a URL, in IEEE style.
+
 ## Show notes (bottom of every script)
 - Sources are numbered IEEE-style, grouped by segment.
 - ⚠️ marks single-source items; ⏳ marks developing stories.
