@@ -42,16 +42,14 @@ def main() -> int:
         b.make_silence(pause, 1.5)
         wavs: list[Path] = []
         for i, (alex, chino) in enumerate(PAIRS, 1):
-            intro = b.Chunk(section="audition", turns=[
-                b.Turn("ALEX", "neutral, announcer", f"Pair number {i}."),
-            ])
-            chunk = b.Chunk(section="audition", turns=[b.Turn(s, st, t) for s, st, t in SAMPLE])
+            turns = [b.Turn("ALEX", "neutral, announcer", f"Pair number {i}.")]
+            turns += [b.Turn(s, st, t) for s, st, t in SAMPLE]
+            chunk = b.Chunk(section="audition", turns=turns)
             voices = {"ALEX": alex, "CHINO": chino}
             print(f"Pair {i}: Alex={alex}, Chino={chino}")
-            iw, cw = work / f"intro_{i}.wav", work / f"pair_{i}.wav"
-            b.tts_chunk(client, intro, iw, voices=voices)
+            cw = work / f"pair_{i}.wav"
             b.tts_chunk(client, chunk, cw, voices=voices)
-            wavs += [iw, cw, pause]
+            wavs += [cw, pause]
         b.concat_to_mp3(wavs, out / "audition.mp3", work)
     legend = "\n".join(f"{i}. Alex = {a}, Chino = {c}" for i, (a, c) in enumerate(PAIRS, 1))
     (out / "audition.txt").write_text(legend + "\n")
