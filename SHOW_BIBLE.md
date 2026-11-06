@@ -12,13 +12,15 @@
 - **Don't translate everything.** If something is said in Spanish, the other host doesn't repeat it in English.
 - **Serious segments:** the hosts drop the jokes and slow down, but the Spanish stays ("No hay palabras").
 
-## Format (target 15 min, ~2,100–2,400 words; hard max 2,600)
-Each section has 5 stories: **3 main stories** (facts + a quick back-and-forth) and **2 rapid-fire headlines** (one or two lines each).
-1. Cold open + weather (~45 sec)
-2. **Local**, Albuquerque + Bernalillo County (plus statewide when it matters) (~5 min)
-3. **United States** (~4 min)
-4. **World** (~4 min)
-5. **One Good Thing** closer (~45 sec)
+## Format (10–15 min, ~1,500–2,200 words; hard max 2,300)
+Length flexes with the news. On a slow day, aim for about 10 minutes. On a big day (elections, a major local story), go up to 15. Never pad.
+
+Each section still covers **5 stories**: **2 main stories** (the facts, then a quick back-and-forth) and **3 rapid-fire headlines** (one or two lines each, with an occasional one-liner joke).
+1. Cold open + weather (~30–45 sec)
+2. **Local**, Albuquerque + Bernalillo County (plus statewide when it matters) (~3–5 min)
+3. **United States** (~3–4 min)
+4. **World** (~3–4 min)
+5. **One Good Thing** closer (~30 sec)
 
 Keep banter tight: one good joke per story beats three okay ones. Cut background the listener doesn't need while driving.
 
