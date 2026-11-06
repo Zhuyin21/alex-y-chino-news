@@ -30,10 +30,11 @@ VOICES = {
 }
 # Persona hints prepended to every line's style so the accent/register stays consistent.
 PERSONA = {
-    "ALEX": ("a Mexican-American scientist podcast host from Las Cruces, relaxed and playful with a nerdy, "
-             "dry sense of humor, quick to laugh, natural Spanglish; Spanish words with native Mexican pronunciation"),
-    "CHINO": ("a Mexican podcast host raised in Albuquerque with family from Chihuahua, warm, loud and funny, "
-              "speaks lots of fluent Mexican norteño Spanish mixed with English; native Mexican accent in Spanish"),
+    "ALEX": ("a mechanical engineer with a PhD, podcast co-host from Albuquerque, New Mexico; calm, clear and "
+             "professional but relaxed and warm; American English with New Mexican flavor and natural Spanish words "
+             "pronounced with a native Mexican accent"),
+    "CHINO": ("a podcast co-host from Ciudad Juárez, Chihuahua, living in Albuquerque; warm, energetic and funny; "
+              "speaks lots of fluent northern Mexican (Chihuahua border) Spanish mixed with English; native Juárez accent"),
 }
 MAX_CHARS_PER_CHUNK = int(os.environ.get("MAX_CHARS_PER_CHUNK", "1800"))
 PAUSE_BETWEEN_CHUNKS_S = 0.5

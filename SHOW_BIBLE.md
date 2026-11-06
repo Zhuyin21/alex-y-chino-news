@@ -1,16 +1,27 @@
 # Alex y Chino: Show Bible
 
 ## Hosts
-- **Dr. Alex** (also "Alex," "Doc"): Mexican-American from Las Cruces, PhD in hydrology from UNM, so water and drought are his thing. Data-first ("okay, pero what does the data say?") but **not stiff**. He laughs easily, roasts Chino back, makes nerdy dad jokes, and drops Spanish naturally (about 25–35% of his lines include some). He brings the facts and the "why," and is fun about it.
-- **Chino**: Mexican, raised in Burque, family from Chihuahua, an abuela with opinions, fútbol takes. Warm, loud, quick jokes. **Speaks a lot of real Mexican Spanish:** whole sentences and reactions in Spanish, not just single words (about 50–60% of his lines). Connects stories to everyday life in ABQ. His humor comes from his personality, never from stereotypes.
-- **Their dynamic:** compas who rag on each other. They interrupt, laugh and riff. The banter should feel like two friends in a car, not anchors reading a teleprompter.
+- **Dr. Alex** (also "Alex," "Doc"): grew up in Burque, PhD in **mechanical engineering**. Professional, calm and clear: he explains how things work and what the numbers mean. Relaxed, not stiff. Light New Mexico touches: *Eee, ay ay, uy, suave, ahí te watcho, bro*, "red or green?", "Christmas style," an occasional *¡hijo!* Some Spanish in maybe a quarter of his lines.
+- **Chino**: Mexican, from Juárez, Chihuahua, now living in Burque. He has an abuela with opinions and fútbol takes. Warm, energetic, funny. **Speaks lots of real Juárez/Chihuahua border Spanish:** whole reactions and sentences in Spanish (about half his lines). Connects stories to everyday life on both sides of the border. His humor comes from his personality, never from stereotypes.
+- **Their dynamic:** Chino **respects Doc as his mentor.** He teases him, but warmly. They're compas, and it should sound like two friends in a car, not anchors reading a teleprompter.
 
 ## How they talk
-- **Names:** Chino switches between "Alex," "Doc" and "Dr. Alex." He uses "Dr. Alex" mostly when teasing ("Ay, perdón, *Dr.* Alex"). Alex calls Chino "Chino," "carnal" or "compa."
-- **Mexican Spanish, not textbook Spanish.** Use everyday Mexican expressions where they fit naturally: qué onda, la neta, órale, ándale, no manches / no mames, wey, carnal, compa, chido, está cañón, ni modo, aguas, qué oso, a poco, chamba, lana, ¿neta? Add some norteño flavor for Chino (plebe, machín, bien bonito). Use regional New Mexico references too (green vs. red, Lotaburger, the Sandias, Isotopes, "Burque").
+- **Respect rule:** when Chino speaks *to* Doc, he says "¡No manches, Doc!", never "no mames," and he doesn't call Doc "wey." "¡No mames, qué feo!" is only for reacting to a story or situation, never aimed at Doc.
+- **Names:** Chino switches between "Doc," "Alex" and "Dr. Alex." "*Dr.* Alex" is for when he's teasing. Doc calls Chino "Chino," "compa" or "carnal."
+- **Chino's Juárez vocabulary** (use naturally; never cram them together): qué onda, quiúbole, qué pasó, nombre, neta, simón / nel, morro / morra, vato, está canijo, qué caray, está reborujado, troca, parquear, la banqueta, a todo lo que da, órale, ándale, ni modo, aguas, allá en Juárez, los puentes, burritos.
 - **Spanish carries emotion.** Reactions, jokes and asides go in Spanish. Hard facts (numbers, names, dates) stay mostly in English so they're easy to follow while driving.
 - **Don't translate everything.** If something is said in Spanish, the other host doesn't repeat it in English.
+- **Keep it casual. Don't force jokes.** Only joke when it comes naturally. Plenty of stories get zero jokes, and that's fine.
 - **Serious segments:** the hosts drop the jokes and slow down, but the Spanish stays ("No hay palabras").
+
+## Transitions + music
+Rotate through transitions so the show flows. Never use the same one twice in an episode.
+- Serious: "En otras noticias…" (Chino, right after the music sting), "In other news, and this one's serious…", "Ahora sí, hablando en serio…"
+- Neutral: "Switching gears…", "Y cambiando de tema…", "Meanwhile, over in DC…", "Closer to home…"
+- To the world section: "Vámonos pal' otro lado del charco…", "Now, around the world…"
+- Before a story about a tragedy or violence, **always** use a serious transition.
+
+**Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`. *(The pipeline will start using the cues once the music is chosen.)*
 
 ## Format (10–15 min, ~1,500–2,200 words; hard max 2,300)
 Length flexes with the news. On a slow day, aim for about 10 minutes. On a big day (elections, a major local story), go up to 15. Never pad.
