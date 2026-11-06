@@ -39,3 +39,7 @@ Subscribe in AntennaPod: `https://zhuyin21.github.io/alex-y-chino-news/feed.xml`
 3. **Test:** Actions → *Build episode audio + feed* → Run workflow
 
 **Voices:** Alex = Algenib, Chino = Fenrir by default. To change them without editing code, add repository variables `VOICE_ALEX` / `VOICE_CHINO` (Settings → Secrets and variables → Actions → Variables). To compare voices, run *Voice audition* with pairs like `Algenib:Fenrir,Algenib:Achird`.
+
+## Sábado de Tech
+Every Saturday there's a tech, science and engineering special in the same feed. See `SABADO_TECH.md` for its rules.
+**Ask Doc a question:** open an issue whose title starts with `Pregunta:` (for example, *"Pregunta: ¿cómo funcionan los paneles solares cuando está nublado?"*). Questions opened during the week can be answered in that Saturday's "Pregúntale a Doc" segment.
