@@ -23,7 +23,10 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-MODEL = os.environ.get("TTS_MODEL", "gemini-3.8-flash-tts")
+MODEL = os.environ.get("TTS_MODEL") or "gemini-3.8-flash-tts"
+# "flex" = 50% cheaper, slower (can queue 1-15 min per request). Falls back to standard if Flex fails.
+SERVICE_TIER = (os.environ.get("TTS_SERVICE_TIER") or "flex").lower()
+PARALLEL = int(os.environ.get("TTS_PARALLEL") or "4")
 VOICES = {
     "ALEX": os.environ.get("VOICE_ALEX") or "Algenib",     # "Gravelly"
     "CHINO": os.environ.get("VOICE_CHINO") or "Fenrir",   # "Excitable"
@@ -133,7 +136,9 @@ def story_titles(md: str) -> list[str]:
     return [re.sub(r"^\d+\.\s*", "", h).strip() for h in re.findall(r"^### (.+)$", body, re.M)]
 
 
-def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: dict | None = None) -> None:
+def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: dict | None = None,
+              model: str | None = None, tier: str | None = None) -> str:
+    """Synthesize one chunk. Returns the service tier that actually produced the audio."""
     parts = [
         {
             "type": "text",
@@ -147,31 +152,43 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: di
         for t in chunk.turns
     ]
     speakers = [{"speaker": s, "voice": v} for s, v in (voices or VOICES).items()]
+    model = model or MODEL
+    tier = (tier or SERVICE_TIER).lower()
     delay = 5.0
     for i in range(1, attempts + 1):
+        # Last attempt always uses the standard tier so a Flex outage never blocks the episode.
+        use_tier = "standard" if (i == attempts and tier != "standard") else tier
+        kwargs = {"service_tier": use_tier, "timeout": 1200} if use_tier != "standard" else {"timeout": 300}
         try:
             interaction = client.interactions.create(
-                model=MODEL,
+                model=model,
                 input=[{"type": "user_input", "content": parts}],
                 response_format={"type": "audio"},  # complete WAV, 24 kHz mono 16-bit
                 generation_config={"speech_config": {"speakers": speakers}},
+                **kwargs,
             )
             data = interaction.output_audio.data
             if not data:
                 raise RuntimeError("empty audio in response")
             out_wav.write_bytes(base64.b64decode(data))
-            return
+            return use_tier
         except Exception as e:  # noqa: BLE001 - retry any API/network error
             msg = str(e)
-            # Don't burn retries on errors that won't fix themselves (bad model/key/request).
-            if any(code in msg for code in ("Error code: 400", "Error code: 401", "Error code: 403", "Error code: 404")):
+            permanent = any(c in msg for c in ("Error code: 400", "Error code: 401", "Error code: 403", "Error code: 404"))
+            if permanent and use_tier != "standard":
+                # Flex may not be offered for this model/project: drop straight to standard.
+                print(f"  {use_tier} rejected ({msg[:160]}); switching to standard", file=sys.stderr)
+                tier = "standard"
+                continue
+            if permanent:
                 print(f"  non-retryable API error: {msg[:300]}", file=sys.stderr)
                 raise
             if i == attempts:
                 raise
-            print(f"  attempt {i} failed ({e!r}); retrying in {delay:.0f}s", file=sys.stderr)
+            print(f"  attempt {i} ({use_tier}) failed ({msg[:160]}); retrying in {delay:.0f}s", file=sys.stderr)
             time.sleep(delay)
             delay *= 2
+    raise RuntimeError("TTS failed after all attempts")
 
 
 def make_silence(path: Path, seconds: float) -> None:
@@ -254,6 +271,25 @@ def main() -> int:
         short, long_ = work / "pause_s.wav", work / "pause_l.wav"
         make_silence(short, PAUSE_BETWEEN_CHUNKS_S)
         make_silence(long_, PAUSE_BETWEEN_SECTIONS_S)
+        from concurrent.futures import ThreadPoolExecutor
+
+        speech = [(i, c) for i, c in enumerate(chunks) if not c.music]
+        print(f"  TTS: {len(speech)} chunks, model={MODEL}, tier={SERVICE_TIER}, parallel={PARALLEL}")
+        t0 = time.time()
+
+        def synth(item):
+            i, c = item
+            raw = work / f"chunk_{i:03d}_raw.wav"
+            used = tts_chunk(client, c, raw)
+            normalize_speech(raw, work / f"chunk_{i:03d}.wav")
+            print(f"    chunk {i:02d} done ({used}, {time.time() - t0:.0f}s)")
+            return used
+
+        with ThreadPoolExecutor(max_workers=PARALLEL) as pool:
+            tiers_used = list(pool.map(synth, speech))
+        print(f"  TTS finished in {time.time() - t0:.0f}s; tiers used: "
+              f"{ {t: tiers_used.count(t) for t in set(tiers_used)} }")
+
         wavs: list[Path] = []
         prev_music = False
         for i, c in enumerate(chunks):
@@ -263,11 +299,7 @@ def main() -> int:
                 wavs.append(music_wav(c.music, work))
                 prev_music = True
                 continue
-            raw = work / f"chunk_{i:03d}_raw.wav"
             wav = work / f"chunk_{i:03d}.wav"
-            print(f"  TTS chunk {i + 1}/{len(chunks)} ({c.section[:30]})")
-            tts_chunk(client, c, raw)
-            normalize_speech(raw, wav)
             if wavs and not prev_music:
                 wavs.append(long_ if c.starts_section else short)
             wavs.append(wav)
@@ -282,6 +314,8 @@ def main() -> int:
         "bytes": mp3.stat().st_size,
         "duration_s": duration_seconds(mp3),
         "title": meta.get("title", ""),
+        "tts_model": MODEL,
+        "tts_tier": SERVICE_TIER,
         "stories": story_titles(md),
     }
     (args.out / f"{stem}.json").write_text(json.dumps(info, indent=2))

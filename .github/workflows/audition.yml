@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       pairs:
-        description: "Voice pairs to compare, Alex:Chino, comma-separated (blank = default 5)"
+        description: "Voice pairs to compare, Alex:Chino[@model], comma-separated (blank = default 5)"
         required: false
-        default: "Algenib:Fenrir,Algenib:Achird"
+        default: "Algenib:Fenrir@gemini-3.8-flash-tts,Algenib:Fenrir@gemini-3.8-flash-lite-tts"
 
 permissions:
   contents: write
