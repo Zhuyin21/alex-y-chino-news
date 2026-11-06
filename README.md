@@ -38,4 +38,4 @@ Subscribe in AntennaPod: `https://zhuyin21.github.io/alex-y-chino-news/feed.xml`
 2. **Pages:** Settings → Pages → Deploy from a branch → `main` / `/docs`
 3. **Test:** Actions → *Build episode audio + feed* → Run workflow
 
-Voices and model can be changed with the `VOICE_ALEX`, `VOICE_CHINO` and `TTS_MODEL` environment variables.
+**Voices:** Alex = Algenib, Chino = Fenrir by default. To change them without editing code, add repository variables `VOICE_ALEX` / `VOICE_CHINO` (Settings → Secrets and variables → Actions → Variables). To compare voices, run *Voice audition* with pairs like `Algenib:Fenrir,Algenib:Achird`.

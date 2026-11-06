@@ -14,19 +14,26 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import build_episode as b  # noqa: E402
 
-PAIRS = [  # (Alex voice, Chino voice)
+import os
+
+DEFAULT_PAIRS = [  # (Alex voice, Chino voice)
     ("Sadaltager", "Puck"),
     ("Charon", "Achird"),
     ("Algenib", "Zubenelgenubi"),
     ("Iapetus", "Sadachbia"),
     ("Rasalgethi", "Fenrir"),
 ]
+# Override with AUDITION_PAIRS="Algenib:Fenrir,Algenib:Achird"
+_env = os.environ.get("AUDITION_PAIRS", "").strip()
+PAIRS = [tuple(p.split(":", 1)) for p in _env.split(",") if ":" in p] if _env else DEFAULT_PAIRS
 
 SAMPLE = [
     ("CHINO", "excited, laughing", "¡Qué onda, Burque! It's Monday, and Doc, la neta, I'm still not over the weekend."),
     ("ALEX", "playful, teasing", "Chino, it was two days. Scientifically, your recovery time should be like four hours, carnal."),
     ("CHINO", "outraged, joking", "¿Cuatro horas? ¡No mames, wey! You've never been to a carne asada with my tíos."),
     ("ALEX", "laughing, then warm", "Okay, fair. Ándale pues, let's get into the news before your abuela calls."),
+    ("CHINO", "dramatic, storytelling", "Oye, la neta, mi abuela ya me habló tres veces hoy. Dice que si no le llevo tamales el domingo, me deshereda. ¡Está cañón, carnal!"),
+    ("ALEX", "dry, amused", "Pues, statistically speaking, compa, I'd bring the tamales."),
 ]
 
 
