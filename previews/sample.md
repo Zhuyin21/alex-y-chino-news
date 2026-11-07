@@ -11,19 +11,29 @@ air_date: 2026-11-07
 
 [MUSIC: intro]
 
-CHINO [excited, friendly]: ¡Quiúbole, Burque! ¿Qué onda, raza? Esto es nomás una prueba, pero escuchen nada más la música nueva. ¡Esta semana entramos con salsa, Doc!
+CHINO [excited, laughing]: ¡Quiúbole, Burque! ¿Qué onda, raza? Esto es nomás una prueba, pero aquí andamos con la salsa de esta semana. ¡Ja! Ya me dieron ganas de bailar, Doc.
 
-ALEX [amused, relaxed]: Eee, Chino, salsa on a Monday? Uy, okay, I'm not mad at it. Suave.
+ALEX [amused, relaxed]: Eee, Chino, tú bailando salsa. Pues, as an engineer, I can tell you that's a problem of coordination, not of music.
 
-CHINO [laughing]: ¡No manches, Doc! Ahorita lo veo bailando en la cocina.
+CHINO [cracking up]: ¡No manches, Doc! Mira quién habla, el que baila como robot en las bodas.
+
+ALEX [laughing]: Okay, okay, eso sí es cierto. Pero hoy venimos a probar las voces nuevas, compa.
 
 ## LOCAL
 
 [MUSIC: sting]
 
-ALEX [clear, friendly]: Closer to home: this is where our local news would go, short and to the point.
+ALEX [clear, friendly]: Closer to home, aquí irían las noticias locales. Short, clear, and to the point.
 
-CHINO [nodding]: Simón. Y luego, si hay algo serio, cambiamos el tono.
+CHINO [nodding]: Simón. Y si la noticia está canija, le bajamos al relajo y lo decimos con calma.
+
+## US
+
+[MUSIC: sting]
+
+CHINO [lively]: Y cambiando de tema, en Washington, ¿qué pasó, Doc?
+
+ALEX [explaining]: Pues, here's where the national story goes. Y luego te explico qué significa para nosotros aquí en Nuevo México.
 
 ## WORLD
 
@@ -31,15 +41,15 @@ CHINO [nodding]: Simón. Y luego, si hay algo serio, cambiamos el tono.
 
 CHINO [serious, slower]: En otras noticias, y esta es más seria.
 
-ALEX [calm, serious]: This is how a hard story would sound: slower, clear, no jokes.
+ALEX [calm, serious]: This is how a hard story sounds: slower, clear, sin bromas.
 
 ## ONE GOOD THING
 
 [MUSIC: sting]
 
-CHINO [warm]: Y pa' cerrar, algo bonito. Gracias por escuchar la prueba, raza.
+CHINO [warm, chuckling]: Y pa' cerrar, algo bonito. Gracias por escuchar la prueba, raza. ¡Ja! Ojalá les haya gustado.
 
-ALEX [warm]: I'm Dr. Alex.
+ALEX [warm]: Cuídense mucho. I'm Dr. Alex.
 
 CHINO [upbeat]: Y yo soy Chino. ¡Ahí nos vidrios!
 
