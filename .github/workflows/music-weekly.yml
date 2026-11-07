@@ -1,0 +1,58 @@
+name: Weekly theme music
+
+# Every Sunday at ~3:17 am MT, generate a new theme in the next genre of the rotation
+# (norteño, corrido tumbado, mariachi, cumbia, cumbia rebajada, salsa, bachata, merengue),
+# save it to assets/music/library/, and make it the current pack for the week's episodes.
+# ~$0.04 per run on the paid key. Run manually to try a specific genre.
+
+on:
+  schedule:
+    - cron: "17 10 * * 0"   # 10:17 UTC Sunday = 3:17 am MST
+  workflow_dispatch:
+    inputs:
+      genre:
+        description: "Genre (blank = this week's rotation)"
+        required: false
+        type: choice
+        options: ["", norteno-upbeat, corrido-tumbado, mariachi, cumbia, cumbia-rebajada, salsa, bachata, merengue]
+      activate:
+        description: "Make it the current pack right away"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: music-weekly
+  cancel-in-progress: false
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # Lyria has no free tier, so this uses the paid key
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q -r pipeline/requirements.txt
+      - name: Generate pack
+        run: |
+          args=""
+          [ -n "${{ inputs.genre }}" ] && args="--genre ${{ inputs.genre }}"
+          [ "${{ inputs.activate }}" = "false" ] && args="$args --no-activate"
+          python pipeline/music_pack.py $args
+      - name: Commit to the library
+        run: |
+          git config user.name "alex-y-chino-bot"
+          git config user.email "actions@github.com"
+          git add assets/music/
+          git diff --cached --quiet && exit 0
+          git commit -m "Music pack: $(ls -1 assets/music/library | tail -1)"
+          git pull --rebase -q origin main
+          git push

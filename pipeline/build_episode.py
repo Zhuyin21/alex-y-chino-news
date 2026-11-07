@@ -214,11 +214,37 @@ def normalize_speech(src: Path, dst: Path) -> None:
     )
 
 
+def music_pack() -> str | None:
+    """Active weekly music pack: repo variable MUSIC_PACK pins one, else assets/music/current.json."""
+    pinned = (os.environ.get("MUSIC_PACK") or "").strip()
+    if pinned:
+        return pinned
+    cur = MUSIC_DIR / "current.json"
+    if cur.exists():
+        try:
+            return json.loads(cur.read_text()).get("pack")
+        except ValueError:
+            return None
+    return None
+
+
+def music_file(cue: str) -> Path:
+    """Use this week's pack for intro/sting/outro when it has the cue; otherwise the original clips."""
+    pack = music_pack()
+    if pack:
+        candidate = MUSIC_DIR / "library" / pack / f"{cue}.mp3"
+        if candidate.exists():
+            return candidate
+    return MUSIC_DIR / f"{cue}.mp3"
+
+
 def music_wav(cue: str, work: Path) -> Path:
     out = work / f"music_{cue}.wav"
     if not out.exists():
+        src = music_file(cue)
+        print(f"  music {cue}: {src.relative_to(MUSIC_DIR.parent.parent)}")
         subprocess.run(
-            ["ffmpeg", "-y", "-loglevel", "error", "-i", str(MUSIC_DIR / f"{cue}.mp3"),
+            ["ffmpeg", "-y", "-loglevel", "error", "-i", str(src),
              "-ar", "24000", "-ac", "1", "-c:a", "pcm_s16le", str(out)],
             check=True,
         )
@@ -362,6 +388,7 @@ def main() -> int:
         "tts_model": MODEL,
         "tts_tier": SERVICE_TIER,
         "tts_usage": TTS_USAGE,
+        "music_pack": music_pack(),
         "stories": story_titles(md),
     }
     (args.out / f"{stem}.json").write_text(json.dumps(info, indent=2))

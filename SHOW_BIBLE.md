@@ -21,6 +21,8 @@ Rotate through transitions so the show flows. Never use the same one twice in an
 - To the world section: "Vámonos pal' otro lado del charco…", "Now, around the world…"
 - Before a story about a tragedy or violence, **always** use a serious transition.
 
+**Weekly theme music:** the intro, stings and outro rotate genres every Sunday (norteño, corrido tumbado, mariachi, cumbia, cumbia rebajada, salsa, bachata, merengue). This week's genre is in `assets/music/current.json` → `assets/music/library/<pack>/pack.json`. In the first episode of a new pack, the cold open can nod to it in one natural line (e.g., Chino: "¡Y esta semana entramos con salsa, Doc!"). Don't mention it every day. The serious sting never changes.
+
 **Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`. *(The pipeline will start using the cues once the music is chosen.)*
 
 ## Format (10–15 min, ~1,500–2,200 words; hard max 2,300)

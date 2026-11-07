@@ -1,0 +1,43 @@
+name: Preview (test MP3, not published to the feed)
+
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "Script to render"
+        required: false
+        default: "previews/sample.md"
+
+permissions:
+  contents: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}
+      GH_TOKEN: ${{ github.token }}
+      VOICE_ALEX: ${{ vars.VOICE_ALEX }}
+      VOICE_CHINO: ${{ vars.VOICE_CHINO }}
+      TTS_MODEL: ${{ vars.TTS_MODEL }}
+      TTS_SERVICE_TIER: ${{ vars.TTS_SERVICE_TIER }}
+      MUSIC_PACK: ${{ vars.MUSIC_PACK }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q -r pipeline/requirements.txt
+      - name: Render
+        run: python pipeline/build_episode.py "${{ inputs.script }}" --out build
+      - name: Publish as release "preview"
+        run: |
+          stem=$(basename "${{ inputs.script }}" .md)
+          python -c "import json;d=json.load(open('build/$stem.json'));print(f\"Music pack: {d.get('music_pack')}\nVoices by source: {d.get('tts_usage')}\nLength: {d['duration_s']} s\")" > build/notes.txt
+          cat build/notes.txt
+          gh release delete preview --yes --cleanup-tag >/dev/null 2>&1 || true
+          gh release create preview "build/$stem.mp3" --title "Preview" --notes-file build/notes.txt --prerelease
