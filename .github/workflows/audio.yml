@@ -27,6 +27,7 @@ jobs:
     timeout-minutes: 45
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}  # optional: free-tier key, tried first
       GH_TOKEN: ${{ github.token }}
       REPO: ${{ github.repository }}
       # Change voices without code: Settings → Secrets and variables → Actions → Variables
@@ -48,7 +49,7 @@ jobs:
 
       - name: Check API key
         run: |
-          if [ -z "$GEMINI_API_KEY" ]; then
+          if [ -z "$GEMINI_API_KEY" ] && [ -z "$GEMINI_API_KEY_FREE" ]; then
             echo "::error::GEMINI_API_KEY secret is missing (Settings → Secrets and variables → Actions)"; exit 1
           fi
 
@@ -92,6 +93,7 @@ jobs:
               "url": f"https://github.com/{repo}/releases/download/{stem}/{info['file']}",
               "bytes": info["bytes"],
               "duration_s": info["duration_s"],
+              "tts_usage": info.get("tts_usage"),
               "notes_url": f"https://github.com/{repo}/blob/main/episodes/{stem}.md",
           })
           json.dump(eps, open("docs/episodes.json", "w"), indent=2)

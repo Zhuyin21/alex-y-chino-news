@@ -27,6 +27,11 @@ MODEL = os.environ.get("TTS_MODEL") or "gemini-3.8-flash-tts"
 # "flex" = 50% cheaper, slower (can queue 1-15 min per request). Falls back to standard if Flex fails.
 SERVICE_TIER = (os.environ.get("TTS_SERVICE_TIER") or "flex").lower()
 PARALLEL = int(os.environ.get("TTS_PARALLEL") or "4")
+# Free tier: if GEMINI_API_KEY_FREE is set (a key from a project WITHOUT billing), use it first.
+# Free TTS is rate-limited (~3 requests/min), so requests go one at a time with spacing.
+# If the free quota runs out, the remaining chunks fall back to the paid key (GEMINI_API_KEY).
+FREE_KEY = os.environ.get("GEMINI_API_KEY_FREE") or ""
+FREE_MIN_INTERVAL_S = float(os.environ.get("FREE_MIN_INTERVAL_S") or "21")
 VOICES = {
     "ALEX": os.environ.get("VOICE_ALEX") or "Algenib",     # "Gravelly"
     "CHINO": os.environ.get("VOICE_CHINO") or "Fenrir",   # "Excitable"
@@ -43,6 +48,7 @@ MAX_CHARS_PER_CHUNK = int(os.environ.get("MAX_CHARS_PER_CHUNK", "1800"))
 PAUSE_BETWEEN_CHUNKS_S = 0.5
 PAUSE_BETWEEN_SECTIONS_S = 1.2
 
+TTS_USAGE: dict = {}
 LINE_RE = re.compile(r"^(ALEX|CHINO)\s*\[([^\]]*)\]\s*:\s*(.+)$")
 MUSIC_RE = re.compile(r"^\[MUSIC:\s*([\w-]+)\s*\]$", re.I)
 MUSIC_DIR = Path(__file__).resolve().parent.parent / "assets" / "music"
@@ -263,7 +269,11 @@ def main() -> int:
 
     from google import genai  # imported here so --dry-run works without the SDK
 
-    client = genai.Client()  # reads GEMINI_API_KEY
+    paid_key = os.environ.get("GEMINI_API_KEY") or ""
+    client = genai.Client(api_key=paid_key) if paid_key else None
+    free_client = genai.Client(api_key=FREE_KEY) if FREE_KEY else None
+    if not client and not free_client:
+        raise SystemExit("No Gemini API key: set GEMINI_API_KEY and/or GEMINI_API_KEY_FREE")
     args.out.mkdir(parents=True, exist_ok=True)
     stem = args.script.stem
     with tempfile.TemporaryDirectory() as tmp:
@@ -282,13 +292,48 @@ def main() -> int:
             raw = work / f"chunk_{i:03d}_raw.wav"
             used = tts_chunk(client, c, raw)
             normalize_speech(raw, work / f"chunk_{i:03d}.wav")
-            print(f"    chunk {i:02d} done ({used}, {time.time() - t0:.0f}s)")
-            return used
+            print(f"    chunk {i:02d} done (paid {used}, {time.time() - t0:.0f}s)")
+            return f"paid-{used}"
 
-        with ThreadPoolExecutor(max_workers=PARALLEL) as pool:
-            tiers_used = list(pool.map(synth, speech))
-        print(f"  TTS finished in {time.time() - t0:.0f}s; tiers used: "
-              f"{ {t: tiers_used.count(t) for t in set(tiers_used)} }")
+        tiers_used: list[str] = []
+        remaining = list(speech)
+        if free_client:
+            print(f"  Free tier first: one request every {FREE_MIN_INTERVAL_S:.0f}s")
+            last = 0.0
+            while remaining:
+                i, c = remaining[0]
+                raw = work / f"chunk_{i:03d}_raw.wav"
+                ok = False
+                for attempt in range(3):
+                    wait = FREE_MIN_INTERVAL_S - (time.time() - last)
+                    if wait > 0:
+                        time.sleep(wait)
+                    last = time.time()
+                    try:
+                        tts_chunk(free_client, c, raw, attempts=1, tier="standard")
+                        ok = True
+                        break
+                    except Exception as e:  # noqa: BLE001
+                        msg = str(e)
+                        print(f"    free chunk {i:02d} attempt {attempt + 1} failed: {msg[:160]}", file=sys.stderr)
+                        if "429" in msg or "RESOURCE_EXHAUSTED" in msg.upper():
+                            time.sleep(65)  # per-minute limit: wait it out once or twice
+                            continue
+                        break  # other errors: hand this chunk to the paid key
+                if not ok:
+                    print("    free tier unavailable or exhausted; switching the rest to the paid key")
+                    break
+                normalize_speech(raw, work / f"chunk_{i:03d}.wav")
+                print(f"    chunk {i:02d} done (free, {time.time() - t0:.0f}s)")
+                tiers_used.append("free")
+                remaining.pop(0)
+        if remaining:
+            if not client:
+                raise SystemExit("Free tier exhausted and no paid GEMINI_API_KEY set")
+            with ThreadPoolExecutor(max_workers=PARALLEL) as pool:
+                tiers_used += list(pool.map(synth, remaining))
+        TTS_USAGE.update({t: tiers_used.count(t) for t in set(tiers_used)})
+        print(f"  TTS finished in {time.time() - t0:.0f}s; chunks by source: {TTS_USAGE}")
 
         wavs: list[Path] = []
         prev_music = False
@@ -316,6 +361,7 @@ def main() -> int:
         "title": meta.get("title", ""),
         "tts_model": MODEL,
         "tts_tier": SERVICE_TIER,
+        "tts_usage": TTS_USAGE,
         "stories": story_titles(md),
     }
     (args.out / f"{stem}.json").write_text(json.dumps(info, indent=2))
