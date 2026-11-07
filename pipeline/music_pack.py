@@ -55,10 +55,39 @@ GENRES: dict[str, str] = {
 }
 
 
+ROTATION_OFFSET = 7  # aligns ISO week 46 (Nov 9-14, 2026) with salsa, the first pack we made
+
+
 def week_genre(today: dt.date) -> str:
     """Genre for the episode week that starts on the next Monday (the Sunday run sets up Mon–Sat)."""
     names = list(GENRES)
-    return names[(today + dt.timedelta(days=1)).isocalendar().week % len(names)]
+    return names[((today + dt.timedelta(days=1)).isocalendar().week + ROTATION_OFFSET) % len(names)]
+
+
+def recent_pack(genre: str, today: dt.date, days: int = 7) -> str | None:
+    """A pack of this genre created in the last `days` days (reuse it instead of paying again)."""
+    for d in sorted(LIB.glob(f"*_{genre}"), reverse=True):
+        try:
+            created = dt.date.fromisoformat(d.name.split("_", 1)[0])
+        except ValueError:
+            continue
+        if (today - created).days <= days and (d / "intro.mp3").exists():
+            return d.name
+    return None
+
+
+# Stings come from different parts of the track so transitions don't all sound identical.
+STING_STARTS = [0.0, 8.5, 16.0, 22.5]
+
+
+def cut_pack(raw: Path, out: Path, work: Path) -> None:
+    total = duration(raw)
+    outro_len = min(9.3, total - 1)
+    cut(raw, out / "intro.mp3", 0, 8.0, 0.05, 1.8, work)
+    for n, start in enumerate(s for s in STING_STARTS if s + 3.2 < total):
+        name = "sting.mp3" if n == 0 else f"sting-{n + 1}.mp3"
+        cut(raw, out / name, start, 3.2, 0.05 if n == 0 else 0.15, 1.2, work)
+    cut(raw, out / "outro.mp3", max(0.0, total - outro_len), outro_len, 0.6, 0.4, work)
 
 
 def loudness(path: Path) -> float:
@@ -89,6 +118,7 @@ def main() -> int:
     ap.add_argument("--genre", choices=list(GENRES))
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--no-activate", action="store_true", help="add to library without making it current")
+    ap.add_argument("--recut", metavar="PACK", help="re-cut an existing pack from its full.mp3 (no API call)")
     args = ap.parse_args()
 
     today = dt.date.today()
@@ -97,7 +127,21 @@ def main() -> int:
             print(f"{i}: {g}" + ("   <- this week" if g == week_genre(today) else ""))
         return 0
 
+    if args.recut:
+        out = LIB / args.recut
+        with tempfile.TemporaryDirectory() as tmp:
+            cut_pack(out / "full.mp3", out, Path(tmp))
+        print(f"Re-cut {args.recut}: " + ", ".join(sorted(p.name for p in out.glob("*.mp3"))))
+        return 0
+
     genre = args.genre or week_genre(today)
+    if not args.genre:
+        existing = recent_pack(genre, today)
+        if existing:
+            if not args.no_activate:
+                CURRENT.write_text(json.dumps({"pack": existing}, indent=2) + "\n")
+            print(f"Reusing this week's {genre} pack {existing} (no new generation needed)")
+            return 0
     prompt = f"{GENRES[genre]} {_TAIL}"
     name = f"{today.isoformat()}_{genre}"
     out = LIB / name
@@ -110,11 +154,7 @@ def main() -> int:
         work = Path(tmp)
         raw = work / "raw.mp3"
         model = generate(client, prompt, raw)
-        total = duration(raw)
-        outro_len = min(9.3, total - 1)
-        cut(raw, out / "intro.mp3", 0, 8.0, 0.05, 1.8, work)
-        cut(raw, out / "sting.mp3", 0, 3.2, 0.05, 1.2, work)
-        cut(raw, out / "outro.mp3", max(0.0, total - outro_len), outro_len, 0.6, 0.4, work)
+        cut_pack(raw, out, work)
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(raw), "-c:a", "libmp3lame", "-b:a", "128k",
                         str(out / "full.mp3")], check=True)
 

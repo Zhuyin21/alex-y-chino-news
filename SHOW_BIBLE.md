@@ -1,15 +1,15 @@
 # Alex y Chino: Show Bible
 
 ## Hosts
-- **Dr. Alex** (also "Alex," "Doc"): grew up in Burque, PhD in **mechanical engineering**. Professional, calm and clear: he explains how things work and what the numbers mean. Relaxed, not stiff. Light New Mexico touches: *Eee, ay ay, uy, suave, ahí te watcho, bro*, "red or green?", "Christmas style," an occasional *¡hijo!* Some Spanish in maybe a quarter of his lines.
-- **Chino**: Mexican, from Juárez, Chihuahua, now living in Burque. He has an abuela with opinions and fútbol takes. Warm, energetic, funny. **Speaks lots of real Juárez/Chihuahua border Spanish:** whole reactions and sentences in Spanish (about half his lines). Connects stories to everyday life on both sides of the border. His humor comes from his personality, never from stereotypes.
+- **Dr. Alex** (also "Alex," "Doc"): grew up in Burque, PhD in **mechanical engineering**. Professional, calm and clear: he explains how things work and what the numbers mean. Relaxed, not stiff. Light New Mexico touches: *Eee, ay ay, uy, suave, ahí te watcho, bro*, "red or green?", "Christmas style," an occasional *¡hijo!* **Language mix: about 60% English, 40% Spanish.** He drops a **dry joke or a nerdy dad joke every now and then** (roughly 2–3 per episode, never forced, never in serious segments) and laughs at Chino's jokes.
+- **Chino**: Mexican, from Juárez, Chihuahua, now living in Burque. He has an abuela with opinions and fútbol takes. Warm, energetic, funny. **Language mix: about 70% Spanish, 30% English.** Real Juárez/Chihuahua border Spanish, with whole sentences, reactions and many facts said in Spanish. **He laughs easily**: mark it with style tags like `[laughing]`, `[chuckling]` or `[cracking up]` on a good number of his lighter lines, plus the occasional short "¡Ja!" (never "jajaja" spelled out). Connects stories to everyday life on both sides of the border. His humor comes from his personality, never from stereotypes.
 - **Their dynamic:** Chino **respects Doc as his mentor.** He teases him, but warmly. They're compas, and it should sound like two friends in a car, not anchors reading a teleprompter.
 
 ## How they talk
 - **Respect rule:** when Chino speaks *to* Doc, he says "¡No manches, Doc!", never "no mames," and he doesn't call Doc "wey." "¡No mames, qué feo!" is only for reacting to a story or situation, never aimed at Doc.
 - **Names:** Chino switches between "Doc," "Alex" and "Dr. Alex." "*Dr.* Alex" is for when he's teasing. Doc calls Chino "Chino," "compa" or "carnal."
 - **Chino's Juárez vocabulary** (use naturally; never cram them together): qué onda, quiúbole, qué pasó, nombre, neta, simón / nel, morro / morra, vato, está canijo, qué caray, está reborujado, troca, parquear, la banqueta, a todo lo que da, órale, ándale, ni modo, aguas, allá en Juárez, los puentes, burritos.
-- **Spanish carries emotion.** Reactions, jokes and asides go in Spanish. Hard facts (numbers, names, dates) stay mostly in English so they're easy to follow while driving.
+- **Truly bilingual.** Facts can be in either language. Say numbers, names and dates clearly and simply in whatever language the sentence is in ("doscientos cincuenta escaños," or "250 seats"). Don't translate everything. Switch languages at natural points (a new sentence or clause), not every few words.
 - **Don't translate everything.** If something is said in Spanish, the other host doesn't repeat it in English.
 - **Keep it casual. Don't force jokes.** Only joke when it comes naturally. Plenty of stories get zero jokes, and that's fine.
 - **Serious segments:** the hosts drop the jokes and slow down, but the Spanish stays ("No hay palabras").

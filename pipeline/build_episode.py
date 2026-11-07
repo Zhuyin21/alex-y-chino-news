@@ -38,13 +38,18 @@ VOICES = {
 }
 # Persona hints prepended to every line's style so the accent/register stays consistent.
 PERSONA = {
-    "ALEX": ("a mechanical engineer with a PhD, podcast co-host from Albuquerque, New Mexico; calm, clear and "
-             "professional but relaxed and warm; American English with New Mexican flavor and natural Spanish words "
-             "pronounced with a native Mexican accent"),
-    "CHINO": ("a podcast co-host from Ciudad Juárez, Chihuahua, living in Albuquerque; warm, energetic and funny; "
-              "speaks lots of fluent northern Mexican (Chihuahua border) Spanish mixed with English; native Juárez accent"),
+    "ALEX": ("Dr. Alex, a mechanical engineer with a PhD, podcast co-host from Albuquerque, New Mexico; calm, clear, "
+             "warm and professional, with a dry sense of humor and an easy laugh; switches naturally between English "
+             "(about 60%) and Spanish (about 40%), Spanish with a native Mexican accent"),
+    "CHINO": ("Chino, a young podcast co-host from Ciudad Juárez, Chihuahua, living in Albuquerque; energetic, funny, "
+              "laughs easily; speaks mostly northern Mexican border Spanish (about 70%) mixed with English (about 30%); "
+              "native Juárez accent"),
 }
-MAX_CHARS_PER_CHUNK = int(os.environ.get("MAX_CHARS_PER_CHUNK", "1800"))
+# Shorter chunks keep the two-voice model from drifting onto the wrong speaker.
+MAX_CHARS_PER_CHUNK = int(os.environ.get("MAX_CHARS_PER_CHUNK", "1100"))
+# Neutral speaker labels for the TTS: the hosts' names appear inside each other's lines
+# ("Chino, it was two days"), which can confuse which voice speaks next.
+TTS_LABEL = {"ALEX": "Speaker1", "CHINO": "Speaker2"}
 PAUSE_BETWEEN_CHUNKS_S = 0.5
 PAUSE_BETWEEN_SECTIONS_S = 1.2
 
@@ -151,13 +156,13 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: di
             "text": t.text,
             "annotations": [{
                 "type": "speech_metadata",
-                "speaker": t.speaker,
+                "speaker": TTS_LABEL[t.speaker],
                 "style": f"{PERSONA[t.speaker]}; {t.style}" if t.style else PERSONA[t.speaker],
             }],
         }
         for t in chunk.turns
     ]
-    speakers = [{"speaker": s, "voice": v} for s, v in (voices or VOICES).items()]
+    speakers = [{"speaker": TTS_LABEL[s], "voice": v} for s, v in (voices or VOICES).items()]
     model = model or MODEL
     tier = (tier or SERVICE_TIER).lower()
     delay = 5.0
@@ -228,20 +233,32 @@ def music_pack() -> str | None:
     return None
 
 
+_STING_COUNTER = {"n": 0}
+
+
 def music_file(cue: str) -> Path:
-    """Use this week's pack for intro/sting/outro when it has the cue; otherwise the original clips."""
+    """Use this week's pack for intro/sting/outro when it has the cue; otherwise the original clips.
+    Plain stings rotate through sting, sting-2, sting-3... so transitions aren't all the same clip.
+    The serious sting always comes from the fixed original."""
     pack = music_pack()
-    if pack:
-        candidate = MUSIC_DIR / "library" / pack / f"{cue}.mp3"
+    if pack and cue != "sting-serious":
+        folder = MUSIC_DIR / "library" / pack
+        if cue == "sting":
+            options = sorted(folder.glob("sting*.mp3"), key=lambda p: (len(p.stem), p.stem))
+            if options:
+                pick = options[_STING_COUNTER["n"] % len(options)]
+                _STING_COUNTER["n"] += 1
+                return pick
+        candidate = folder / f"{cue}.mp3"
         if candidate.exists():
             return candidate
     return MUSIC_DIR / f"{cue}.mp3"
 
 
 def music_wav(cue: str, work: Path) -> Path:
-    out = work / f"music_{cue}.wav"
+    src = music_file(cue)
+    out = work / f"music_{src.stem}.wav"
     if not out.exists():
-        src = music_file(cue)
         print(f"  music {cue}: {src.relative_to(MUSIC_DIR.parent.parent)}")
         subprocess.run(
             ["ffmpeg", "-y", "-loglevel", "error", "-i", str(src),
