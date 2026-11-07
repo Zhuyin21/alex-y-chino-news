@@ -35,6 +35,7 @@ jobs:
       VOICE_CHINO: ${{ vars.VOICE_CHINO }}
       TTS_MODEL: ${{ vars.TTS_MODEL }}               # e.g. gemini-3.8-flash-lite-tts
       TTS_SERVICE_TIER: ${{ vars.TTS_SERVICE_TIER }} # flex (default) or standard
+      MUSIC_PACK: ${{ vars.MUSIC_PACK }}             # optional: pin a pack from assets/music/library
     steps:
       - uses: actions/checkout@v4
 

@@ -44,3 +44,6 @@ Subscribe in AntennaPod: `https://zhuyin21.github.io/alex-y-chino-news/feed.xml`
 ## Sábado de Tech
 Every Saturday there's a tech, science and engineering special in the same feed. See `SABADO_TECH.md` for its rules.
 **Ask Doc a question:** open an issue whose title starts with `Pregunta:` (for example, *"Pregunta: ¿cómo funcionan los paneles solares cuando está nublado?"*). Doc answers one per Saturday in "Pregúntale a Doc." **Pick the deep-dive topic:** open an issue titled `Tema: …` (for example, *"Tema: ¿cómo funcionan los reactores de fusión?"*) and it becomes that week's *El Taller*.
+
+## Theme music library
+Every Sunday, *Weekly theme music* generates a new 30-second Lyria theme (about $0.04) in the next genre of the rotation and cuts it into an intro, a sting and an outro. Packs are saved in `assets/music/library/` and reused. To pin a favorite, set the repo variable `MUSIC_PACK` to a folder name (e.g. `2026-11-07_salsa`). To try a genre now: Actions → *Weekly theme music* → Run workflow → choose the genre. The serious sting (`assets/music/sting-serious.mp3`) never rotates.
