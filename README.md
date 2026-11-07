@@ -35,8 +35,9 @@ Subscribe in AntennaPod: `https://zhuyin21.github.io/alex-y-chino-news/feed.xml`
 
 ## One-time setup
 1. **Secret:** Settings → Secrets and variables → Actions → `GEMINI_API_KEY`
-2. **Pages:** Settings → Pages → Deploy from a branch → `main` / `/docs`
-3. **Test:** Actions → *Build episode audio + feed* → Run workflow
+2. **Optional free key:** add a key from a Google project *without billing* as secret `GEMINI_API_KEY_FREE`. The build tries it first and falls back to the paid `GEMINI_API_KEY` if the free quota runs out.
+3. **Pages:** Settings → Pages → Deploy from a branch → `main` / `/docs`
+4. **Test:** Actions → *Build episode audio + feed* → Run workflow
 
 **Voices:** Alex = Algenib, Chino = Fenrir by default. To change them without editing code, add repository variables `VOICE_ALEX` / `VOICE_CHINO` (Settings → Secrets and variables → Actions → Variables). To compare voices, run *Voice audition* with pairs like `Algenib:Fenrir,Algenib:Achird`.
 
