@@ -9,5 +9,16 @@
     "bytes": 4936349,
     "duration_s": 616,
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-06_episode-001.md"
+  },
+  {
+    "stem": "2026-11-07_episode-002",
+    "episode": "2",
+    "air_date": "2026-11-07",
+    "title": "S\u00e1bado de Tech: Why the Sun pulled NASA's Swift telescope out of orbit",
+    "description": "The space station finishes its solar upgrade \u00b7 Apple puts its engineers on an AI budget \u00b7 OpenAI's security-hunting model \u00b7 A supermoon on the calendar \u00b7 Why the Sun pulled down NASA's Swift telescope \u00b7 Sandia: aiming at a lumpy asteroid \u00b7 Does the supermoon cause earthquakes? \u00b7 Do solar panels work when it's cloudy?",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-07_episode-002/2026-11-07_episode-002.mp3",
+    "bytes": 8092568,
+    "duration_s": 1011,
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-07_episode-002.md"
   }
 ]
