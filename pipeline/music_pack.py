@@ -56,8 +56,9 @@ GENRES: dict[str, str] = {
 
 
 def week_genre(today: dt.date) -> str:
+    """Genre for the episode week that starts on the next Monday (the Sunday run sets up Mon–Sat)."""
     names = list(GENRES)
-    return names[today.isocalendar().week % len(names)]
+    return names[(today + dt.timedelta(days=1)).isocalendar().week % len(names)]
 
 
 def loudness(path: Path) -> float:
