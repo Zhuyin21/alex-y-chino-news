@@ -19,6 +19,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -38,6 +39,31 @@ FLEX_TIMEOUT_S = 240      # one Flex request (Flex can queue; give up early and 
 STANDARD_TIMEOUT_S = 180  # one standard request
 TTS_BUDGET_S = int(os.environ.get("TTS_BUDGET_S") or "1200")  # after 20 min total, skip Flex entirely
 _T0 = time.time()
+
+
+def call_with_deadline(fn, seconds: float):
+    """Run fn() but give up after `seconds` of wall-clock time.
+
+    The SDK's `timeout` is an httpx timeout, which only limits each network read; a
+    server that keeps the connection alive without finishing can hang a request for
+    40+ minutes (it happened on the GTA bonus build). A daemon thread lets us walk away.
+    """
+    box: dict = {}
+
+    def run() -> None:
+        try:
+            box["result"] = fn()
+        except BaseException as e:  # noqa: BLE001
+            box["error"] = e
+
+    t = threading.Thread(target=run, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise TimeoutError(f"no answer after {seconds:.0f}s (hard deadline)")
+    if "error" in box:
+        raise box["error"]
+    return box["result"]
 VOICES = {
     "ALEX": os.environ.get("VOICE_ALEX") or "Algenib",     # "Gravelly"
     "CHINO": os.environ.get("VOICE_CHINO") or "Fenrir",   # "Excitable"
@@ -183,12 +209,15 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: di
         else:
             kwargs = {"timeout": STANDARD_TIMEOUT_S}
         try:
-            interaction = client.interactions.create(
-                model=model,
-                input=[{"type": "user_input", "content": parts}],
-                response_format={"type": "audio"},  # complete WAV, 24 kHz mono 16-bit
-                generation_config={"speech_config": {"speakers": speakers}},
-                **kwargs,
+            interaction = call_with_deadline(
+                lambda: client.interactions.create(
+                    model=model,
+                    input=[{"type": "user_input", "content": parts}],
+                    response_format={"type": "audio"},  # complete WAV, 24 kHz mono 16-bit
+                    generation_config={"speech_config": {"speakers": speakers}},
+                    **kwargs,
+                ),
+                kwargs["timeout"] + 15,
             )
             data = interaction.output_audio.data
             if not data:
