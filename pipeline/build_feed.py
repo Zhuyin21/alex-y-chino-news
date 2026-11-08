@@ -40,18 +40,55 @@ def show_notes_md(stem: str) -> str:
     return md[m.end():].strip() if m else ""
 
 
-def md_to_html(md: str) -> str:
-    """Markdown -> HTML for podcast apps; bare URLs become links."""
-    # Turn bare URLs into Markdown autolinks (keep trailing punctuation outside the link).
-    md = "\n".join(URL_RE.sub(lambda m: f"<{m.group(1)}>{m.group(2)}", line) for line in md.splitlines())
-    try:
-        import markdown
-        html = markdown.markdown(md, extensions=["sane_lists"])
-    except ImportError:  # fall back to plain paragraphs
-        html = "".join(f"<p>{escape(par)}</p>" for par in md.split("\n\n"))
-    # Apps don't need h1-h2 sizes inside episode notes.
-    html = re.sub(r"<(/?)h[1-6]>", r"<\1h3>", html)
-    return html.replace("]]>", "]]&gt;")
+SKIP_SECTIONS = re.compile(r"editor|log|bit[aá]cora", re.I)
+
+
+def inline_html(text: str) -> str:
+    """Escape, then *italic* -> <em>, drop ** bold markers, and link bare URLs."""
+    text = escape(text).replace("**", "")
+    text = re.sub(r"(?<![\w*])\*([^*]+?)\*(?![\w*])", r"<em>\1</em>", text)
+    return URL_RE.sub(lambda m: f'<a href="{m.group(1)}">{m.group(1)}</a>{m.group(2)}', text)
+
+
+def references(md: str) -> list[tuple[str, list[str]]]:
+    """[(section, ["[1] Author, \"Title,\" Outlet, date. URL", ...]), ...] from the show notes.
+
+    Only the numbered references are kept: no sourcing rules, flags, discrepancy notes or
+    editor's log. Each reference appears once, under the first section that defines it.
+    """
+    out: list[tuple[str, list[str]]] = []
+    seen: set[str] = set()
+    for block in re.split(r"^##\s+", md, flags=re.M)[1:]:
+        heading, _, body = block.partition("\n")
+        heading = heading.replace("**", "").strip()
+        if SKIP_SECTIONS.search(heading):
+            continue
+        # Drop italic note lines (*Discrepancy:*, *Note:*, *Single-source items...*).
+        lines = [ln.strip() for ln in body.splitlines() if not ln.strip().startswith("*") or ln.strip().startswith("**")]
+        refs = []
+        pieces = [pc for ln in lines for pc in re.split(r"(?=\[\d+\]\s)", ln)]  # line by line
+        for piece in pieces:
+            m = re.match(r"\[(\d+)\]\s+(.*)", piece.strip())
+            if not m or m.group(1) in seen:
+                continue
+            ref = m.group(2).strip(" ·,;")
+            # Drop what follows the last link on the line (" · [2]", " · Next label:", notes).
+            segs = ref.split(" · ")
+            last = max((i for i, sg in enumerate(segs) if re.search(r"https?://|doi:", sg)), default=len(segs) - 1)
+            ref = " · ".join(segs[: last + 1]).strip(" ·,;")
+            if not re.search(r"https?://|doi:", ref) or len(ref) < 20:
+                continue  # a re-cite like "[2]" or "[5], [6]", not a definition
+            # Trim trailing annotations in parentheses that carry no link.
+            while True:
+                t = re.sub(r"\s*\((?:(?!https?://)[^()])*\)\s*$", "", ref)
+                if t == ref:
+                    break
+                ref = t.strip(" ·,;")
+            seen.add(m.group(1))
+            refs.append(f"[{m.group(1)}] {ref}")
+        if refs:
+            out.append((heading, refs))
+    return out
 
 
 def episode_notes(e: dict) -> tuple[str, str]:
@@ -62,9 +99,12 @@ def episode_notes(e: dict) -> tuple[str, str]:
     parts = []
     if summary:
         parts.append(f"<p>{escape(summary)}</p>")
-    if notes_md:
-        parts.append(md_to_html(notes_md))
-    parts.append(f'<p>Script + sources: <a href="{escape(notes_url)}">{escape(notes_url)}</a></p>')
+    refs = references(notes_md) if notes_md else []
+    if refs:
+        parts.append("<p><strong>Referencias</strong></p>")
+        for heading, items in refs:
+            parts.append(f"<p><strong>{inline_html(heading)}</strong><br>" + "<br>".join(inline_html(r) for r in items) + "</p>")
+    parts.append(f'<p>Notas completas y guion: <a href="{escape(notes_url)}">{escape(notes_url)}</a></p>')
     content = "\n".join(parts)
     # <description>: the full notes when they fit Apple's limit, otherwise summary + link.
     if len(content) <= APPLE_DESC_LIMIT:

@@ -66,3 +66,7 @@ Keep banter tight: one good joke per story beats three okay ones. Cut background
 - ⚠️ marks single-source items; ⏳ marks developing stories.
 - Note any discrepancies between outlets.
 - An editor's log lists big stories that were cut and why.
+- **Podcast apps show only the numbered references** (the feed pulls them out of the notes, grouped under each `##` segment heading; the editor's log is skipped). So:
+  - Write each reference as `[n] Author, "Title," *Outlet*, date. URL` (or `doi:` for papers), defined once with its full text the first time it's used; later re-cites are just `[n]`.
+  - Put notes, flags and discrepancies on their own lines starting with `*` (e.g. `*Discrepancy:* …`), not inside a reference.
+  - Name the editor's log section `## Editor's log`.
