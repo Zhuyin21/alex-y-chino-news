@@ -155,6 +155,7 @@ jobs:
             [ -z "$stem" ] && continue
             gh release download "$stem" --repo "$REPO" --pattern "*.mp3" --dir site/audio --clobber || echo "::warning::no audio for $stem"
           done < stems.txt
+          pip install -q markdown
           FEED_DIR=site python pipeline/build_feed.py
           ls -la site site/audio | head -50
       - uses: actions/configure-pages@v5
