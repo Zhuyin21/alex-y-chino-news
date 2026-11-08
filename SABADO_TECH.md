@@ -34,5 +34,5 @@ Use `[MUSIC: sting]` between segments. Use `[MUSIC: sting-serious]` only if a st
 - Separate what an AI system **demonstrably does** (benchmarks, independent tests) from what's **claimed** (company marketing) and from **speculation** (AGI timelines, etc.).
 
 ## Episode file
-- Same naming and numbering as the daily episodes: `episodes/YYYY-MM-DD_episode-NNN.md`.
+- Own numbering, separate from the daily show: `episodes/YYYY-MM-DD_sabado-NNN.md` (see CLAUDE.md; #1 is the Nov 7, 2026 episode, filed as `2026-11-07_episode-002.md`).
 - Front matter: `show: "Alex y Chino: Sábado de Tech"`, `title: "Sábado de Tech: <topic of El Taller>"`.
