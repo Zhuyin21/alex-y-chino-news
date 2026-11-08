@@ -16,6 +16,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: audio-build
@@ -114,3 +116,50 @@ jobs:
           git commit -m "Publish audio:${{ steps.todo.outputs.list }}"
           git pull --rebase -q origin main
           git push
+
+  # Publish the feed + the latest episodes' MP3s on GitHub Pages (audio/mpeg with byte ranges,
+  # which Apple Podcasts needs; GitHub Release downloads are served as application/octet-stream).
+  # Requires Settings -> Pages -> Source: "GitHub Actions". Nothing is committed, so the repo doesn't grow.
+  deploy:
+    needs: build
+    if: always() && needs.build.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      AUDIO_BASE: https://zhuyin21.github.io/alex-y-chino-news/audio
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Assemble site (feed + latest audio)
+        run: |
+          mkdir -p site/audio
+          cp -r docs/. site/
+          python - <<'PY' > stems.txt
+          import json
+          eps = sorted(json.load(open("docs/episodes.json")), key=lambda e: (e["air_date"], e.get("stem", "")), reverse=True)[:30]
+          print("\n".join(e["stem"] for e in eps))
+          PY
+          while read -r stem; do
+            [ -z "$stem" ] && continue
+            gh release download "$stem" --repo "$REPO" --pattern "*.mp3" --dir site/audio --clobber || echo "::warning::no audio for $stem"
+          done < stems.txt
+          FEED_DIR=site python pipeline/build_feed.py
+          ls -la site site/audio | head -50
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
