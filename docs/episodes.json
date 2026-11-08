@@ -1,16 +1,5 @@
 [
   {
-    "stem": "2026-11-06_episode-001",
-    "episode": "1",
-    "air_date": "2026-11-06",
-    "title": "Ep 1: Haaland's first day, a deputy indicted, and Democrats take Congress",
-    "description": "Governor-elect Haaland's first day \u00b7 The DWI scandal reaches deeper into BCSO \u00b7 Rapid-fire local \u00b7 Democrats take Congress \u00b7 Texas, and the data center fight \u00b7 Rapid-fire national \u00b7 Ukraine \u00b7 Iran war and Gulf shipping \u00b7 Rapid-fire world",
-    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-06_episode-001/2026-11-06_episode-001.mp3",
-    "bytes": 4936349,
-    "duration_s": 616,
-    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-06_episode-001.md"
-  },
-  {
     "stem": "2026-11-07_episode-002",
     "episode": "2",
     "air_date": "2026-11-07",
@@ -20,20 +9,5 @@
     "bytes": 8092568,
     "duration_s": 1011,
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-07_episode-002.md"
-  },
-  {
-    "stem": "2026-11-07_bonus-gta6",
-    "episode": "bonus",
-    "air_date": "2026-11-07",
-    "title": "Bonus: GTA VI llega el 19 de noviembre, todo lo que hay que saber",
-    "description": "",
-    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-07_bonus-gta6/2026-11-07_bonus-gta6.mp3",
-    "bytes": 2355034,
-    "duration_s": 294,
-    "tts_usage": {
-      "free": 1,
-      "paid-flex": 5
-    },
-    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-07_bonus-gta6.md"
   }
 ]
