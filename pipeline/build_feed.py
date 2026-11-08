@@ -7,6 +7,7 @@ docs/episodes.json is a list of episode records appended by the workflow, each w
 from __future__ import annotations
 
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from email.utils import format_datetime
@@ -16,6 +17,10 @@ from xml.sax.saxutils import escape
 OWNER, REPO = "Zhuyin21", "alex-y-chino-news"
 SITE = f"https://{OWNER.lower()}.github.io/{REPO}"
 SHOW_TITLE = "Alex y Chino"
+# When AUDIO_BASE is set (the Pages deploy job), enclosures point at audio served by GitHub Pages
+# (real audio/mpeg with byte-range support, which Apple Podcasts requires) instead of GitHub Releases.
+AUDIO_BASE = os.environ.get("AUDIO_BASE", "").rstrip("/")
+MAX_ITEMS = int(os.environ.get("FEED_MAX_ITEMS") or "30")
 SHOW_DESC = ("Daily Spanglish news podcast. Dr. Alex y Chino break down local "
              "(Albuquerque/Bernalillo), US, and world news. AI-generated from sourced scripts.")
 
@@ -26,10 +31,17 @@ def rfc822(air_date: str) -> str:
     return format_datetime(d)
 
 
+def enclosure_url(e: dict) -> str:
+    if AUDIO_BASE:
+        return f"{AUDIO_BASE}/{e['url'].rsplit('/', 1)[-1]}"
+    return e["url"]
+
+
 def main() -> int:
-    docs = Path("docs")
+    docs = Path(os.environ.get("FEED_DIR") or "docs")
     episodes = json.loads((docs / "episodes.json").read_text()) if (docs / "episodes.json").exists() else []
-    episodes.sort(key=lambda e: e["air_date"], reverse=True)
+    episodes.sort(key=lambda e: (e["air_date"], e.get("stem", "")), reverse=True)
+    episodes = episodes[:MAX_ITEMS]
 
     items = []
     for e in episodes:
@@ -40,7 +52,7 @@ def main() -> int:
       <link>{escape(e.get('notes_url', SITE))}</link>
       <guid isPermaLink="false">alex-y-chino-{e['episode']}-{e['air_date']}</guid>
       <pubDate>{rfc822(e['air_date'])}</pubDate>
-      <enclosure url="{escape(e['url'])}" length="{e['bytes']}" type="audio/mpeg"/>
+      <enclosure url="{escape(enclosure_url(e))}" length="{e['bytes']}" type="audio/mpeg"/>
       <itunes:duration>{mins}:{secs:02d}</itunes:duration>
       <itunes:explicit>true</itunes:explicit>
     </item>""")
@@ -58,6 +70,10 @@ def main() -> int:
     <itunes:author>Alex y Chino</itunes:author>
     <itunes:explicit>true</itunes:explicit>
     <itunes:category text="News"/>
+    <itunes:image href="{SITE}/cover.jpg"/>
+    <image><url>{SITE}/cover.jpg</url><title>{SHOW_TITLE}</title><link>https://github.com/{OWNER}/{REPO}</link></image>
+    <itunes:owner><itunes:name>Alex y Chino</itunes:name></itunes:owner>
+    <itunes:type>episodic</itunes:type>
 {chr(10).join(items)}
   </channel>
 </rss>
