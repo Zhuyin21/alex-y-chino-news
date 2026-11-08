@@ -253,12 +253,13 @@ _STING_COUNTER = {"n": 0}
 def music_file(cue: str) -> Path:
     """Use this week's pack for intro/sting/outro when it has the cue; otherwise the original clips.
     Plain stings rotate through sting, sting-2, sting-3... so transitions aren't all the same clip.
-    The serious sting always comes from the fixed original."""
+    sting-serious is a softer cut of the same theme (no separate "sad" music)."""
     pack = music_pack()
-    if pack and cue != "sting-serious":
+    if pack:
         folder = MUSIC_DIR / "library" / pack
         if cue == "sting":
-            options = sorted(folder.glob("sting*.mp3"), key=lambda p: (len(p.stem), p.stem))
+            options = sorted((p for p in folder.glob("sting*.mp3") if p.stem != "sting-serious"),
+                             key=lambda p: (len(p.stem), p.stem))
             if options:
                 pick = options[_STING_COUNTER["n"] % len(options)]
                 _STING_COUNTER["n"] += 1
@@ -266,7 +267,8 @@ def music_file(cue: str) -> Path:
         candidate = folder / f"{cue}.mp3"
         if candidate.exists():
             return candidate
-    return MUSIC_DIR / f"{cue}.mp3"
+    # No pack: fall back to the original clips (the original requinto is retired; use the plain sting).
+    return MUSIC_DIR / ("sting.mp3" if cue == "sting-serious" else f"{cue}.mp3")
 
 
 def music_wav(cue: str, work: Path) -> Path:

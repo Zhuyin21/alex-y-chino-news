@@ -9,7 +9,7 @@ cut it into intro / sting / outro, and save it to the music library.
 Library layout:
     assets/music/library/<YYYY-MM-DD>_<genre>/{intro,sting,outro}.mp3 + pack.json
     assets/music/current.json  -> {"pack": "<YYYY-MM-DD>_<genre>"}
-The serious sting (assets/music/sting-serious.mp3) never rotates, so hard news always sounds the same.
+Each pack also has sting-serious.mp3: a softer, quieter cut of the same theme used before hard news.
 Costs ~$0.04 per pack (one Lyria clip) on the paid key.
 """
 from __future__ import annotations
@@ -88,6 +88,8 @@ def cut_pack(raw: Path, out: Path, work: Path) -> None:
         name = "sting.mp3" if n == 0 else f"sting-{n + 1}.mp3"
         cut(raw, out / name, start, 3.2, 0.05 if n == 0 else 0.15, 1.2, work)
     cut(raw, out / "outro.mp3", max(0.0, total - outro_len), outro_len, 0.6, 0.4, work)
+    # "Serious" transition: a short, softer cut of the same theme (slow fade in, long fade out, a bit quieter).
+    cut(raw, out / "sting-serious.mp3", 12.0, 4.0, 0.6, 2.4, work, level=TARGET_LUFS - 4)
 
 
 def loudness(path: Path) -> float:
@@ -102,12 +104,13 @@ def duration(path: Path) -> float:
                                  str(path)], capture_output=True, text=True, check=True).stdout.strip())
 
 
-def cut(src: Path, dst: Path, start: float, length: float, fade_in: float, fade_out: float, work: Path) -> None:
+def cut(src: Path, dst: Path, start: float, length: float, fade_in: float, fade_out: float, work: Path,
+        level: float = TARGET_LUFS) -> None:
     tmp = work / f"tmp_{dst.stem}.wav"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{start:.2f}", "-t", f"{length:.2f}", "-i", str(src),
                     "-af", f"afade=t=in:d={fade_in},afade=t=out:st={length - fade_out:.2f}:d={fade_out}",
                     "-ar", "44100", "-ac", "2", str(tmp)], check=True)
-    gain = round(TARGET_LUFS - loudness(tmp), 2)
+    gain = round(level - loudness(tmp), 2)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(tmp),
                     "-af", f"volume={gain}dB,alimiter=limit=0.95", "-c:a", "libmp3lame", "-b:a", "160k", str(dst)],
                    check=True)
