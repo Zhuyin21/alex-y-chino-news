@@ -26,12 +26,18 @@ from pathlib import Path
 MODEL = os.environ.get("TTS_MODEL") or "gemini-3.8-flash-tts"
 # "flex" = 50% cheaper, slower (can queue 1-15 min per request). Falls back to standard if Flex fails.
 SERVICE_TIER = (os.environ.get("TTS_SERVICE_TIER") or "flex").lower()
-PARALLEL = int(os.environ.get("TTS_PARALLEL") or "4")
+PARALLEL = int(os.environ.get("TTS_PARALLEL") or "6")
 # Free tier: if GEMINI_API_KEY_FREE is set (a key from a project WITHOUT billing), use it first.
 # Free TTS is rate-limited (~3 requests/min), so requests go one at a time with spacing.
 # If the free quota runs out, the remaining chunks fall back to the paid key (GEMINI_API_KEY).
 FREE_KEY = os.environ.get("GEMINI_API_KEY_FREE") or ""
 FREE_MIN_INTERVAL_S = float(os.environ.get("FREE_MIN_INTERVAL_S") or "21")
+# Time limits so a slow queue can never stall an episode:
+FREE_TIMEOUT_S = 120      # one free request
+FLEX_TIMEOUT_S = 240      # one Flex request (Flex can queue; give up early and go standard)
+STANDARD_TIMEOUT_S = 180  # one standard request
+TTS_BUDGET_S = int(os.environ.get("TTS_BUDGET_S") or "1200")  # after 20 min total, skip Flex entirely
+_T0 = time.time()
 VOICES = {
     "ALEX": os.environ.get("VOICE_ALEX") or "Algenib",     # "Gravelly"
     "CHINO": os.environ.get("VOICE_CHINO") or "Fenrir",   # "Excitable"
@@ -167,9 +173,15 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: di
     tier = (tier or SERVICE_TIER).lower()
     delay = 5.0
     for i in range(1, attempts + 1):
-        # Last attempt always uses the standard tier so a Flex outage never blocks the episode.
-        use_tier = "standard" if (i == attempts and tier != "standard") else tier
-        kwargs = {"service_tier": use_tier, "timeout": 1200} if use_tier != "standard" else {"timeout": 300}
+        # Flex gets ONE try; after that (or once the time budget is spent) everything goes standard.
+        over_budget = time.time() - _T0 > TTS_BUDGET_S
+        use_tier = tier if (i == 1 and not over_budget) else "standard"
+        if use_tier == "free":
+            kwargs = {"timeout": FREE_TIMEOUT_S}
+        elif use_tier != "standard":
+            kwargs = {"service_tier": use_tier, "timeout": FLEX_TIMEOUT_S}
+        else:
+            kwargs = {"timeout": STANDARD_TIMEOUT_S}
         try:
             interaction = client.interactions.create(
                 model=model,
@@ -182,10 +194,12 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: di
             if not data:
                 raise RuntimeError("empty audio in response")
             out_wav.write_bytes(base64.b64decode(data))
-            return use_tier
+            return "standard" if use_tier == "free" else use_tier
         except Exception as e:  # noqa: BLE001 - retry any API/network error
             msg = str(e)
             permanent = any(c in msg for c in ("Error code: 400", "Error code: 401", "Error code: 403", "Error code: 404"))
+            if use_tier == "free":
+                raise  # the free-tier loop decides what to do
             if permanent and use_tier != "standard":
                 # Flex may not be offered for this model/project: drop straight to standard.
                 print(f"  {use_tier} rejected ({msg[:160]}); switching to standard", file=sys.stderr)
@@ -198,7 +212,7 @@ def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: di
                 raise
             print(f"  attempt {i} ({use_tier}) failed ({msg[:160]}); retrying in {delay:.0f}s", file=sys.stderr)
             time.sleep(delay)
-            delay *= 2
+            delay = min(delay * 2, 20)
     raise RuntimeError("TTS failed after all attempts")
 
 
@@ -347,22 +361,23 @@ def main() -> int:
                 i, c = remaining[0]
                 raw = work / f"chunk_{i:03d}_raw.wav"
                 ok = False
-                for attempt in range(3):
+                for attempt in range(2):
                     wait = FREE_MIN_INTERVAL_S - (time.time() - last)
                     if wait > 0:
                         time.sleep(wait)
                     last = time.time()
                     try:
-                        tts_chunk(free_client, c, raw, attempts=1, tier="standard")
+                        tts_chunk(free_client, c, raw, attempts=1, tier="free")
                         ok = True
                         break
                     except Exception as e:  # noqa: BLE001
                         msg = str(e)
-                        print(f"    free chunk {i:02d} attempt {attempt + 1} failed: {msg[:160]}", file=sys.stderr)
-                        if "429" in msg or "RESOURCE_EXHAUSTED" in msg.upper():
-                            time.sleep(65)  # per-minute limit: wait it out once or twice
+                        print(f"    free chunk {i:02d} attempt {attempt + 1} failed: {msg[:300]}", flush=True)
+                        daily = any(k in msg.lower() for k in ("per day", "perday", "daily", "quota"))
+                        if ("429" in msg or "resource_exhausted" in msg.lower()) and not daily and attempt == 0:
+                            time.sleep(62)  # per-minute limit: wait it out once
                             continue
-                        break  # other errors: hand this chunk to the paid key
+                        break  # daily quota, timeout or other error: hand the rest to the paid key
                 if not ok:
                     print("    free tier unavailable or exhausted; switching the rest to the paid key")
                     break
