@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
+      PYTHONUNBUFFERED: "1"   # show progress live (and keep it if a job is cancelled)
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}
       GH_TOKEN: ${{ github.token }}
