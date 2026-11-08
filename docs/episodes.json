@@ -20,5 +20,20 @@
     "bytes": 8092568,
     "duration_s": 1011,
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-07_episode-002.md"
+  },
+  {
+    "stem": "2026-11-07_bonus-gta6",
+    "episode": "bonus",
+    "air_date": "2026-11-07",
+    "title": "Bonus: GTA VI llega el 19 de noviembre, todo lo que hay que saber",
+    "description": "",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-07_bonus-gta6/2026-11-07_bonus-gta6.mp3",
+    "bytes": 2355034,
+    "duration_s": 294,
+    "tts_usage": {
+      "free": 1,
+      "paid-flex": 5
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-07_bonus-gta6.md"
   }
 ]
