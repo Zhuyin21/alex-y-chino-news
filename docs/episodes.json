@@ -9,5 +9,20 @@
     "bytes": 8092568,
     "duration_s": 1011,
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-07_episode-002.md"
+  },
+  {
+    "stem": "2026-11-09_episode-001",
+    "episode": "1",
+    "air_date": "2026-11-09",
+    "title": "Ep 1: Stephen Miller takes over the West Wing, Nvidia's spy probe, and Route 66 turns 100",
+    "description": "A plan to wipe out medical debt \u00b7 Local police \"handoffs\" to ICE \u00b7 Rapid-fire local \u00b7 Nvidia investigates its own CEO \u00b7 Stephen Miller runs the White House, starting today \u00b7 Rapid-fire national \u00b7 Houthi missiles at Riyadh, and the Iran war \u00b7 Pope Leo goes to Argentina \u00b7 Rapid-fire world",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-09_episode-001/2026-11-09_episode-001.mp3",
+    "bytes": 6128578,
+    "duration_s": 766,
+    "tts_usage": {
+      "paid-flex": 4,
+      "free": 11
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-09_episode-001.md"
   }
 ]
