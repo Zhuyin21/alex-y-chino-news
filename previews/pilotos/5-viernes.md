@@ -78,7 +78,15 @@ CHINO [whispering, scared]: ¿Quién anda ahí?
 
 ALEX [vampire voice, whispering]: Es... la señora del chile. Viene por mí. Nunca le pagué el ristra de la semana pasada.
 
-CHINO [laughing, breaking]: ¡Nombre! El vampiro le debe a la señora del chile.
+CHINO [breaking character, mischievous, already laughing]: Uy, pues aguas, señor conde, que dicen que el chile de esa señora pica bien sabroso... ¡jajaja!
+
+ALEX [out of character, stern but amused]: Chino. This is a family show.
+
+CHINO [innocent, still laughing]: ¿Qué? ¡Hablo del chile verde, Doc! De Hatch, del bueno.
+
+ALEX [dry, knowing]: Mm-hmm. I grew up in the 505 too, compa. Conozco los albures. Back to the script.
+
+CHINO [composing himself, still giggling]: Ya, ya. Perdón, Doc, pero es que me la pusiste de pechito. ¡Estaba listo pa' rematar!
 
 ASHLEY [narrator, big finish]: ¿Logrará el Conde Alejandro escapar de la señora del chile? ¿Le alcanzará al panadero para el atole? No se pierda el próximo capítulo de... ¡El Vampiro de Barelas!
 
