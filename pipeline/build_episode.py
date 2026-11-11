@@ -113,6 +113,7 @@ PAUSE_BETWEEN_CHUNKS_S = 0.5
 PAUSE_BETWEEN_SECTIONS_S = 1.2
 
 TTS_USAGE: dict = {}
+GUESTS = {"ASHLEY", "SOPHIE"}  # similar (female) voices: never in the same TTS request
 LINE_RE = re.compile(r"^(ALEX|CHINO|ASHLEY|SOPHIE)\s*\[([^\]]*)\]\s*:\s*(.+)$")
 MUSIC_RE = re.compile(r"^\[MUSIC:\s*([\w-]+)\s*\]$", re.I)
 MUSIC_DIR = Path(__file__).resolve().parent.parent / "assets" / "music"
@@ -192,9 +193,12 @@ def parse_script(md: str) -> list[Chunk]:
         if not m:
             continue
         turn = Turn(m.group(1), m.group(2).strip(), clean(m.group(3)))
-        third_voice = current is not None and turn.speaker not in {t.speaker for t in current.turns} \
-            and len({t.speaker for t in current.turns}) >= 2
-        if current is None or third_voice or current.chars + len(turn.text) > MAX_CHARS_PER_CHUNK:
+        present = {t.speaker for t in current.turns} if current is not None else set()
+        third_voice = turn.speaker not in present and len(present) >= 2
+        # Two similar voices in one request get swapped (Ashley read Sophie's lines in the
+        # Tuesday pilot), so the two women never share a request.
+        rival_guest = turn.speaker in GUESTS and bool((GUESTS - {turn.speaker}) & present)
+        if current is None or third_voice or rival_guest or current.chars + len(turn.text) > MAX_CHARS_PER_CHUNK:
             flush()
             current = Chunk(section=section, starts_section=new_section)
             new_section = False

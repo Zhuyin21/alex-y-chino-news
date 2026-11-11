@@ -25,6 +25,7 @@ Two friends talking, not two anchors taking turns reading. The energy is upbeat 
 
 ### Guests and cameos (Sophie, Ashley): keep the voices from mixing
 The voice model handles **two speakers per request**, and a request with a man and a woman can still drift onto the wrong voice. So:
+- **Ashley and Sophie never share a request.** Two women's voices in one request get swapped (heard in the Tuesday pilot), so the build splits any Ashley ↔ Sophie exchange line by line. Keep their back-and-forth short; it's generated without shared context.
 - **Max two speakers per stretch.** Write the scene in blocks of two (Chino + Sophie, then Sophie + Ashley…). The build starts a new request whenever a third speaker enters.
 - **Few names inside lines.** Every name said out loud ("Ashley, mi amor") can pull the next line onto that character's voice. Use a name only when it's needed to show who's being addressed, and never in the line right before that person speaks if you can avoid it. Nobody says their own name.
 - **No one-word lines from the other person in the middle of a guest's speech** (a man's "Mm-hmm" inside a woman's monologue is where voices swap). Merge the guest's lines instead; save backchannels for host-to-host talk.
