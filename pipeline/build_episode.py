@@ -33,6 +33,9 @@ PARALLEL = int(os.environ.get("TTS_PARALLEL") or "6")
 # If the free quota runs out, the remaining chunks fall back to the paid key (GEMINI_API_KEY).
 FREE_KEY = os.environ.get("GEMINI_API_KEY_FREE") or ""
 FREE_MIN_INTERVAL_S = float(os.environ.get("FREE_MIN_INTERVAL_S") or "21")
+# The free project allows 10 TTS requests per day (AI Studio, Nov 2026: RPD 10, RPM 3).
+# Past that, requests hang instead of returning 429, so never send more than this per build.
+FREE_RPD = int(os.environ.get("FREE_RPD") or "10")
 # Time limits so a slow queue can never stall an episode:
 FREE_TIMEOUT_S = 120      # one free request
 FLEX_TIMEOUT_S = 240      # one Flex request (Flex can queue; give up early and go standard)
@@ -385,8 +388,18 @@ def main() -> int:
 
         tiers_used: list[str] = []
         remaining = list(speech)
-        if free_client:
-            print(f"  Free tier first: one request every {FREE_MIN_INTERVAL_S:.0f}s")
+        paid_futures = []
+        pool = ThreadPoolExecutor(max_workers=PARALLEL)
+        if free_client and FREE_RPD > 0:
+            # The first FREE_RPD chunks go to the free key; the rest start on the paid key
+            # right away, in parallel, instead of waiting for the free tier to run dry.
+            remaining, overflow = remaining[:FREE_RPD], remaining[FREE_RPD:]
+            if overflow:
+                if not client:
+                    raise SystemExit(f"{len(speech)} chunks exceed the free daily cap ({FREE_RPD}) and no paid GEMINI_API_KEY is set")
+                print(f"  {len(overflow)} chunk(s) over the free daily cap go to the paid key now")
+                paid_futures = [pool.submit(synth, x) for x in overflow]
+            print(f"  Free tier first: {len(remaining)} chunk(s), one request every {FREE_MIN_INTERVAL_S:.0f}s")
             last = 0.0
             while remaining:
                 i, c = remaining[0]
@@ -419,8 +432,9 @@ def main() -> int:
         if remaining:
             if not client:
                 raise SystemExit("Free tier exhausted and no paid GEMINI_API_KEY set")
-            with ThreadPoolExecutor(max_workers=PARALLEL) as pool:
-                tiers_used += list(pool.map(synth, remaining))
+            paid_futures += [pool.submit(synth, x) for x in remaining]
+        tiers_used += [f.result() for f in paid_futures]
+        pool.shutdown()
         TTS_USAGE.update({t: tiers_used.count(t) for t in set(tiers_used)})
         print(f"  TTS finished in {time.time() - t0:.0f}s; chunks by source: {TTS_USAGE}")
 
