@@ -1,38 +1,37 @@
-# Sábado de Tech con Alex y Chino: Saturday Special Bible
+# Sábados Científicos con Alex y Ashley: Saturday Bible
 
-A weekly tech, science and engineering special in the **same feed** as the daily show, presented as part of the same program ("¡Es sábado, y ya saben qué toca: Sábado de Tech!"). Everything in `SHOW_BIBLE.md` still applies (voices, Spanish usage, the respect rule, music cues, sourcing, show-notes format) **except where this file says otherwise.**
+> **Active from Saturday, Nov 14, 2026.** This replaces "Sábado de Tech" (product and AI news moved to **Tech Thursday**, see `PROGRAMACION.md`). The file keeps its old name so existing links and tasks still find it.
+
+A weekly science and research show in the **same feed** as the daily show. Everything in `SHOW_BIBLE.md` still applies (Spanish usage, music cues, sourcing, show-notes format, "Guests and cameos") **except where this file says otherwise.**
 
 ## Hosts on Saturdays
-- **Dr. Alex (Doc), the main expert.** A mechanical engineer who explains *how things actually work*: the physics, the engineering trade-offs, the numbers. He separates hype from evidence ("Okay, pero ¿qué dice el paper?") and admits when something is outside his field or still uncertain. He's still Burqueño and still relaxed.
-- **Chino, the young techy guy.** He tries the new apps and gadgets, follows AI and space news, and knows what's viral. He asks the questions a listener would ask ("Okay Doc, pero ¿eso cómo funciona?") and pushes back when something sounds too good to be true. Still from Juárez, still lots of Chihuahua Spanish, and still respectful of Doc as his mentor.
-- **Balance:** Doc talks a bit more than Chino on Saturdays, but it's still a conversation, not a lecture.
+- **Ashley, la experta del show (presents the main topic).** 23, on the show's audio team, a science nerd who reads about this all week. She brings the topic, the diagrams-in-words and the excitement. ~70% English / 30% home Spanish with a clear gringa accent; at most one Spanish stumble per episode ("ay, remember que soy no sabo"), and she doesn't repeat lines in both languages. Renewable energy was her passion at UNM; mention UNM only now and then.
+- **Dr. Alex (Doc), the engineer.** Adds the physics, the numbers and the "how would you test that?" He separates hype from evidence, admits what's outside his field, and is openly proud of Ashley ("la experta del show"). Still Burqueño, still relaxed, ~60% English / 40% Spanish.
+- **Chino** is off on Saturdays. He can appear in a 1–3 line cameo at most (e.g., a voice memo), or not at all.
+- It's a conversation, not a lecture: Ashley leads the main topic; Doc leads ¿Mito o Ciencia? and Pregúntale a Doc.
 
 ## Format (15–20 min, ~2,300–3,000 words; hard max 3,100)
-1. **Cold open** (~1 min): `[MUSIC: intro]`, then what Chino is excited about this week, and "¡Es Sábado de Tech!"
-2. **La Semana en Tech** (~4–5 min): 4–5 of the week's most important headlines across AI, gadgets/consumer tech, space, energy and science. Facts first, a quick take from Doc on each.
-3. **El Taller** (~5–7 min): the deep dive. Doc takes ONE big topic from the week and explains how it works, from first principles and with an everyday analogy. Chino asks the follow-up questions. End with "what to watch for next."
-4. **Ciencia en Nuevo México** (~2–3 min): a local science or tech story: Sandia, Los Alamos, UNM, NM Tech, NMSU, AFRL/Kirtland, Spaceport America, Intel Rio Rancho, or state energy projects. If there's nothing new this week, explain something interesting about one of these places, sourced.
-5. **¿Mito o Ciencia?** (~2 min): Chino brings a viral claim (TikTok, a forwarded WhatsApp message, an ad), and Doc checks it against the evidence. Verdict: **Mito**, **Ciencia** or **Más o menos**. Never mock the people who believed it.
-6. **Pregúntale a Doc** (~1–2 min, only when there's a question): answer a listener question. The questions come from open GitHub issues in this repo whose titles start with `Pregunta:`. Answer the oldest one that hasn't been answered yet; check past Saturday episodes to see which have been answered. If there's no question, skip the segment.
+1. **Cold open** (~1 min): `[MUSIC: intro]`, "¡Bienvenidos a Sábados Científicos!", what Ashley is excited about this week.
+2. **La Semana en Ciencia** (~3–4 min): 3–4 of the week's most important **science and research** headlines: space, physics, biology, medicine, chemistry, climate and energy. No consumer gadgets (that's Thursday). Include **Ciencia en Nuevo México** when there's something new (Sandia, Los Alamos, UNM, NM Tech, NMSU, AFRL/Kirtland, Spaceport America, state energy projects).
+3. **El Tema de Ashley** (~6–8 min): ONE topic, explained from first principles with an everyday analogy. Ashley presents; Doc asks the follow-ups and adds the engineering. End with "what to watch for next." Topic: the oldest unused open GitHub issue titled `Tema: …`; otherwise the most interesting science story of the week (space is always welcome; energy, renewables vs. oil and gas, and how things work too).
+4. **¿Mito o Ciencia?** (~2–3 min): a viral or "everybody knows" claim, checked against the evidence. Verdict: **Mito**, **Ciencia** or **Más o menos**. Never mock the people who believed it.
+5. **Pregúntale a Doc** (~2 min): answer the oldest unanswered open issue titled `Pregunta: …` (any science, medicine included; check past Saturday episodes so nothing is answered twice; mention the issue number in the show notes). If there's none, Ashley asks one of **her own** curiosities, clearly as hers. **Never invent listeners.**
+6. **Closer** (~30 sec): `[MUSIC: outro]`
 
-**Listener topic requests:** an open issue titled `Tema: …` is Chuy's request for **El Taller**. If there's an unused one, it becomes that week's deep-dive topic.
-7. **Closer** (~30 sec): `[MUSIC: outro]`
-
-Use `[MUSIC: sting]` between segments. Use `[MUSIC: sting-serious]` only if a story involves harm (a safety recall with injuries, a disaster, etc.).
+Use `[MUSIC: sting]` between segments; `[MUSIC: sting-serious]` only if a story involves harm.
 
 ## Sourcing (stricter than the daily show)
-- The **Source quality** rules in `SHOW_BIBLE.md` apply. Never cite pricing or "explainer" blogs, vendor comparison pages or AI-generated sites. For pricing or specs, cite the company's official page.
-- **Science claims:** go to primary sources: the peer-reviewed paper (journal + DOI in the show notes), NASA, NSF, NIH, NOAA, DOE national labs, university press offices. Quality science journalism supports them: Nature News, Science News, New Scientist, Quanta, Ars Technica, IEEE Spectrum, Scientific American.
-- **Tech/product news:** the company's own announcement plus independent coverage (AP/Reuters tech, The Verge, Wired, Ars Technica, IEEE Spectrum). Company claims are always attributed on air ("según la compañía…", "Google says…") until independently verified.
+- The **Source quality** rules in `SHOW_BIBLE.md` apply. Never cite pricing or "explainer" blogs, vendor comparison pages or AI-generated sites.
+- **Science claims:** primary sources first: the peer-reviewed paper (journal + DOI in the show notes), NASA, NSF, NIH, NOAA, DOE national labs, university press offices. Quality science journalism supports them: Nature News, Science News, New Scientist, Quanta, Ars Technica, IEEE Spectrum, Scientific American.
 - **Preprints** (arXiv, bioRxiv, medRxiv) are flagged on air as not yet peer-reviewed. **Single studies** are framed as "one study," not as settled science.
-- Health claims should mention when professional guidance matters. No medical advice.
-- **Show notes** include DOIs or arXiv IDs where they exist.
+- **Health/medicine:** mention when professional guidance matters. No medical advice.
+- **Show notes** include DOIs or arXiv IDs where they exist, formatted as SHOW_BIBLE.md "Show notes" says.
 
 ## AI stories: always labeled
-- Every AI story gets a **clear on-air label** at the start, e.g. Chino: "Ojo, raza, esta es una historia de inteligencia artificial." (Vary the wording.)
-- **Disclosure:** this show is written with Claude (made by Anthropic) and voiced with Google's Gemini TTS. When a story involves **Anthropic, Claude, Google or Gemini**, Doc says so on air in one line ("Full disclosure: este show lo hacemos con herramientas de Anthropic y Google."). Cover those companies with extra care: lean on independent sources, include critics, and never give them more favorable coverage than their competitors.
-- Separate what an AI system **demonstrably does** (benchmarks, independent tests) from what's **claimed** (company marketing) and from **speculation** (AGI timelines, etc.).
+- AI stories mostly belong on Tech Thursday. If one appears here (e.g., AI in a scientific discovery), it gets a **clear on-air label** at the start, varied wording.
+- **Disclosure:** this show is written with Claude (made by Anthropic) and voiced with Google's Gemini TTS. When a story involves **Anthropic, Claude, Google or Gemini**, Doc says so on air in one line, leans on independent sources and gives those companies no more favorable coverage than their competitors.
+- Separate what is **demonstrated** (published results, independent tests) from what's **claimed** and from **speculation**.
 
 ## Episode file
-- Own numbering, separate from the daily show: `episodes/YYYY-MM-DD_sabado-NNN.md` (see CLAUDE.md; #1 is the Nov 7, 2026 episode, filed as `2026-11-07_episode-002.md`).
-- Front matter: `show: "Alex y Chino: Sábado de Tech"`, `title: "Sábado de Tech: <topic of El Taller>"`.
+- Own numbering, separate from the daily show: `episodes/YYYY-MM-DD_sabado-NNN.md` (see CLAUDE.md). The count continues from Sábado de Tech: #1 is `2026-11-07_episode-002.md`, so the first Sábados Científicos is **sabado-002**.
+- Front matter: `show: "Alex y Chino: Sábados Científicos"`, `episode: sabado-N`, `title: "Sábados Científicos: <El Tema de Ashley>"`. The heading says `Sábados Científicos #N`.
