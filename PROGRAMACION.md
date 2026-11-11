@@ -32,10 +32,12 @@ Reminders (Claude scheduled tasks): Tuesday 8 pm → Thursday tech topic; Thursd
 - **Producción**: never speaks. "Me dicen en cabina…", "dice producción que los dos están mal." Always contradicts the hosts on sports. All iPhone people.
 
 ## Running bits
+> **Use them as seasoning, not every line** (Chuy, Nov 10 pilots). Doc and Chino are friends who **agree on plenty**: celebrating a Lobos win together, both impressed by a stat, both loving the same Canelo fight. The challenge shows up now and then (one or two moments per segment), never as a forced argument on every topic.
 - **Football:** Chino = **Dallas Cowboys**, Doc = **Denver Broncos** (New Mexico's classic split). Pique all week when they play.
 - **Basketball:** Doc is old school (Jordan, Bird, Kobe) and argues **with stats** (e.g. Jordan: 6 Finals, 6 titles, 6 Finals MVPs; 4th-down math); Chino is new age (Curry, LeBron) and argues **with passion** ("¡el fútbol se siente, no se calcula!").
 - **Phones:** Doc = Samsung loyalist; Chino = always the weird one (foldables, crazy cameras, e.g. OnePlus Open); Ashley, Sophie and producción = iPhone.
 - **Studio life:** "me dice producción", Ashley signaling from the booth, quick cameos, all short.
+- **Chino's slip-ups:** a reaction to news like "¡No mames, qué feo!" followed right away by "perdón, raza" landed really well in the Thursday pilot. Keep it natural and rare (at most once an episode, never in serious segments, never aimed at Doc).
 
 ## Production notes
 - Gemini voices two speakers per request; the build splits scenes into two-voice chunks. Follow SHOW_BIBLE "Guests and cameos" to keep voices from mixing.
