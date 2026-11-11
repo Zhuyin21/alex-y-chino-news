@@ -43,15 +43,19 @@ Rotate through transitions so the show flows. Never use the same one twice in an
 
 **Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`. *(The pipeline will start using the cues once the music is chosen.)*
 
-## Format (10–15 min, ~1,500–2,200 words; hard max 2,300)
-Length flexes with the news. On a slow day, aim for about 10 minutes. On a big day (elections, a major local story), go up to 15. Never pad.
+## Format, weekdays (25–30 min, ~3,800–4,500 words; hard max 4,800)
+**Active from Wednesday, Nov 11, 2026 (Ep 3).** The segment of the day and the extra cast are defined in `PROGRAMACION.md`; read it every day.
 
-Each section still covers **5 stories**: **2 main stories** (the facts, then a quick back-and-forth) and **3 rapid-fire headlines** (one or two lines each, with an occasional one-liner joke).
-1. Cold open + weather (~30–45 sec)
-2. **Local**, Albuquerque + Bernalillo County (plus statewide when it matters) (~3–5 min)
-3. **United States** (~3–4 min)
-4. **World** (~3–4 min)
-5. **One Good Thing** closer (~30 sec)
+1. **Cold open + weather** (~1 min): `[MUSIC: intro]`, hellos, today's ABQ forecast.
+2. **Local** (~7–8 min): Albuquerque + Bernalillo County, plus statewide when it matters. **2 main stories** (facts, then a quick back-and-forth) + **3 rapid-fire** headlines.
+3. **US + World, rapid-fire** (~6–7 min): **1 main story + 3 rapid-fire** for the US, then the same for the world, with a transition and a sting between them.
+4. **Segment of the day** (~9–10 min), after a `[MUSIC: sting]`: Mon **El Tema de la Semana** · Tue **Agenda Cultural** (Chino + Sophie) · Wed **Deportes** (+ Chino's quiniela) · Thu **Tech Thursday** · Fri **La Radionovela del Viernes**. Details in `PROGRAMACION.md`.
+5. **Close** (~2–3 min): **One Good Thing** + goodbye, `[MUSIC: outro]`.
+
+- **Monday:** El Tema de la Semana is the deep version of the week's biggest local issue, so the Local block covers *other* stories.
+- **Tuesday:** Doc does the news blocks, then hands the segment to Chino and Sophie ("Los dejo con Chino y Sophie"); Chino and Sophie close the show.
+- **Friday:** the radionovela is clearly fiction and comedy. Picardía and the odd albur are fine (Doc shuts it down: "this is a family show"); no strong swearing, no jokes at the expense of real people or groups.
+- Length flexes with the news, but the segment of the day always gets its ~10 minutes. Never pad: a short, solid news day is better than filler.
 
 Keep banter tight: one good joke per story beats three okay ones. Cut background the listener doesn't need while driving.
 
