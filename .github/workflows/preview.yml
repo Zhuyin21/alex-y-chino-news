@@ -7,6 +7,18 @@ on:
         description: "Script to render"
         required: false
         default: "previews/sample.md"
+      model:
+        description: "TTS model override, e.g. gemini-3.8-flash-lite-tts (blank = the repo's TTS_MODEL)"
+        required: false
+        default: ""
+      tag:
+        description: "Release to publish to (use different tags to keep A/B results side by side)"
+        required: false
+        default: "preview"
+      use_free:
+        description: "Try the free key first (off for A/B tests, so both sides use the same tier)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -18,11 +30,11 @@ jobs:
     env:
       PYTHONUNBUFFERED: "1"   # show progress live (and keep it if a job is cancelled)
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      GEMINI_API_KEY_FREE: ${{ secrets.GEMINI_API_KEY_FREE }}
+      GEMINI_API_KEY_FREE: ${{ inputs.use_free && secrets.GEMINI_API_KEY_FREE || '' }}
       GH_TOKEN: ${{ github.token }}
       VOICE_ALEX: ${{ vars.VOICE_ALEX }}
       VOICE_CHINO: ${{ vars.VOICE_CHINO }}
-      TTS_MODEL: ${{ vars.TTS_MODEL }}
+      TTS_MODEL: ${{ inputs.model || vars.TTS_MODEL }}
       TTS_SERVICE_TIER: ${{ vars.TTS_SERVICE_TIER }}
       MUSIC_PACK: ${{ vars.MUSIC_PACK }}
     steps:
@@ -35,10 +47,13 @@ jobs:
           pip install -q -r pipeline/requirements.txt
       - name: Render
         run: python pipeline/build_episode.py "${{ inputs.script }}" --out build
-      - name: Publish as release "preview"
+      - name: Publish as a prerelease (not in the feed)
+        env:
+          TAG: ${{ inputs.tag || 'preview' }}
+          MODEL_USED: ${{ inputs.model || vars.TTS_MODEL || 'gemini-3.8-flash-tts' }}
         run: |
           stem=$(basename "${{ inputs.script }}" .md)
-          python -c "import json;d=json.load(open('build/$stem.json'));print(f\"Music pack: {d.get('music_pack')}\nVoices by source: {d.get('tts_usage')}\nLength: {d['duration_s']} s\")" > build/notes.txt
+          python -c "import json,os;d=json.load(open('build/$stem.json'));print(f\"Model: {os.environ['MODEL_USED']}\nMusic pack: {d.get('music_pack')}\nVoices by source: {d.get('tts_usage')}\nLength: {d['duration_s']} s\")" > build/notes.txt
           cat build/notes.txt
-          gh release delete preview --yes --cleanup-tag >/dev/null 2>&1 || true
-          gh release create preview "build/$stem.mp3" --title "Preview" --notes-file build/notes.txt --prerelease
+          gh release delete "$TAG" --yes --cleanup-tag >/dev/null 2>&1 || true
+          gh release create "$TAG" "build/$stem.mp3" --title "Preview: $TAG" --notes-file build/notes.txt --prerelease
