@@ -70,6 +70,9 @@ def call_with_deadline(fn, seconds: float):
 VOICES = {
     "ALEX": os.environ.get("VOICE_ALEX") or "Algenib",     # "Gravelly"
     "CHINO": os.environ.get("VOICE_CHINO") or "Fenrir",   # "Excitable"
+    # Recurring cast (Nov 2026 lineup). Voices are provisional until the casting is picked.
+    "ASHLEY": os.environ.get("VOICE_ASHLEY") or "Leda",
+    "SOPHIE": os.environ.get("VOICE_SOPHIE") or "Gacrux",
 }
 # Persona hints prepended to every line's style so the accent/register stays consistent.
 PERSONA = {
@@ -79,17 +82,37 @@ PERSONA = {
     "CHINO": ("Chino, a young podcast co-host from Ciudad Juárez, Chihuahua, living in Albuquerque; energetic, funny, "
               "laughs easily; speaks mostly northern Mexican border Spanish (about 70%) mixed with English (about 30%); "
               "native Juárez accent"),
+    "ASHLEY": ("Ashley, 23, second-generation Mexican-American from Albuquerque who works on the show's audio team; "
+               "a friendly, upbeat science nerd; speaks mostly American English (about 70%) and home Spanish (about 30%) "
+               "learned from her grandparents, a little hesitant, with a slight American accent in Spanish"),
+    "SOPHIE": ("Sophie, a glamorous former Mexican telenovela actress in her early 50s, from Guadalajara, now the show's "
+               "Tuesday entertainment guest; fresa, theatrical and warm, loves gossip; speaks almost entirely Mexican "
+               "Spanish, and her few English words (oh my God, my darling, my honey) carry a strong Mexican accent"),
 }
 # Shorter chunks keep the two-voice model from drifting onto the wrong speaker.
 MAX_CHARS_PER_CHUNK = int(os.environ.get("MAX_CHARS_PER_CHUNK", "1100"))
 # Neutral speaker labels for the TTS: the hosts' names appear inside each other's lines
 # ("Chino, it was two days"), which can confuse which voice speaks next.
+# Gemini voices at most two speakers per request: the hosts keep fixed labels; anyone else in a
+# chunk takes whichever label is free (parse_script never puts more than two speakers in a chunk).
 TTS_LABEL = {"ALEX": "Speaker1", "CHINO": "Speaker2"}
+
+
+def speaker_labels(turns) -> dict:
+    present = list(dict.fromkeys(t.speaker for t in turns))
+    if len(present) > 2:
+        raise ValueError(f"a TTS chunk can have at most two speakers, got {present}")
+    labels = {s: TTS_LABEL[s] for s in present if s in TTS_LABEL}
+    free = [l for l in ("Speaker1", "Speaker2") if l not in labels.values()]
+    for s in present:
+        if s not in labels:
+            labels[s] = free.pop(0)
+    return labels
 PAUSE_BETWEEN_CHUNKS_S = 0.5
 PAUSE_BETWEEN_SECTIONS_S = 1.2
 
 TTS_USAGE: dict = {}
-LINE_RE = re.compile(r"^(ALEX|CHINO)\s*\[([^\]]*)\]\s*:\s*(.+)$")
+LINE_RE = re.compile(r"^(ALEX|CHINO|ASHLEY|SOPHIE)\s*\[([^\]]*)\]\s*:\s*(.+)$")
 MUSIC_RE = re.compile(r"^\[MUSIC:\s*([\w-]+)\s*\]$", re.I)
 MUSIC_DIR = Path(__file__).resolve().parent.parent / "assets" / "music"
 SPEECH_LUFS = -16  # music clips in assets/music are pre-leveled ~3-5 dB under this
@@ -168,7 +191,9 @@ def parse_script(md: str) -> list[Chunk]:
         if not m:
             continue
         turn = Turn(m.group(1), m.group(2).strip(), clean(m.group(3)))
-        if current is None or current.chars + len(turn.text) > MAX_CHARS_PER_CHUNK:
+        third_voice = current is not None and turn.speaker not in {t.speaker for t in current.turns} \
+            and len({t.speaker for t in current.turns}) >= 2
+        if current is None or third_voice or current.chars + len(turn.text) > MAX_CHARS_PER_CHUNK:
             flush()
             current = Chunk(section=section, starts_section=new_section)
             new_section = False
@@ -185,19 +210,26 @@ def story_titles(md: str) -> list[str]:
 def tts_chunk(client, chunk: Chunk, out_wav: Path, attempts: int = 4, voices: dict | None = None,
               model: str | None = None, tier: str | None = None) -> str:
     """Synthesize one chunk. Returns the service tier that actually produced the audio."""
+    labels = speaker_labels(chunk.turns)
     parts = [
         {
             "type": "text",
             "text": t.text,
             "annotations": [{
                 "type": "speech_metadata",
-                "speaker": TTS_LABEL[t.speaker],
+                "speaker": labels[t.speaker],
                 "style": f"{PERSONA[t.speaker]}; {t.style}" if t.style else PERSONA[t.speaker],
             }],
         }
         for t in chunk.turns
     ]
-    speakers = [{"speaker": TTS_LABEL[s], "voice": v} for s, v in (voices or VOICES).items()]
+    voice_map = {**VOICES, **(voices or {})}
+    speakers = [{"speaker": labels[s], "voice": voice_map[s]} for s in labels]
+    if len(speakers) == 1:  # keep the two-speaker config the hosts have always used
+        other = "Speaker2" if speakers[0]["speaker"] == "Speaker1" else "Speaker1"
+        filler = "CHINO" if other == "Speaker2" else "ALEX"
+        speakers.append({"speaker": other, "voice": voice_map[filler]})
+    speakers.sort(key=lambda x: x["speaker"])
     model = model or MODEL
     tier = (tier or SERVICE_TIER).lower()
     delay = 5.0
