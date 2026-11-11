@@ -12,17 +12,17 @@ format_note: "Test scene only, not for the feed. Three characters; the build spl
 
 [MUSIC: intro]
 
-CHINO [excited, welcoming]: ¡Martes de Agenda Cultural, raza! Y ya llegó la que todos estaban esperando. ¡Sophie, bienvenida!
+CHINO [excited, welcoming]: ¡Martes de Agenda Cultural, raza! Y ya llegó la invitada que todos estaban esperando. ¡Bienvenida!
 
-SOPHIE [theatrical, delighted]: Ay, Chino, ¡qué recibimiento! Gracias, gracias. Hola a todos los que nos escuchan aquí en Burque.
+SOPHIE [theatrical, delighted]: Ay, ¡qué recibimiento! Gracias, gracias. Hola a todos los que nos escuchan aquí en Burque.
 
-CHINO [teasing]: A ver, a ver, antes de que empieces, ¿qué nos trajiste hoy? ¡Suelta la sopa!
+CHINO [teasing]: A ver, antes de que empieces, ¿qué nos trajiste hoy? ¡Suelta la sopa!
 
 SOPHIE [mock offended]: ¡Ay, no! Primero lo primero. ¿Dónde está mi amiga de la cabina?
 
-ASHLEY [from the booth, cheerful, a little shy]: Hi, Sophie! I'm here. Aquí estoy, en la... cabina.
+ASHLEY [from the booth, cheerful, a little shy]: Hi! I'm here. Aquí estoy, en la... cabina.
 
-SOPHIE [warm, fresa]: ¡Ashley, mi amor! Oh my God, el suéter que traías ayer, divino. ¿De dónde es?
+SOPHIE [warm, fresa]: ¡Mi amor! Oh my God, el suéter que traías ayer, divino. ¿De dónde es?
 
 ASHLEY [laughing]: Thrift store, eight dollars. Bueno... ocho. Ocho dólares.
 
@@ -30,21 +30,17 @@ SOPHIE [delighted]: ¡Ocho dólares! My darling, eso es talento.
 
 CHINO [jumping in, laughing]: Pérame, pérame, ¿y a mí nadie me dice nada de mi chamarra?
 
-ASHLEY [deadpan, then giggling]: Chino, tu chamarra tiene... ¿cómo se dice? Holes. Agujeros.
+ASHLEY [deadpan, then giggling]: Tu chamarra tiene... ¿cómo se dice? Holes. Agujeros.
 
-CHINO [laughing]: ¡Son de diseño, Ashley! Es ventilación.
+CHINO [laughing]: ¡Son de diseño! Es ventilación.
 
-SOPHIE [laughing, then lowering her voice]: Bueno, bueno, ya. Les tengo algo. Me llegó de muy, muy buena fuente que este fin de semana va a haber una sorpresa en un concierto aquí en Burque...
+SOPHIE [laughing, then lowering her voice, conspiratorial]: Bueno, bueno, ya. Les tengo algo. Me llegó de muy, muy buena fuente que este fin de semana va a haber una sorpresa en un concierto aquí en Burque... pero no les puedo decir quién.
 
-CHINO [nodding]: Mm-hmm.
+CHINO [frustrated, half-laughing]: ¡No manches! ¿Entonces pa' qué nos dices?
 
-SOPHIE [conspiratorial]: ...pero no les puedo decir quién.
+SOPHIE [dramatic, then clear]: ¡Porque por ahorita es puro rumor! Si lo tuviera confirmado, te lo daba exclusivo. Yo no invento nada, my honey.
 
-CHINO [frustrated, half-laughing]: ¡No manches, Sophie! ¿Entonces pa' qué nos dices?
-
-SOPHIE [dramatic, then clear]: ¡Porque por ahorita es puro rumor, Chino! Si lo tuviera confirmado, te lo daba exclusivo. Yo no invento nada, my honey.
-
-ASHLEY [whispering into the mic]: Sophie, me dices después, ¿okay?
+ASHLEY [whispering into the mic]: Psst... me dices después, ¿okay?
 
 SOPHIE [whispering back, playful]: Te mando mensaje, amiga.
 

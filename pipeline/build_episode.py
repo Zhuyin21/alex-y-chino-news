@@ -82,11 +82,11 @@ PERSONA = {
     "CHINO": ("Chino, a young podcast co-host from Ciudad Juárez, Chihuahua, living in Albuquerque; energetic, funny, "
               "laughs easily; speaks mostly northern Mexican border Spanish (about 70%) mixed with English (about 30%); "
               "native Juárez accent"),
-    "ASHLEY": ("Ashley, 23, second-generation Mexican-American from Albuquerque who works on the show's audio team; "
+    "ASHLEY": ("Ashley, a young woman of 23, second-generation Mexican-American from Albuquerque who works on the show's audio team; "
                "a friendly, upbeat science nerd; speaks mostly American English (about 70%) and home Spanish (about 30%) "
                "learned from her grandparents, a little hesitant; her Spanish has a noticeable but light American "
                "(gringa) accent, with anglicized r's and vowels, while her English is natural American"),
-    "SOPHIE": ("Sophie, a glamorous former Mexican telenovela actress in her early 50s, from Guadalajara, now the show's "
+    "SOPHIE": ("Sophie, a glamorous woman in her early 50s, a former Mexican telenovela actress, from Guadalajara, now the show's "
                "Tuesday entertainment guest; fresa, theatrical and warm, loves gossip; speaks almost entirely Mexican "
                "Spanish, and her few English words (oh my God, my darling, my honey) carry a strong Mexican accent"),
 }

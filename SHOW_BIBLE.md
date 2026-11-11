@@ -23,6 +23,14 @@ Two friends talking, not two anchors taking turns reading. The energy is upbeat 
 - **Use expressive style tags:** `[jumping in]`, `[catching himself]`, `[nodding]`, `[laughing]`, `[half-laughing]`, `[thinking out loud]`, `[surprised]`, `[lowering his voice]`. Vary them; don't repeat the same tag on consecutive lines.
 - **Serious segments:** backchannels only (quiet ones: `[softly]: Mm.`), no interruptions, no self-corrections, no fillers for laughs.
 
+### Guests and cameos (Sophie, Ashley): keep the voices from mixing
+The voice model handles **two speakers per request**, and a request with a man and a woman can still drift onto the wrong voice. So:
+- **Max two speakers per stretch.** Write the scene in blocks of two (Chino + Sophie, then Sophie + Ashley…). The build starts a new request whenever a third speaker enters.
+- **Few names inside lines.** Every name said out loud ("Ashley, mi amor") can pull the next line onto that character's voice. Use a name only when it's needed to show who's being addressed, and never in the line right before that person speaks if you can avoid it. Nobody says their own name.
+- **No one-word lines from the other person in the middle of a guest's speech** (a man's "Mm-hmm" inside a woman's monologue is where voices swap). Merge the guest's lines instead; save backchannels for host-to-host talk.
+- **Every guest line gets a style tag** that matches her (`[theatrical, fresa]`, `[from the booth, a little shy]`), even short ones.
+- Cameos (Ashley from the booth, a "dice producción" line) are short, 1–3 lines, and clearly set up by the line before.
+
 ## Transitions + music
 Rotate through transitions so the show flows. Never use the same one twice in an episode.
 - Serious: "En otras noticias…" (Chino, right after the music sting), "In other news, and this one's serious…", "Ahora sí, hablando en serio…"
