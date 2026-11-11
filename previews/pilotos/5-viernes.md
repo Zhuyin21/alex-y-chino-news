@@ -86,7 +86,7 @@ CHINO [innocent, still laughing]: ¿Qué? ¡Hablo del chile verde, Doc! De Hatch
 
 ALEX [dry, knowing]: Mm-hmm. I grew up in the 505 too, compa. Conozco los albures. Back to the script.
 
-CHINO [composing himself]: Ya, ya. Perdón, producción.
+CHINO [composing himself, still giggling]: Ya, ya. Perdón, Doc, pero es que me la pusiste de pechito. ¡Estaba listo pa' rematar!
 
 ASHLEY [narrator, big finish]: ¿Logrará el Conde Alejandro escapar de la señora del chile? ¿Le alcanzará al panadero para el atole? No se pierda el próximo capítulo de... ¡El Vampiro de Barelas!
 
