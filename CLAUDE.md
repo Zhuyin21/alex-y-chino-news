@@ -16,4 +16,5 @@ This repo produces a daily news podcast. Before writing or editing any episode, 
   - Doc is about 60% English / 40% Spanish, with New Mexican touches and 2–3 natural dry jokes per episode (none in serious segments).
   - The respect rule holds: never "no mames" or "wey" aimed at Doc.
   - No transition is repeated, and the serious segments have no jokes.
+  - It sounds like a conversation (SHOW_BIBLE "Sound like a real conversation"): ~4–6 backchannels (mm-hmm, ajá, órale), 2–3 friendly interruptions, at most 1 harmless self-correction that ends on the right fact, and none of that in serious segments except quiet backchannels.
   - Rewrite any line that reads like an English news script with Spanish sprinkled on top.

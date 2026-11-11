@@ -14,6 +14,15 @@
 - **Keep it casual. Don't force jokes.** Only joke when it comes naturally. Plenty of stories get zero jokes, and that's fine.
 - **Serious segments:** the hosts drop the jokes and slow down, but the Spanish stays ("No hay palabras").
 
+### Sound like a real conversation (lively, not read)
+Two friends talking, not two anchors taking turns reading. The energy is upbeat but real: the voice model (Gemini Flash TTS) follows the style tags, so use them.
+- **Backchannels:** the listener reacts while the other explains, as its own short line: `CHINO [nodding]: Mm-hmm.` · `ALEX [softly]: Ajá.` · `CHINO [impressed]: ¡Órale!` · `ALEX [dry]: Right.` Aim for **4–6 per episode**, spread out, never two in a row, and mostly inside the longer explanations.
+- **Interruptions:** cut a line off with an em dash and let the other jump in: `CHINO [excited]: ¿Y eso quiere decir que—` / `ALEX [jumping in, amused]: Pérame, pérame, no tan rápido, compa.` **2–3 per episode**, friendly, never rude, and never cutting off a fact halfway (the fact gets said in full by someone).
+- **Self-corrections:** a host fixes a slip: `CHINO [catching himself]: Fueron setenta… no, pérame, setenta y tres votos.` The **final number or name must be the correct one**, the slip must be small and obvious (never a wrong fact left standing), and it's **never used in serious segments** or for victims, casualties or accusations. Max 1 per episode.
+- **Fillers, lightly:** "este…", "o sea", "you know", "a ver", "pues". A few per episode, not in every line.
+- **Use expressive style tags:** `[jumping in]`, `[catching himself]`, `[nodding]`, `[laughing]`, `[half-laughing]`, `[thinking out loud]`, `[surprised]`, `[lowering his voice]`. Vary them; don't repeat the same tag on consecutive lines.
+- **Serious segments:** backchannels only (quiet ones: `[softly]: Mm.`), no interruptions, no self-corrections, no fillers for laughs.
+
 ## Transitions + music
 Rotate through transitions so the show flows. Never use the same one twice in an episode.
 - Serious: "En otras noticias…" (Chino, right after the music sting), "In other news, and this one's serious…", "Ahora sí, hablando en serio…"
