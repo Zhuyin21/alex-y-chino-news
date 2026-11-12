@@ -43,19 +43,40 @@ Rotate through transitions so the show flows. Never use the same one twice in an
 
 **Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`. *(The pipeline will start using the cues once the music is chosen.)*
 
-## Format, weekdays (25–30 min, ~3,800–4,500 words; hard max 4,800)
-**Active from Wednesday, Nov 11, 2026 (Ep 3).** The segment of the day and the extra cast are defined in `PROGRAMACION.md`; read it every day.
+## Format, Monday to Saturday (~30 min, ~4,400–4,900 words; hard max 5,200)
+Every day has the same shape: **~10 minutes of news, ~15 minutes of the segment of the day, and a short close.** The segments and the cast are in `PROGRAMACION.md`; read it every day. The weekday news blocks follow this file; Saturday's science segment also follows `SABADO_TECH.md`.
 
-1. **Cold open + weather** (~1 min): `[MUSIC: intro]`, hellos, today's ABQ forecast.
-2. **Local** (~7–8 min): Albuquerque + Bernalillo County, plus statewide when it matters. **2 main stories** (facts, then a quick back-and-forth) + **3 rapid-fire** headlines.
-3. **US + World, rapid-fire** (~6–7 min): **1 main story + 3 rapid-fire** for the US, then the same for the world, with a transition and a sting between them.
-4. **Segment of the day** (~9–10 min), after a `[MUSIC: sting]`: Mon **El Tema de la Semana** · Tue **Agenda Cultural** (Chino + Sophie) · Wed **Deportes** (+ Chino's quiniela) · Thu **Tech Thursday** · Fri **La Radionovela del Viernes**. Details in `PROGRAMACION.md`.
-5. **Close** (~2–3 min): **One Good Thing** + goodbye, `[MUSIC: outro]`.
+**News is New Mexico first, not only Burque.** "Local" means the whole state when that's where the story is (Santa Fe, Las Cruces, Farmington, the pueblos and tribal nations, the legislature…).
 
-- **Monday:** El Tema de la Semana is the deep version of the week's biggest local issue, so the Local block covers *other* stories.
-- **Tuesday:** Doc does the news blocks, then hands the segment to Chino and Sophie ("Los dejo con Chino y Sophie"); Chino and Sophie close the show.
+### Tuesday to Saturday (~30 min)
+1. **Cold open + weather** (~1.5 min): `[MUSIC: intro]`, hellos and the ABQ weather (see "Weather" below).
+2. **The news, ~10 min, with spoken transitions** so the three blocks never blur together. Use these (light wording variations are fine, the shape isn't):
+   - "**Vámonos con la noticia local del día**" → **1 main** New Mexico story (facts, then a quick back-and-forth) → "**Seguimos con el rapid fire de noticias locales**" → **3 rapid-fire** headlines.
+   - "**Ahora, la noticia nacional del día**" → 1 main US story → "**Y el rapid fire nacional**" → 3 rapid-fire.
+   - "**Vámonos con la noticia internacional del día**" → 1 main world story → "**Y el rapid fire internacional**" → 3 rapid-fire.
+   - Before a story about a tragedy or violence, put `[MUSIC: sting-serious]` and a serious line ("En otras noticias, y esta es seria…") ahead of it, inside the block.
+3. `[MUSIC: sting]` → **Segment of the day** (~15 min): Tue **Agenda Cultural** · Wed **Miércoles en La Cancha** · Thu **Tech Thursday** · Fri **La Radionovela** · Sat **Sábados Científicos**. **Every segment ends with something local.**
+4. **Lo Bueno del Día** (~1.5 min) + goodbye, `[MUSIC: outro]`. The good news **fits the day's theme** (a sports story on Wednesday, tech on Thursday, a science win on Saturday; a fun Burque story on Monday or Friday).
+
+### Monday (~30 min): the news that starts the week
+1. Cold open + weather (~1.5 min).
+2. **Noticias Locales** (~6 min): 2 main + 3 rapid-fire. `[MUSIC: sting]`
+3. **Nacional** (~3 min): 1 main + 3 rapid-fire. `[MUSIC: sting]`
+4. **Internacional** (~3 min): 1 main + 3 rapid-fire. `[MUSIC: sting]`
+5. **El Tema de la Semana** (~12 min): the week's biggest New Mexico issue in depth, plus UNM news. The news blocks cover *other* stories.
+6. **Lo que viene esta semana** (~2.5 min): council and legislature meetings, key dates, big events (local to end).
+7. Lo Bueno del Día + goodbye.
+
+### Weather (every day, in the cold open)
+- Today's **high and low in °F and °C** ("sesenta y ocho grados, unos veinte centígrados"), **humidity**, and **chance of rain or snow**.
+- **Air quality and pollen when they matter:** say it when the AQI is moderate or worse (smoke, dust, ozone) or pollen is high, with a quick tip for people with asthma or allergies. Skip it on clean days.
+- Sources: the National Weather Service Albuquerque forecast; AirNow or the City of Albuquerque Air Quality Program for AQI; a reputable pollen forecast. Cite them in the show notes under the cold open.
+
+### Day notes
+- **Tuesday:** Doc does the news, then hands the segment to Chino and Sophie ("Los dejo con Chino y Sophie"); Chino and Sophie close the show.
+- **Saturday:** Doc and Chino do the news; then **Chino hands the mic to Ashley** with a real transition ("¡Ashley, te toca! Hoy es Sábados Científicos…"), and Doc and Ashley do the science segment and close.
 - **Friday:** the radionovela is clearly fiction and comedy. Picardía and the odd albur are fine (Doc shuts it down: "this is a family show"); no strong swearing, no jokes at the expense of real people or groups.
-- Length flexes with the news, but the segment of the day always gets its ~10 minutes. Never pad: a short, solid news day is better than filler.
+- Length flexes a little with the news, but the segment always gets its ~15 minutes. Never pad: a tight news block is better than filler.
 
 Keep banter tight: one good joke per story beats three okay ones. Cut background the listener doesn't need while driving.
 
