@@ -54,5 +54,20 @@
       "paid-flex": 19
     },
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-11_episode-003.md"
+  },
+  {
+    "stem": "2026-11-12_episode-004",
+    "episode": "4",
+    "air_date": "2026-11-12",
+    "title": "Ep 4: Child care co-pays for high earners, a SNAP rule that could cut 6.3 million, and is home solar still worth it?",
+    "description": "La noticia local del d\u00eda: co-pays for child care \u00b7 Rapid fire local \u00b7 La noticia nacional del d\u00eda: the SNAP rule \u00b7 Rapid fire nacional \u00b7 La noticia internacional del d\u00eda: a prisoner swap, but no peace deal yet \u00b7 Rapid fire internacional \u00b7 \u00bfVale la pena? \u00b7 El Avance de la Semana: \u00bfHype o realidad? \u00b7 Tecnolog\u00eda en Nuevo M\u00e9xico",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-12_episode-004/2026-11-12_episode-004.mp3",
+    "bytes": 13528545,
+    "duration_s": 1690,
+    "tts_usage": {
+      "paid-flex": 26,
+      "free": 10
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-12_episode-004.md"
   }
 ]
