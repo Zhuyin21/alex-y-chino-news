@@ -22,8 +22,15 @@ SHOW_TITLE = "Alex y Chino"
 # (real audio/mpeg with byte-range support, which Apple Podcasts requires) instead of GitHub Releases.
 AUDIO_BASE = os.environ.get("AUDIO_BASE", "").rstrip("/")
 MAX_ITEMS = int(os.environ.get("FEED_MAX_ITEMS") or "30")
-SHOW_DESC = ("Daily Spanglish news podcast. Dr. Alex y Chino break down local "
-             "(Albuquerque/Bernalillo), US, and world news. AI-generated from sourced scripts.")
+SHOW_DESC = ("Show hecho con IA: los guiones los escribe IA a partir de fuentes reales y las voces "
+             "son sintéticas (Doc, Chino, Ashley y Sophie son personajes de IA). "
+             "Podcast diario en Spanglish, de lunes a sábado: las noticias de Nuevo México, "
+             "Estados Unidos y el mundo, más el segmento del día. Referencias en cada episodio. "
+             "Made with AI: AI-written scripts based on real sources, and synthetic voices.")
+# First line of every episode's notes (Apple Podcasts guideline 1.11: AI-generated audio
+# must be disclosed in each episode's content and metadata).
+AI_NOTICE = ("🤖 Episodio hecho con IA: guion escrito por IA a partir de fuentes reales y voces "
+             "sintéticas. Las referencias están abajo. / Made with AI: AI-written script, synthetic voices.")
 
 
 APPLE_DESC_LIMIT = 4000  # Apple Podcasts: <description> max 4,000 characters
@@ -96,7 +103,7 @@ def episode_notes(e: dict) -> tuple[str, str]:
     summary = e.get("description", "")
     notes_url = e.get("notes_url", SITE)
     notes_md = show_notes_md(e.get("stem", ""))
-    parts = []
+    parts = [f"<p>{escape(AI_NOTICE)}</p>"]
     if summary:
         parts.append(f"<p>{escape(summary)}</p>")
     refs = references(notes_md) if notes_md else []
@@ -111,6 +118,7 @@ def episode_notes(e: dict) -> tuple[str, str]:
         desc = content
     else:
         desc = "\n".join(p for p in (
+            f"<p>{escape(AI_NOTICE)}</p>",
             f"<p>{escape(summary)}</p>" if summary else "",
             f'<p>Show notes with all references (IEEE): <a href="{escape(notes_url)}">{escape(notes_url)}</a></p>',
         ) if p)
