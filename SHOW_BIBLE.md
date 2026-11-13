@@ -57,6 +57,7 @@ Every day has the same shape: **~10 minutes of news, ~15 minutes of the segment 
    - Before a story about a tragedy or violence, put `[MUSIC: sting-serious]` and a serious line ("En otras noticias, y esta es seria…") ahead of it, inside the block.
 3. `[MUSIC: sting]` → **Segment of the day** (~15 min): Tue **Agenda Cultural** · Wed **Miércoles en La Cancha** · Thu **Tech Thursday** · Fri **La Radionovela** · Sat **Sábados Científicos**. **Every segment ends with something local.**
 4. **Lo Bueno del Día** (~1.5 min) + goodbye, `[MUSIC: outro]`. The good news **fits the day's theme** (a sports story on Wednesday, tech on Thursday, a science win on Saturday; a fun Burque story on Monday or Friday).
+5. **Doc's AI reminder** (~10 s), then the goodbye and `[MUSIC: outro]`. See "AI disclosure" below.
 
 ### Monday (~30 min): the news that starts the week
 1. Cold open + weather (~1.5 min).
@@ -65,7 +66,16 @@ Every day has the same shape: **~10 minutes of news, ~15 minutes of the segment 
 4. **Internacional** (~3 min): 1 main + 3 rapid-fire. `[MUSIC: sting]`
 5. **El Tema de la Semana** (~12 min): the week's biggest New Mexico issue in depth, plus UNM news. The news blocks cover *other* stories.
 6. **Lo que viene esta semana** (~2.5 min): council and legislature meetings, key dates, big events (local to end).
-7. Lo Bueno del Día + goodbye.
+7. Lo Bueno del Día, **Doc's AI reminder**, then the goodbye.
+
+### AI disclosure (every day, right before the goodbye)
+The show is made with AI (scripts and voices), and Apple Podcasts requires shows with synthetic voices or AI hosts to say so prominently in each episode. So **every episode ends with Doc's AI reminder**: after Lo Bueno del Día, Doc says one short line (~10 seconds, under ~30 words), and then Chino (or whoever closes that day) says the goodbye.
+- It always says three things: **the show is made with AI** (the scripts and the voices), **the news is real**, and **the sources are in the show notes**.
+- Vary the wording every day, in Doc's usual Spanglish. Calm and sincere, never a joke and never a punchline. Examples (don't copy them word for word):
+  - DOC: "Antes de irnos, el recordatorio de siempre: this show is made with AI, los guiones y las voces. Las noticias son reales, y las fuentes están en las notas."
+  - DOC: "Y como cada día: somos un show hecho con inteligencia artificial, pero todo lo que les contamos tiene fuente. Check the show notes."
+- **Tuesday:** Doc comes back for this one line, then Chino and Sophie say goodbye. **Saturday:** Doc says it before he and Ashley close.
+- The feed adds the same notice as the first line of every episode's notes (`pipeline/build_feed.py`), so the script doesn't need to repeat it in the show notes.
 
 ### Weather (every day, in the cold open)
 - Today's **high and low in °F and °C** ("sesenta y ocho grados, unos veinte centígrados"), **humidity**, and **chance of rain or snow**.
@@ -73,7 +83,7 @@ Every day has the same shape: **~10 minutes of news, ~15 minutes of the segment 
 - Sources: the National Weather Service Albuquerque forecast; AirNow or the City of Albuquerque Air Quality Program for AQI; a reputable pollen forecast. Cite them in the show notes under the cold open.
 
 ### Day notes
-- **Tuesday:** Doc does the news, then hands the segment to Chino and Sophie ("Los dejo con Chino y Sophie"); Chino and Sophie close the show.
+- **Tuesday:** Doc does the news, then hands the segment to Chino and Sophie ("Los dejo con Chino y Sophie"); Doc returns only for the AI reminder, and Chino and Sophie say the goodbye.
 - **Saturday:** Doc and Chino do the news; then **Chino hands the mic to Ashley** with a real transition ("¡Ashley, te toca! Hoy es Sábados Científicos…"), and Doc and Ashley do the science segment and close.
 - **Friday:** the radionovela is clearly fiction and comedy. Picardía and the odd albur are fine (Doc shuts it down: "this is a family show"); no strong swearing, no jokes at the expense of real people or groups.
 - Length flexes a little with the news, but the segment always gets its ~15 minutes. Never pad: a tight news block is better than filler.
@@ -87,7 +97,7 @@ Keep banter tight: one good joke per story beats three okay ones. Cut background
 - **No jokes about victims, deaths, tragedies or violence.**
 - **Allegations stay "alleged"** until there's a conviction.
 - **Election results:** say who called the race. Uncalled races are "still being counted," never "won."
-- **Conflicts of interest:** the show is produced with Claude, so skip or disclose any Anthropic stories.
+- **Conflicts of interest:** the show is produced with Claude (scripts) and Google Gemini (voices), so skip or disclose any Anthropic stories, and disclose the show's use of their tools when a story involves Anthropic, Claude, Google or Gemini.
 - **Language:** light cursing is OK in English and Spanish (wey, no mames, pinche, hell). At most a handful per episode, and never in serious segments.
 
 ## Sources
