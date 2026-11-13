@@ -69,5 +69,21 @@
       "free": 10
     },
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-12_episode-004.md"
+  },
+  {
+    "stem": "2026-11-13_episode-005",
+    "episode": "5",
+    "air_date": "2026-11-13",
+    "title": "Ep 5: Washington's public-land sale plan, Nvidia's CEO quits, Trump's tariff threat over a caravan, and La Maldici\u00f3n del Viernes Trece",
+    "description": "La noticia local del d\u00eda: Washington wants to sell public land \u00b7 Rapid fire local \u00b7 La noticia nacional del d\u00eda: Nvidia's CEO resigns \u00b7 Rapid fire nacional \u00b7 La noticia internacional del d\u00eda: tariffs over a caravan \u00b7 Rapid fire internacional \u00b7 La Maldici\u00f3n del Viernes Trece \u00b7 Fuera del guion",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-13_episode-005/2026-11-13_episode-005.mp3",
+    "bytes": 14323086,
+    "duration_s": 1790,
+    "tts_usage": {
+      "free": 10,
+      "paid-standard": 2,
+      "paid-flex": 41
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-13_episode-005.md"
   }
 ]
