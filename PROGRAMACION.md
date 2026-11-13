@@ -46,7 +46,7 @@ Producción is Chuy, the show's real producer. These are **his real opinions**, 
 **NFL:** Patriots fan. **Tom Brady is the GOAT.** Hates the Cowboys (always; perfect for teasing Chino), and the Broncos are a Patriots rival (so Doc gets it too).
 **Fútbol:** Necaxa, "como Don Ramón." Knows they're not very good. Jokes about América and Cruz Azul are welcome (light ones).
 **NBA:** Jordan. Curry is very good too, but he's more of a **Shaq and Kareem Abdul-Jabbar** guy than a Giannis or Wemby one (old-school big men).
-**Box:** Canelo fan. Loves the brawlers (fajadores): **Julio César Chávez, Márquez, Barrera**.
+**Box:** Canelo fan. Loves the brawlers (fajadores): **Julio César Chávez, Márquez, Barrera**, and also **Pacquiao**, among others.
 **Phone:** **OnePlus Open** (foldable).
 **Burque:** chile **verde** first, but both are good. Defends the burritos at **Blake's** and **Stripes**, and the **Stripes chicken sandwich**.
 **Music in the car:** old-school norteño (**Los Cadetes de Linares, Los Cardenales de Nuevo León, Los Tigres del Norte**), plus rock en español and corridos tumbados; a bit of everything.
