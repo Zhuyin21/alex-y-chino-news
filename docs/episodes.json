@@ -85,5 +85,20 @@
       "paid-flex": 41
     },
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-13_episode-005.md"
+  },
+  {
+    "stem": "2026-11-14_sabado-002",
+    "episode": "sabado-2",
+    "air_date": "2026-11-14",
+    "title": "S\u00e1bados Cient\u00edficos: \u00bfCu\u00e1nta agua y cu\u00e1nta luz se comen los data centers?",
+    "description": "La noticia local del d\u00eda: ex-APD officer convicted in deadly hit-and-run \u00b7 Rapid fire local \u00b7 La noticia nacional del d\u00eda: the nationwide ground stop \u00b7 Rapid fire nacional \u00b7 La noticia internacional del d\u00eda: Iran, Bahrain and the Strait of Hormuz \u00b7 Rapid fire internacional \u00b7 El Tema de Ashley: data centers, water and power \u00b7 \u00bfMito o Ciencia? \u00b7 Preg\u00fantale a Doc \u00b7 Ciencia en Nuevo M\u00e9xico: the Roadrunner Quantum Lab",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-14_sabado-002/2026-11-14_sabado-002.mp3",
+    "bytes": 14148588,
+    "duration_s": 1768,
+    "tts_usage": {
+      "paid-flex": 25,
+      "free": 10
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-14_sabado-002.md"
   }
 ]
