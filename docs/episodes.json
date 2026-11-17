@@ -115,5 +115,20 @@
       "free": 10
     },
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-16_episode-006.md"
+  },
+  {
+    "stem": "2026-11-17_episode-007",
+    "episode": "7",
+    "air_date": "2026-11-17",
+    "title": "Ep 7: Burque bans glue traps, the U.S. loses its measles status, Trump lands in Manila, and Sophie's O'Keeffe in a closet",
+    "description": "La noticia local del d\u00eda: Albuquerque bans glue traps \u00b7 Rapid fire local \u00b7 La noticia nacional del d\u00eda: the U.S. loses its measles elimination status \u00b7 Rapid fire nacional \u00b7 La noticia internacional del d\u00eda: Trump lands in Manila \u00b7 Rapid fire internacional \u00b7 Cine y streaming \u00b7 M\u00fasica \u00b7 La recomendaci\u00f3n de Sophie \u00b7 El evento local de la semana",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-17_episode-007/2026-11-17_episode-007.mp3",
+    "bytes": 14008989,
+    "duration_s": 1751,
+    "tts_usage": {
+      "paid-flex": 24,
+      "free": 10
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-17_episode-007.md"
   }
 ]
