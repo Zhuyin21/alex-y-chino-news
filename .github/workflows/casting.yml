@@ -29,8 +29,8 @@ jobs:
       - run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
           pip install -q -r pipeline/requirements.txt
-      - run: python pipeline/casting.py
-      - name: Publish as release "casting" (not in the feed)
+      - run: pip install -q numpy && python pipeline/sfx.py futbol
+      - name: Publish as release "sfx-test" (not in the feed)
         run: |
-          gh release delete casting --yes --cleanup-tag >/dev/null 2>&1 || true
-          gh release create casting build/casting/*.mp3 --title "Casting" --notes-file build/casting.txt --prerelease
+          gh release delete sfx-test --yes --cleanup-tag >/dev/null 2>&1 || true
+          gh release create sfx-test build/sfx/*.mp3 build/sfx/*_voces_crudas.wav --title "SFX test" --notes "Sports transition test" --prerelease --target sfx-test
