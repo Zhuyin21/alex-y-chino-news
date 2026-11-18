@@ -1,8 +1,8 @@
 # Alex y Chino: Show Bible
 
 ## Hosts
-- **Dr. Alex** (also "Alex," "Doc"): grew up in Burque, PhD in **mechanical engineering**. Professional, calm and clear: he explains how things work and what the numbers mean. Relaxed, not stiff. Light New Mexico touches: *Eee, ay ay, uy, suave, ahí te watcho, bro*, "red or green?", "Christmas style," an occasional *¡hijo!* **Language mix: about 60% English, 40% Spanish.** He drops a **dry joke or a nerdy dad joke every now and then** (roughly 2–3 per episode, never forced, never in serious segments) and laughs at Chino's jokes.
-- **Chino**: Mexican, from Juárez, Chihuahua, now living in Burque. He has an abuela with opinions and fútbol takes. Warm, energetic, funny. **Language mix: about 70% Spanish, 30% English.** Real Juárez/Chihuahua border Spanish, with whole sentences, reactions and many facts said in Spanish. **He laughs easily**: mark it with style tags like `[laughing]`, `[chuckling]` or `[cracking up]` on a good number of his lighter lines, plus the occasional short "¡Ja!" (never "jajaja" spelled out). Connects stories to everyday life on both sides of the border. His humor comes from his personality, never from stereotypes.
+- **Dr. Alex** (also "Alex," "Doc"): grew up in Burque, PhD in **mechanical engineering**. Professional, calm and clear: he explains how things work and what the numbers mean. Relaxed, not stiff. Light New Mexico touches: *Eee, ay ay, uy, suave, ahí te watcho, bro*, "red or green?", "Christmas style," an occasional *¡hijo!* **Language mix: about 60% English, 40% Spanish.** He drops a **dry joke or a nerdy dad joke every now and then** (roughly 2–3 per episode, never forced, never in serious segments) and laughs at Chino's jokes. **About 40.** His engineering shows in **how** he explains (mechanisms, numbers, "how would you test that?"), **not in announcing it**: "como ingeniero…" / "as an engineer…" at most once an episode, and only when it really adds something. Family life (his daughter Julie) is in PROGRAMACION.md.
+- **Chino**: Mexican, from Juárez, Chihuahua, now living in Burque, **25–27 years old**. Family rotation (abuela in Juárez, relatives in Burque) is in PROGRAMACION.md. Warm, energetic, funny. **Language mix: about 70% Spanish, 30% English.** Real Juárez/Chihuahua border Spanish, with whole sentences, reactions and many facts said in Spanish. **He laughs easily**: mark it with style tags like `[laughing]`, `[chuckling]` or `[cracking up]` on a good number of his lighter lines, plus the occasional short "¡Ja!" (never "jajaja" spelled out). Connects stories to everyday life on both sides of the border. His humor comes from his personality, never from stereotypes.
 - **Their dynamic:** Chino **respects Doc as his mentor.** He teases him, but warmly. They're compas, and it should sound like two friends in a car, not anchors reading a teleprompter.
 
 ## How they talk
@@ -44,18 +44,25 @@ Rotate through transitions so the show flows. Never use the same one twice in an
 **Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`. *(The pipeline will start using the cues once the music is chosen.)*
 
 ## Format, Monday to Saturday (~30 min, ~4,400–4,900 words; hard max 5,200)
-Every day has the same shape: **~10 minutes of news, ~15 minutes of the segment of the day, and a short close.** The segments and the cast are in `PROGRAMACION.md`; read it every day. The weekday news blocks follow this file; Saturday's science segment also follows `SABADO_TECH.md`.
+Every day has the same shape: **~7 minutes of news, ~18 minutes of the segment of the day, and a short close** (Monday keeps its longer news). The segments and the cast are in `PROGRAMACION.md`; read it every day. The weekday news blocks follow this file; Saturday's science segment also follows `SABADO_TECH.md`.
 
 **News is New Mexico first, not only Burque.** "Local" means the whole state when that's where the story is (Santa Fe, Las Cruces, Farmington, the pueblos and tribal nations, the legislature…).
 
+**Don't repeat news (every day, Monday included).** The `episodes/` folder is the record: before picking stories, read the show notes of the **episodes from the last 7 days**.
+- A story that aired **yesterday is not covered today**, not even from a new angle.
+- It can come back as a **seguimiento** from **two days later** (e.g., Monday → Wednesday), and only with a **real new development**: new facts, a vote, a ruling, new numbers. Say it's an update ("Seguimiento: …") and keep it to a rapid-fire item or 1–2 lines, unless the development is itself the biggest news of the day.
+- The same story told from another angle, with nothing new, counts as a repeat. Use the slot for a story we haven't covered.
+
+**Explain the references.** When a US custom or holiday, or something very Burque, comes up (Friday the 13th, Thanksgiving traditions, "red or green?"), explain it in one line so a listener who grew up in Latin America gets it, and do the same the other way around (martes 13, el Día de la Candelaria…).
+
 ### Tuesday to Saturday (~30 min)
 1. **Cold open + weather** (~1.5 min): `[MUSIC: intro]`, hellos and the ABQ weather (see "Weather" below).
-2. **The news, ~10 min, with spoken transitions** so the three blocks never blur together. Use these (light wording variations are fine, the shape isn't):
-   - "**Vámonos con la noticia local del día**" → **1 main** New Mexico story (facts, then a quick back-and-forth) → "**Seguimos con el rapid fire de noticias locales**" → **3 rapid-fire** headlines.
-   - "**Ahora, la noticia nacional del día**" → 1 main US story → "**Y el rapid fire nacional**" → 3 rapid-fire.
-   - "**Vámonos con la noticia internacional del día**" → 1 main world story → "**Y el rapid fire internacional**" → 3 rapid-fire.
+2. **The news, ~7 min, with spoken transitions** so the three blocks never blur together. Use these (light wording variations are fine, the shape isn't):
+   - "**Vámonos con la noticia local del día**" → **1 main** New Mexico story (facts, then a quick back-and-forth) → "**Seguimos con el rapid fire de noticias locales**" → **2 rapid-fire** headlines.
+   - "**Ahora, la noticia nacional del día**" → 1 main US story → "**Y el rapid fire nacional**" → 2 rapid-fire.
+   - "**Vámonos con la noticia internacional del día**" → 1 main world story → "**Y el rapid fire internacional**" → 2 rapid-fire.
    - Before a story about a tragedy or violence, put `[MUSIC: sting-serious]` and a serious line ("En otras noticias, y esta es seria…") ahead of it, inside the block.
-3. `[MUSIC: sting]` → **Segment of the day** (~15 min): Tue **Agenda Cultural** · Wed **Miércoles en La Cancha** · Thu **Tech Thursday** · Fri **La Radionovela** · Sat **Sábados Científicos**. **Every segment ends with something local.**
+3. `[MUSIC: sting]` → **Segment of the day** (~18 min): Tue **Agenda Cultural** · Wed **Miércoles en La Cancha** · Thu **Tech Thursday** · Fri **Viernes de Variedad** · Sat **Sábados Científicos**. **Every segment ends with something local.**
 4. **Lo Bueno del Día** (~1.5 min) + goodbye, `[MUSIC: outro]`. The good news **fits the day's theme** (a sports story on Wednesday, tech on Thursday, a science win on Saturday; a fun Burque story on Monday or Friday).
 5. **Doc's AI reminder** (~10 s), then the goodbye and `[MUSIC: outro]`. See "AI disclosure" below.
 
@@ -85,8 +92,9 @@ The show is made with AI (scripts and voices), and Apple Podcasts requires shows
 ### Day notes
 - **Tuesday:** Doc does the news, then hands the segment to Chino and Sophie ("Los dejo con Chino y Sophie"); Doc returns only for the AI reminder, and Chino and Sophie say the goodbye.
 - **Saturday:** Doc and Chino do the news; then **Chino hands the mic to Ashley** with a real transition ("¡Ashley, te toca! Hoy es Sábados Científicos…"), and Doc and Ashley do the science segment and close.
-- **Friday:** the radionovela is clearly fiction and comedy. Picardía and the odd albur are fine (Doc shuts it down: "this is a family show"); no strong swearing, no jokes at the expense of real people or groups.
-- Length flexes a little with the news, but the segment always gets its ~15 minutes. Never pad: a tight news block is better than filler.
+- **Friday:** Viernes de Variedad rotates formats (PROGRAMACION.md). Anything fictional (a radionovela, a sketch) is clearly fiction and comedy. Picardía and the odd albur are fine (Doc shuts it down: "this is a family show"); no strong swearing, no jokes at the expense of real people or groups. Don't overload it with Burque references; the local part is the weekend plan at the end.
+- **Wednesday and Thursday bring the hype:** open the segment hot, with Chino genuinely excited, shorter lines, a faster back-and-forth and less newscast tone. Hype is energy, never exaggerated facts.
+- Length flexes a little with the news, but the segment always gets its ~18 minutes. Never pad: a tight news block is better than filler.
 
 Keep banter tight: one good joke per story beats three okay ones. Cut background the listener doesn't need while driving.
 

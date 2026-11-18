@@ -76,20 +76,21 @@ VOICES = {
 }
 # Persona hints prepended to every line's style so the accent/register stays consistent.
 PERSONA = {
-    "ALEX": ("Dr. Alex, a mechanical engineer with a PhD, podcast co-host from Albuquerque, New Mexico; calm, clear, "
+    "ALEX": ("Dr. Alex, a mechanical engineer with a PhD, about 40, podcast co-host from Albuquerque, New Mexico; calm, clear, "
              "warm and professional, with a dry sense of humor and an easy laugh; switches naturally between English "
              "(about 60%) and Spanish (about 40%), Spanish with a native Mexican accent"),
-    "CHINO": ("Chino, a young podcast co-host from Ciudad Juárez, Chihuahua, living in Albuquerque; energetic, funny, "
+    "CHINO": ("Chino, a podcast co-host in his mid-twenties from Ciudad Juárez, Chihuahua, living in Albuquerque; energetic, funny, "
               "laughs easily; speaks mostly northern Mexican border Spanish (about 70%) mixed with English (about 30%); "
               "native Juárez accent"),
-    "ASHLEY": ("Ashley, a young woman of 23, second-generation Mexican-American from Albuquerque who works on the show's audio team; "
+    "ASHLEY": ("Ashley, a young woman of 22, a recent graduate, second-generation Mexican-American from Albuquerque who works on the show's audio team; "
                "a friendly, upbeat science nerd; speaks mostly American English (about 70%) and home Spanish (about 30%) "
                "learned from her grandparents, a little hesitant; whenever she speaks Spanish she has a clear American "
                "(gringa) accent: English-style r's (no rolled rr), flat American vowels, English rhythm and intonation, "
                "a bit slower and careful, like a US-born granddaughter; her English is natural, fast American"),
     "SOPHIE": ("Sophie, a glamorous woman in her early 50s, a former Mexican telenovela actress, from Guadalajara, now the show's "
-               "Tuesday entertainment guest; fresa, theatrical and warm, loves gossip; speaks almost entirely Mexican "
-               "Spanish, and her few English words (oh my God, my darling, my honey) carry a strong Mexican accent"),
+               "Tuesday entertainment guest; a theatrical diva, fresa and warm, loves gossip; speaks fluent, natural Mexican "
+               "Spanish with a clear Guadalajara (tapatío) accent and singsong melody, never neutral or Castilian; her few "
+               "English words (oh my God, darling) are said with a strong Mexican accent"),
 }
 # Shorter chunks keep the two-voice model from drifting onto the wrong speaker.
 MAX_CHARS_PER_CHUNK = int(os.environ.get("MAX_CHARS_PER_CHUNK", "1100"))

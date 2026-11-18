@@ -1,6 +1,6 @@
 # alex-y-chino-news
 
-Spanglish news podcast for the Albuquerque commute, **~30 min, Monday to Saturday**: ~10 min of New Mexico, US and world news with Doc and Chino, then a **~15-minute segment of the day**: El Tema de la Semana (Mon), Agenda Cultural with Sophie (Tue), Miércoles en La Cancha (Wed), Tech Thursday (Thu), La Radionovela (Fri) and Sábados Científicos with Ashley (Sat). Auto-generated scripts, AI voices, RSS feed. Lineup and cast: `PROGRAMACION.md`.
+Spanglish news podcast for the Albuquerque commute, **~30 min, Monday to Saturday**: ~7 min of New Mexico, US and world news with Doc and Chino, then a **~18-minute segment of the day**: El Tema de la Semana (Mon), Agenda Cultural with Sophie (Tue), Miércoles en La Cancha (Wed), Tech Thursday (Thu), Viernes de Variedad (Fri) and Sábados Científicos with Ashley (Sat). Auto-generated scripts, AI voices, RSS feed. Lineup and cast: `PROGRAMACION.md`.
 
 ## How it works
 
