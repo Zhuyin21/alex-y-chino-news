@@ -130,5 +130,20 @@
       "free": 10
     },
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-17_episode-007.md"
+  },
+  {
+    "stem": "2026-11-18_episode-008",
+    "episode": "8",
+    "air_date": "2026-11-18",
+    "title": "Ep 8: New Mexico asks for $30M against hackers, the Supreme Court takes Trump's border asylum ban, Sheinbaum asks Xi for a panda, and Chino's quiniela goes 0 for 3",
+    "description": "La noticia local del d\u00eda: New Mexico asks for $30 million to fight hackers \u00b7 Rapid fire local \u00b7 La noticia nacional del d\u00eda: the Supreme Court takes Trump's border asylum ban \u00b7 Rapid fire nacional \u00b7 La noticia internacional del d\u00eda: Sheinbaum meets Xi \u00b7 Rapid fire internacional \u00b7 M\u00e9xico se salva en Monterrey \u00b7 Liga MX: la \u00faltima jornada \u00b7 NFL: Broncos rested, Cowboys\u2026 not \u00b7 NBA: Wemby, Curry and LeBron's new team \u00b7 Bar\u00e7a, boxeo y UFC: lo que hay que ver \u00b7 Los Lobos: todo en Laramie \u00b7 Lobo hoops and the Pit \u00b7 La quiniela de Chino",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-18_episode-008/2026-11-18_episode-008.mp3",
+    "bytes": 13578492,
+    "duration_s": 1697,
+    "tts_usage": {
+      "free": 9,
+      "paid-flex": 22
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-18_episode-008.md"
   }
 ]
