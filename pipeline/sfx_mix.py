@@ -320,14 +320,27 @@ def martes_evento() -> np.ndarray:  # crowd before a concert: el evento local
     return timeline(2.9, [(0.0, cut(load("martes-boletos.mp3"), 0.10, 3.00, fin=0.15), 0)], fade_out=1.0)
 
 
+# ---------------------------------------------------------------- Monday
+def lunes_reloj() -> np.ndarray:  # serious ticking to open El Tema de la Semana
+    return timeline(3.2, [(0.0, cut(load("lunes-reloj.mp3"), 0.0, 3.30, fin=0.002), 0)], fade_out=0.8)
+
+
+def _papeles(start: float, end: float) -> np.ndarray:  # papers shuffling: "a ver qué trae la semana"
+    return timeline(end - start, [(0.0, cut(load("lunes-papeles.mp3"), start, end, fin=0.08), 0)], fade_out=0.4)
+
+
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+LEVEL = {"lunes-reloj": -21.0, "lunes-papeles": -22.0, "lunes-papeles-2": -22.0, "lunes-papeles-3": -22.0, "lunes-papeles-4": -22.0, "martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
     "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
+    # Monday (papeles has 4 takes that rotate weekly)
+    "lunes-reloj": lunes_reloj,
+    "lunes-papeles": lambda: _papeles(0.90, 2.40), "lunes-papeles-2": lambda: _papeles(15.45, 17.00),
+    "lunes-papeles-3": lambda: _papeles(19.70, 21.20), "lunes-papeles-4": lambda: _papeles(23.20, 25.00),
     # Agenda Cultural (Tuesday)
     "martes-diva": martes_diva, "martes-cine": martes_cine, "martes-vinil": martes_vinil,
     "martes-chisme": martes_chisme, "martes-evento": martes_evento,
