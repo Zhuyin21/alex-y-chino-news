@@ -55,6 +55,8 @@ Rotate through transitions so the show flows. Never use the same one twice in an
   - `campanilla` (a hotel desk bell): when Chino **locks in a quiniela pick** ("¡pick final!"), or before a **dato curioso**. At most 3 in the quiniela and once elsewhere.
   - `escribiendo` (pen on paper, "anotado"): when Doc **writes down Chino's quiniela**.
   - `llamada` (ringback tones): a **call into the studio**, only from the cast: Ashley calling from outside the studio, or Sophie on another day with a chisme too big to wait (about once a month). At most once a week. Never a "listener" call: listeners only appear with a real message and their permission.
+  - Little accidents (count as comedy sounds): `caida-papel` (someone's papers slip off the desk; they laugh it off), `caida-micro` (a mic hits the floor, or a real "mic drop" after winning an argument). Rare: about once a week between the two.
+  - Cars: `carro-arranca`, `carro-acelera`, `carro-freno`, `carro-claxon`, `carro-puerta` for radionovela scenes or a quick commute joke in the cold open; `chino-llega-tarde` only for the surprise bit in PROGRAMACION.md.
   - Overall, keep it to a handful of sound effects per episode: they're seasoning, like the rivalries.
 - **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
 - **Weather:** `clima`, `clima-lluvia`, `clima-tormenta`, `clima-truenos` (see "Weather").

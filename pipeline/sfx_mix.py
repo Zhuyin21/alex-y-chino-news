@@ -387,14 +387,62 @@ def llamada() -> np.ndarray:  # ringback tones: a cast member calling into the s
     return _clip("viernes-telefonollamada.mp3", 0.05, 3.70, fin=0.003, fade_out=0.3)
 
 
+# ---------------------------------------------------------------- accidents, cars, Chino's late arrival
+def caida_papel() -> np.ndarray:  # papers slipping off the desk (second take of the source)
+    return _clip("general-caidapapel.mp3", 3.05, 4.40, fin=0.01, fade_out=0.4)
+
+
+def caida_papel_2() -> np.ndarray:  # third take; the build rotates them weekly
+    return _clip("general-caidapapel.mp3", 4.75, 6.30, fin=0.01, fade_out=0.4)
+
+
+def caida_micro() -> np.ndarray:  # a mic hitting the floor
+    return _clip("general-caidamicro.mp3", 0.12, 1.15, fin=0.003, fade_out=0.3)
+
+
+def caida_chino() -> np.ndarray:  # someone tripping
+    return _clip("general-caidachino.mp3", 0.0, 1.25, fin=0.003, fade_out=0.3)
+
+
+def carro_arranca() -> np.ndarray:
+    return _clip("general-carroarrancaymaneja.mp3", 1.10, 6.00, fin=0.02, fade_out=1.4)
+
+
+def carro_acelera() -> np.ndarray:  # from inside the car
+    return _clip("general-carroaceleradentro.mp3", 1.10, 5.00, fin=0.05, fade_out=1.2)
+
+
+def carro_freno() -> np.ndarray:
+    return _clip("general-carrofreno.mp3", 0.40, 3.60, fin=0.01, fade_out=0.8)
+
+
+def carro_claxon() -> np.ndarray:
+    return _clip("general-carroclaxon.mp3", 0.0, 0.65, fin=0.003, fade_out=0.1)
+
+
+def carro_puerta() -> np.ndarray:
+    return _clip("general-carropuerta.mp3", 0.0, 0.45, fin=0.002, fade_out=0.1)
+
+
+def chino_llega_tarde() -> np.ndarray:  # screech, car door, a stumble at the studio door
+    freno = cut(load("general-carrofreno.mp3"), 0.40, 2.60, fin=0.01, fout=0.5)
+    puerta = cut(load("general-carropuerta.mp3"), 0.0, 0.45, fin=0.002, fout=0.08)
+    caida = cut(load("general-caidachino.mp3"), 0.0, 1.25, fin=0.003, fout=0.25)
+    return timeline(4.6, [(0.0, freno, 0), (2.35, puerta, 2), (3.25, caida, 3)], fade_out=0.3)
+
+
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"clima": -23.0, "clima-lluvia": -24.0, "clima-tormenta": -23.0, "clima-truenos": -21.0, "lunes-mazo": -22.0, "viernes-puerta-rechinido": -22.0, "llamada": -22.0, "viernes-telefono": -21.0, "lunes-reloj": -21.0, "lunes-papeles": -22.0, "lunes-papeles-2": -22.0, "lunes-papeles-3": -22.0, "lunes-papeles-4": -22.0, "martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+LEVEL = {"caida-papel": -22.0, "caida-papel-2": -22.0, "carro-claxon": -22.0, "clima": -23.0, "clima-lluvia": -24.0, "clima-tormenta": -23.0, "clima-truenos": -21.0, "lunes-mazo": -22.0, "viernes-puerta-rechinido": -22.0, "llamada": -22.0, "viernes-telefono": -21.0, "lunes-reloj": -21.0, "lunes-papeles": -22.0, "lunes-papeles-2": -22.0, "lunes-papeles-3": -22.0, "lunes-papeles-4": -22.0, "martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
     "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
+    # Accidents, cars, Chino's late arrival
+    "caida-papel": caida_papel, "caida-papel-2": caida_papel_2, "caida-micro": caida_micro, "caida-chino": caida_chino,
+    "carro-arranca": carro_arranca, "carro-acelera": carro_acelera, "carro-freno": carro_freno,
+    "carro-claxon": carro_claxon, "carro-puerta": carro_puerta, "chino-llega-tarde": chino_llega_tarde,
     # Weather intro in the cold open (pick by the forecast)
     "clima": clima, "clima-lluvia": clima_lluvia, "clima-tormenta": clima_tormenta, "clima-truenos": clima_truenos,
     "llamada": llamada,
