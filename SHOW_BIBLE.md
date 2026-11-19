@@ -56,6 +56,7 @@ Rotate through transitions so the show flows. Never use the same one twice in an
   - `escribiendo` (pen on paper, "anotado"): when Doc **writes down Chino's quiniela**, or to open **Lo que viene esta semana** on Monday (the week's agenda).
   - Overall, keep it to a handful of sound effects per episode: they're seasoning, like the rivalries.
 - **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
+- **Sábados Científicos:** `sabado-burbujas`, `sabado-espacio`, `sabado-eureka`, `sabado-mito`, `sabado-ciencia`, `sabado-nm` (where each goes: SABADO_TECH.md).
 - **Tech Thursday:** `tech-noticias`, `tech-ia`, `tech-vale`, `tech-si-vale`, `tech-esperate`, `tech-ni-lo-pienses`, `tech-avance`, `tech-realidad`, `tech-hype`, `tech-nm`.
 
 ## Format, Monday to Saturday (~30 min, ~4,400–4,900 words; hard max 5,200)

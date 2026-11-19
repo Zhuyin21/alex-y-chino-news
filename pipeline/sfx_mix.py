@@ -230,14 +230,43 @@ def escribiendo() -> np.ndarray:  # pen on paper: "anotado"
     return timeline(2.0, [(0.0, cut(load("general-escribiendo.mp3"), 0.65, 2.75, fin=0.1), 0)], fade_out=0.5)
 
 
+# ---------------------------------------------------------------- Sábados Científicos
+def sabado_burbujas() -> np.ndarray:  # lab bubbling: El Tema de Ashley
+    return timeline(2.8, [(0.0, cut(load("sabado-burbujas.mp3"), 0.8, 3.8, fin=0.25), 0)], fade_out=0.8)
+
+
+def sabado_eureka() -> np.ndarray:  # the lightbulb "ding!"
+    return timeline(1.8, [(0.0, cut(load("sabado-eureka.mp3"), 0.68, 2.60, fin=0.003), 0)], fade_out=0.4)
+
+
+def sabado_eureka_2() -> np.ndarray:  # second take, rotates weekly
+    return timeline(1.1, [(0.0, cut(load("sabado-eureka2.mp3"), 0.0, 1.10, fin=0.003), 0)], fade_out=0.3)
+
+
+def sabado_espacio() -> np.ndarray:  # space ambience swelling in (space topics)
+    return timeline(3.6, [(0.0, cut(load("sabado-espacio.mp3"), 1.2, 4.8, fin=0.05), 0)], fade_out=1.0)
+
+
+def sabado_espacio_2() -> np.ndarray:  # second take, rotates weekly
+    return timeline(3.6, [(0.0, cut(load("sabado-espacio2.mp3"), 0.4, 4.4, fin=0.6), 0)], fade_out=1.2)
+
+
+def sabado_mito() -> np.ndarray:  # ¿Mito o Ciencia? verdict: Mito
+    return timeline(1.4, [(0.0, cut(load("sabado-mito.mp3"), 0.0, 1.40, fin=0.003), 0)], fade_out=0.4)
+
+
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+LEVEL = {"sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
     "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
+    # Sábados Científicos (Ciencia verdict = tech-si-vale; Ciencia en NM close = tech-nm)
+    "sabado-burbujas": sabado_burbujas, "sabado-eureka": sabado_eureka, "sabado-eureka-2": sabado_eureka_2,
+    "sabado-espacio": sabado_espacio, "sabado-espacio-2": sabado_espacio_2, "sabado-mito": sabado_mito,
+    "sabado-ciencia": tech_si_vale, "sabado-nm": tech_nm,
     # Miércoles en La Cancha
     "futbol": futbol, "nfl": nfl, "nba": nba, "box": box, "lobos": lobos,
     # Tech Thursday

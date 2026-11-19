@@ -18,6 +18,8 @@ After the news and Chino's hand-off, `[MUSIC: sting]`, then:
 4. **Ciencia en Nuevo México** (~2 min), to end local: something new from Sandia, Los Alamos, UNM, NM Tech, NMSU, AFRL/Kirtland, Spaceport America or a state energy project; if nothing is new, explain something interesting about one of them, sourced.
 Then **Lo Bueno del Día** with a science flavor, and `[MUSIC: outro]`.
 
+**Sounds** (`[SFX: …]`, rules in SHOW_BIBLE "Sound effects"): `sabado-burbujas` to open El Tema de Ashley (or `sabado-espacio` instead when the topic is space); `sabado-eureka` once, at the "aha" moment of the explanation; `consulta` before the ¿Mito o Ciencia? claim and before Pregúntale a Doc; the verdict sound right after the verdict is said (`sabado-mito` for **Mito**, `sabado-ciencia` for **Ciencia**, nothing for **Más o menos**); `sabado-nm` before Ciencia en Nuevo México; `bueno` before Lo Bueno del Día.
+
 ## Sourcing (stricter than the daily show)
 - The **Source quality** rules in `SHOW_BIBLE.md` apply. Never cite pricing or "explainer" blogs, vendor comparison pages or AI-generated sites.
 - **Science claims:** primary sources first: the peer-reviewed paper (journal + DOI in the show notes), NASA, NSF, NIH, NOAA, DOE national labs, university press offices. Quality science journalism supports them: Nature News, Science News, New Scientist, Quanta, Ars Technica, IEEE Spectrum, Scientific American.
