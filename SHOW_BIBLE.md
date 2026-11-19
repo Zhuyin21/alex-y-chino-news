@@ -44,6 +44,13 @@ Rotate through transitions so the show flows. Never use the same one twice in an
 **Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`.
 
 **Sound effects:** `[SFX: name]` on its own line plays a short clip (1–5 s) from `assets/sfx/` (built by `pipeline/sfx_mix.py` from Pixabay sounds; when a sound has variants, `name-2`, `name-3`…, the build rotates them every week). Use them **only where PROGRAMACION.md says**, right before the line that opens that part ("¡Arrancamos con el fútbol!"). Never two in a row, never in serious segments or before hard news, and only names that exist in `assets/sfx/` (an unknown name stops the build).
+- **Every day** (comedy sounds `rimshot`, `grillos`, `scratch`, `aplausos`, `aplausos-chico` together **at most 2 per episode**, and plenty of episodes with none):
+  - `bueno`: right before **Lo Bueno del Día**, every day (it's its signature).
+  - `alerta`: a serious newsroom intro, **only for real breaking news** that's big but not a tragedy (a major vote, ruling or announcement); most days it isn't used. Tragedies and violence get `[MUSIC: sting-serious]`, never this.
+  - `rimshot`: right after one of Doc's dad jokes (at most once an episode).
+  - `grillos`: when a joke clearly didn't land, and someone notices it ("…¿nadie? ¿nada?").
+  - `scratch`: Chino's "¡No mames…!" + "perdón, raza" moment, between the two lines.
+  - `aplausos` / `aplausos-chico`: a real win worth celebrating (Chino's perfect quiniela week, a great explanation from Ashley, a big milestone); big or small to match the moment.
 - **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
 - **Tech Thursday:** `tech-noticias`, `tech-ia`, `tech-vale`, `tech-si-vale`, `tech-esperate`, `tech-ni-lo-pienses`, `tech-avance`, `tech-realidad`, `tech-hype`, `tech-nm`.
 

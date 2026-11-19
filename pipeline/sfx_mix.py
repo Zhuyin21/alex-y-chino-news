@@ -185,7 +185,46 @@ def tech_nm() -> np.ndarray:
     return timeline(2.8, [(0.0, static, -4), (0.4, space_beeps(), 0)], fade_out=0.6)
 
 
+# ---------------------------------------------------------------- every day
+def alerta() -> np.ndarray:  # serious newsroom intro, for real breaking news only
+    return timeline(4.0, [(0.0, cut(load("general-alerta.mp3"), 0.60, 4.60, fin=0.05), 0)], fade_out=1.3)
+
+
+def bueno() -> np.ndarray:  # bright chime before Lo Bueno del Día
+    return timeline(1.1, [(0.0, cut(load("general-bueno.mp3"), 0.0, 1.08, fin=0.005, fout=0.2), 0)], fade_out=0.2)
+
+
+def rimshot() -> np.ndarray:  # ba-dum-tss after one of Doc's dad jokes
+    return timeline(2.2, [(0.0, cut(load("general-rimshot.mp3"), 0.36, 2.60, fin=0.005), 0)], fade_out=0.8)
+
+
+def grillos() -> np.ndarray:  # a joke that didn't land
+    return timeline(2.6, [(0.0, cut(load("general-grillos.mp3"), 1.0, 3.6, fin=0.3), 0)], fade_out=0.6)
+
+
+def scratch() -> np.ndarray:  # record scratch (third take of the source)
+    return timeline(0.8, [(0.0, cut(load("general-scratch.mp3"), 5.20, 5.95, fin=0.005, fout=0.08), 0)], fade_out=0.1)
+
+
+def scratch_2() -> np.ndarray:  # second take; the build rotates the two weekly
+    return timeline(0.9, [(0.0, cut(load("general-scratch.mp3"), 2.65, 3.40, fin=0.005, fout=0.08), 0)], fade_out=0.1)
+
+
+def aplausos() -> np.ndarray:  # big applause
+    return timeline(3.4, [(0.0, cut(load("general-aplausos.mp3"), 0.5, 3.9, fin=0.2), 0)], fade_out=1.2)
+
+
+def aplausos_chico() -> np.ndarray:  # small applause
+    return timeline(3.0, [(0.0, cut(load("general-aplausos-chico.mp3"), 0.5, 3.5, fin=0.2), 0)], fade_out=1.0)
+
+
+# Quieter targets for sounds that should sit under the voices.
+LEVEL = {"grillos": -24.0, "bueno": -20.0, "alerta": -20.0}
+
 RECIPES = {
+    # Every day
+    "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
+    "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     # Miércoles en La Cancha
     "futbol": futbol, "nfl": nfl, "nba": nba, "box": box, "lobos": lobos,
     # Tech Thursday
@@ -218,7 +257,7 @@ def export(name: str, x: np.ndarray) -> Path:
     with tempfile.TemporaryDirectory() as tmp:
         wav = Path(tmp) / f"{name}.wav"
         write_wav(wav, x)
-        gain = TARGET_LUFS - integrated_lufs(wav)
+        gain = LEVEL.get(name, TARGET_LUFS) - integrated_lufs(wav)
         peak_db = 20 * np.log10(np.max(np.abs(x)) + 1e-9)
         gain = min(gain, -2.0 - peak_db)  # never past -2 dBFS
         mp3 = OUT / f"{name}.mp3"
