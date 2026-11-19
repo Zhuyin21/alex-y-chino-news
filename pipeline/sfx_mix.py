@@ -185,7 +185,160 @@ def tech_nm() -> np.ndarray:
     return timeline(2.8, [(0.0, static, -4), (0.4, space_beeps(), 0)], fade_out=0.6)
 
 
+# ---------------------------------------------------------------- every day
+def alerta() -> np.ndarray:  # serious newsroom intro, for real breaking news only
+    return timeline(4.0, [(0.0, cut(load("general-alerta.mp3"), 0.60, 4.60, fin=0.05), 0)], fade_out=1.3)
+
+
+def bueno() -> np.ndarray:  # bright chime before Lo Bueno del Día
+    return timeline(1.1, [(0.0, cut(load("general-bueno.mp3"), 0.0, 1.08, fin=0.005, fout=0.2), 0)], fade_out=0.2)
+
+
+def rimshot() -> np.ndarray:  # ba-dum-tss after one of Doc's dad jokes
+    return timeline(2.2, [(0.0, cut(load("general-rimshot.mp3"), 0.36, 2.60, fin=0.005), 0)], fade_out=0.8)
+
+
+def grillos() -> np.ndarray:  # a joke that didn't land
+    return timeline(2.6, [(0.0, cut(load("general-grillos.mp3"), 1.0, 3.6, fin=0.3), 0)], fade_out=0.6)
+
+
+def scratch() -> np.ndarray:  # record scratch (third take of the source)
+    return timeline(0.8, [(0.0, cut(load("general-scratch.mp3"), 5.20, 5.95, fin=0.005, fout=0.08), 0)], fade_out=0.1)
+
+
+def scratch_2() -> np.ndarray:  # second take; the build rotates the two weekly
+    return timeline(0.9, [(0.0, cut(load("general-scratch.mp3"), 2.65, 3.40, fin=0.005, fout=0.08), 0)], fade_out=0.1)
+
+
+def aplausos() -> np.ndarray:  # big applause
+    return timeline(3.4, [(0.0, cut(load("general-aplausos.mp3"), 0.5, 3.9, fin=0.2), 0)], fade_out=1.2)
+
+
+def aplausos_chico() -> np.ndarray:  # small applause
+    return timeline(3.0, [(0.0, cut(load("general-aplausos-chico.mp3"), 0.5, 3.5, fin=0.2), 0)], fade_out=1.0)
+
+
+def consulta() -> np.ndarray:  # airplane cabin chime ("ding-dong") before a featured question
+    return timeline(2.3, [(0.0, cut(load("general-consulta.mp3"), 0.02, 2.38, fin=0.005), 0)], fade_out=0.6)
+
+
+def campanilla() -> np.ndarray:  # hotel desk bell: a pick locked in, a "dato curioso"
+    return timeline(1.6, [(0.0, cut(load("general-campanilla.mp3"), 0.03, 1.80, fin=0.003), 0)], fade_out=0.5)
+
+
+def escribiendo() -> np.ndarray:  # pen on paper: "anotado"
+    return timeline(2.0, [(0.0, cut(load("general-escribiendo.mp3"), 0.65, 2.75, fin=0.1), 0)], fade_out=0.5)
+
+
+# ---------------------------------------------------------------- Sábados Científicos
+def sabado_burbujas() -> np.ndarray:  # lab bubbling: El Tema de Ashley
+    return timeline(2.8, [(0.0, cut(load("sabado-burbujas.mp3"), 0.8, 3.8, fin=0.25), 0)], fade_out=0.8)
+
+
+def sabado_eureka() -> np.ndarray:  # the lightbulb "ding!"
+    return timeline(1.8, [(0.0, cut(load("sabado-eureka.mp3"), 0.68, 2.60, fin=0.003), 0)], fade_out=0.4)
+
+
+def sabado_eureka_2() -> np.ndarray:  # second take, rotates weekly
+    return timeline(1.1, [(0.0, cut(load("sabado-eureka2.mp3"), 0.0, 1.10, fin=0.003), 0)], fade_out=0.3)
+
+
+def sabado_espacio() -> np.ndarray:  # space ambience swelling in (space topics)
+    return timeline(3.6, [(0.0, cut(load("sabado-espacio.mp3"), 1.2, 4.8, fin=0.05), 0)], fade_out=1.0)
+
+
+def sabado_espacio_2() -> np.ndarray:  # second take, rotates weekly
+    return timeline(3.6, [(0.0, cut(load("sabado-espacio2.mp3"), 0.4, 4.4, fin=0.6), 0)], fade_out=1.2)
+
+
+def sabado_mito() -> np.ndarray:  # ¿Mito o Ciencia? verdict: Mito
+    return timeline(1.4, [(0.0, cut(load("sabado-mito.mp3"), 0.0, 1.40, fin=0.003), 0)], fade_out=0.4)
+
+
+# ---------------------------------------------------------------- Viernes de Variedad
+def viernes_telenovela() -> np.ndarray:  # the dramatic "¡tan tan tán!"
+    return timeline(4.0, [(0.0, cut(load("viernes-telenovela.mp3"), 0.45, 4.45, fin=0.005), 0)], fade_out=1.2)
+
+
+def viernes_sospecha() -> np.ndarray:  # someone is hiding something…
+    return timeline(1.6, [(0.0, cut(load("viernes-sospecha.mp3"), 0.0, 1.62, fin=0.01), 0)], fade_out=0.4)
+
+
+def viernes_suspenso() -> np.ndarray:
+    return timeline(3.2, [(0.0, cut(load("viernes-suspenso.mp3"), 0.28, 3.48, fin=0.005), 0)], fade_out=1.0)
+
+
+def viernes_trueno() -> np.ndarray:
+    return timeline(3.4, [(0.0, cut(load("viernes-trueno.mp3"), 0.15, 3.55, fin=0.05), 0)], fade_out=1.2)
+
+
+def viernes_fin() -> np.ndarray:  # sad trombone "wah wah wah"
+    return timeline(4.8, [(0.0, cut(load("viernes-fin.mp3"), 0.18, 5.00, fin=0.01), 0)], fade_out=0.6)
+
+
+def viernes_risas() -> np.ndarray:  # a small, natural laugh (use sparingly)
+    return timeline(3.2, [(0.0, cut(load("viernes-risas.mp3"), 0.30, 3.50, fin=0.15), 0)], fade_out=1.2)
+
+
+def viernes_maquina() -> np.ndarray:  # typing, the margin bell, carriage return: Historia con sabor
+    src = load("viernes-maquina.mp3")
+    typing = cut(src, 1.80, 3.60, fin=0.05, fout=0.05)
+    bell = cut(src, 23.15, 23.80, fin=0.003, fout=0.2)
+    ret = cut(src, 18.10, 18.95, fin=0.01, fout=0.1)
+    x = timeline(3.4, [(0.0, typing, 0), (1.85, bell, 2), (2.35, ret, 0)], fade_out=0.3)
+    x = x / (np.max(np.abs(x)) + 1e-9)
+    return (np.tanh(6 * x) / np.tanh(6)).astype(np.float32)  # tame the key clicks so it isn't too quiet
+
+
+def viernes_pagina() -> np.ndarray:  # turning the page
+    return timeline(1.2, [(0.0, cut(load("viernes-pagina.mp3"), 1.15, 2.30, fin=0.01), 0)], fade_out=0.2)
+
+
+# ---------------------------------------------------------------- Agenda Cultural (Tuesday)
+def martes_diva() -> np.ndarray:  # heels walking in: Sophie's entrance
+    return timeline(2.8, [(0.0, cut(load("martes-tacones.mp3"), 0.0, 2.85, fin=0.003), 0)], fade_out=0.5)
+
+
+def martes_cine() -> np.ndarray:  # clapperboard, then the old projector rolling
+    clap = cut(load("martes-claqueta.mp3"), 0.03, 0.58, fin=0.002)
+    proj = cut(load("martes-proyector.mp3"), 1.0, 3.6, fin=0.4)
+    return timeline(2.8, [(0.0, clap, 0), (0.35, proj, 14)], fade_out=0.9)
+
+
+def martes_vinil() -> np.ndarray:  # needle drop (the second one in the source) + a little crackle
+    src = load("martes-vinil.mp3")
+    drop = cut(src, 1.25, 1.90, fin=0.003, fout=0.15)
+    crackle = cut(src, 6.0, 8.0, fin=0.2)
+    return timeline(2.3, [(0.0, drop, 0), (0.45, crackle, 8)], fade_out=0.7)
+
+
+def martes_chisme() -> np.ndarray:  # the "¡uuuy!" before the chisme
+    return timeline(1.5, [(0.0, cut(load("martes-chisme.mp3"), 0.05, 1.50, fin=0.05), 0)], fade_out=0.3)
+
+
+def martes_evento() -> np.ndarray:  # crowd before a concert: el evento local
+    return timeline(2.9, [(0.0, cut(load("martes-boletos.mp3"), 0.10, 3.00, fin=0.15), 0)], fade_out=1.0)
+
+
+# Quieter targets for sounds that should sit under the voices.
+LEVEL = {"martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+
 RECIPES = {
+    # Every day
+    "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
+    "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
+    "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
+    # Agenda Cultural (Tuesday)
+    "martes-diva": martes_diva, "martes-cine": martes_cine, "martes-vinil": martes_vinil,
+    "martes-chisme": martes_chisme, "martes-evento": martes_evento,
+    # Viernes de Variedad
+    "viernes-telenovela": viernes_telenovela, "viernes-sospecha": viernes_sospecha, "viernes-suspenso": viernes_suspenso,
+    "viernes-trueno": viernes_trueno, "viernes-fin": viernes_fin, "viernes-risas": viernes_risas,
+    "viernes-maquina": viernes_maquina, "viernes-pagina": viernes_pagina,
+    # Sábados Científicos (Ciencia verdict = tech-si-vale; Ciencia en NM close = tech-nm)
+    "sabado-burbujas": sabado_burbujas, "sabado-eureka": sabado_eureka, "sabado-eureka-2": sabado_eureka_2,
+    "sabado-espacio": sabado_espacio, "sabado-espacio-2": sabado_espacio_2, "sabado-mito": sabado_mito,
+    "sabado-ciencia": tech_si_vale, "sabado-nm": tech_nm,
     # Miércoles en La Cancha
     "futbol": futbol, "nfl": nfl, "nba": nba, "box": box, "lobos": lobos,
     # Tech Thursday
@@ -214,11 +367,21 @@ def integrated_lufs(wav: Path) -> float:
 
 def export(name: str, x: np.ndarray) -> Path:
     OUT.mkdir(parents=True, exist_ok=True)
+    target = LEVEL.get(name, TARGET_LUFS)
     x = x / (np.max(np.abs(x)) + 1e-9) * 0.5
     with tempfile.TemporaryDirectory() as tmp:
         wav = Path(tmp) / f"{name}.wav"
         write_wav(wav, x)
-        gain = TARGET_LUFS - integrated_lufs(wav)
+        # Very peaky clips (heels, a clapperboard, a needle drop) can't reach the target under the
+        # -2 dBFS ceiling: soften the transients a little at a time until they get within 3 dB.
+        for drive in (2, 3, 4, 6, 8):
+            reachable = -2.0 - 20 * np.log10(np.max(np.abs(x)) + 1e-9) + integrated_lufs(wav)
+            if reachable >= target - 3:
+                break
+            y = x / (np.max(np.abs(x)) + 1e-9)
+            x = (np.tanh(drive * y) / np.tanh(drive) * 0.5).astype(np.float32)
+            write_wav(wav, x)
+        gain = target - integrated_lufs(wav)
         peak_db = 20 * np.log10(np.max(np.abs(x)) + 1e-9)
         gain = min(gain, -2.0 - peak_db)  # never past -2 dBFS
         mp3 = OUT / f"{name}.mp3"
