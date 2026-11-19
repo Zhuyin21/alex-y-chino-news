@@ -54,11 +54,13 @@ Rotate through transitions so the show flows. Never use the same one twice in an
   - `consulta` (an airplane cabin "ding-dong"): right before a **featured question** in any segment: Pregúntale a Doc, a listener's question, the ¿Mito o Ciencia? claim, the question that frames El Tema de la Semana. At most once per segment.
   - `campanilla` (a hotel desk bell): when Chino **locks in a quiniela pick** ("¡pick final!"), or before a **dato curioso**. At most 3 in the quiniela and once elsewhere.
   - `escribiendo` (pen on paper, "anotado"): when Doc **writes down Chino's quiniela**.
+  - `llamada` (ringback tones): a **call into the studio**, only from the cast: Ashley calling from outside the studio, or Sophie on another day with a chisme too big to wait (about once a month). At most once a week. Never a "listener" call: listeners only appear with a real message and their permission.
   - Overall, keep it to a handful of sound effects per episode: they're seasoning, like the rivalries.
 - **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
-- **Monday:** `lunes-reloj`, `lunes-papeles` (4 takes that rotate weekly; where they go: PROGRAMACION.md).
+- **Weather:** `clima`, `clima-lluvia`, `clima-tormenta`, `clima-truenos` (see "Weather").
+- **Monday:** `lunes-reloj`, `lunes-papeles`, `lunes-mazo` (4 takes that rotate weekly; where they go: PROGRAMACION.md).
 - **Agenda Cultural (Tuesday):** `martes-diva`, `martes-cine`, `martes-vinil`, `martes-chisme`, `martes-evento` (where each goes: PROGRAMACION.md).
-- **Viernes de Variedad:** `viernes-telenovela`, `viernes-sospecha`, `viernes-suspenso`, `viernes-trueno`, `viernes-fin`, `viernes-risas`, `viernes-maquina`, `viernes-pagina` (where each goes: PROGRAMACION.md). Fiction formats are radio theater, so they can use a few more (about 6 in the segment), but every sound has to land on a story beat.
+- **Viernes de Variedad:** `viernes-telenovela`, `viernes-sospecha`, `viernes-suspenso`, `viernes-trueno`, `viernes-fin`, `viernes-risas`, `viernes-maquina`, `viernes-pagina`, `viernes-puerta-abrir`, `viernes-puerta-cerrar`, `viernes-puerta-rechinido`, `viernes-puerta-tocar`, `viernes-telefono`, `viernes-aullido`, `viernes-caballo` (where each goes: PROGRAMACION.md). Fiction formats are radio theater, so they can use a few more (about 6 in the segment), but every sound has to land on a story beat.
 - **Sábados Científicos:** `sabado-burbujas`, `sabado-espacio`, `sabado-eureka`, `sabado-mito`, `sabado-ciencia`, `sabado-nm` (where each goes: SABADO_TECH.md).
 - **Tech Thursday:** `tech-noticias`, `tech-ia`, `tech-vale`, `tech-si-vale`, `tech-esperate`, `tech-ni-lo-pienses`, `tech-avance`, `tech-realidad`, `tech-hype`, `tech-nm`.
 
@@ -106,6 +108,7 @@ The show is made with AI (scripts and voices), and Apple Podcasts requires shows
 ### Weather (every day, in the cold open)
 - Today's **high and low in °F and °C** ("sesenta y ocho grados, unos veinte centígrados"), **humidity**, and **chance of rain or snow**.
 - **Air quality and pollen when they matter:** say it when the AQI is moderate or worse (smoke, dust, ozone) or pollen is high, with a quick tip for people with asthma or allergies. Skip it on clean days.
+- **Sound:** right before the weather, one `[SFX]` that matches the forecast: `clima` (wind chimes) on a normal day, `clima-lluvia` when there's a real chance of rain or snow (about 30% or more), `clima-tormenta` for heavy rain, `clima-truenos` when thunderstorms are forecast.
 - Sources: the National Weather Service Albuquerque forecast; AirNow or the City of Albuquerque Air Quality Program for AQI; a reputable pollen forecast. Cite them in the show notes under the cold open.
 
 ### Day notes

@@ -329,14 +329,80 @@ def _papeles(start: float, end: float) -> np.ndarray:  # papers shuffling: "a ve
     return timeline(end - start, [(0.0, cut(load("lunes-papeles.mp3"), start, end, fin=0.08), 0)], fade_out=0.4)
 
 
+# ---------------------------------------------------------------- weather (cold open), by forecast
+def _clip(name: str, start: float, end: float, fin: float = 0.2, fade_out: float = 0.8) -> np.ndarray:
+    return timeline(end - start, [(0.0, cut(load(name), start, end, fin=fin), 0)], fade_out=fade_out)
+
+
+def clima() -> np.ndarray:  # wind chimes: a normal day
+    return _clip("general-clima.mp3", 0.2, 3.4, fin=0.05, fade_out=1.0)
+
+
+def clima_lluvia() -> np.ndarray:  # soft rain: some chance of rain or snow
+    return _clip("general-lluviasuave.mp3", 2.0, 5.5, fin=0.6, fade_out=1.2)
+
+
+def clima_tormenta() -> np.ndarray:  # heavy rain
+    return _clip("general-lluviafuerte.mp3", 2.0, 5.5, fin=0.5, fade_out=1.2)
+
+
+def clima_truenos() -> np.ndarray:  # rain with a thunder crack: thunderstorms in the forecast
+    return _clip("general-lluviatruenos.mp3", 1.0, 5.2, fin=0.5, fade_out=1.4)
+
+
+# ---------------------------------------------------------------- more Monday / Friday
+def lunes_mazo() -> np.ndarray:  # gavel: council and legislature meetings in Lo que viene
+    return _clip("lunes-mazo.mp3", 0.85, 1.85, fin=0.003, fade_out=0.3)
+
+
+def viernes_aullido() -> np.ndarray:
+    return _clip("viernes-aullido.mp3", 0.15, 3.95, fin=0.05, fade_out=1.0)
+
+
+def viernes_caballo() -> np.ndarray:
+    return _clip("viernes-caballo.mp3", 1.40, 4.30, fin=0.05, fade_out=1.0)
+
+
+def viernes_puerta_abrir() -> np.ndarray:
+    return _clip("viernes-puertaabrir.mp3", 0.0, 2.30, fin=0.01, fade_out=0.4)
+
+
+def viernes_puerta_cerrar() -> np.ndarray:
+    return _clip("viernes-puertacerrar.mp3", 0.45, 1.00, fin=0.005, fade_out=0.15)
+
+
+def viernes_puerta_rechinido() -> np.ndarray:
+    return _clip("viernes-puertarechinido.mp3", 0.0, 0.90, fin=0.01, fade_out=0.2)
+
+
+def viernes_puerta_tocar() -> np.ndarray:
+    return _clip("viernes-puertatocar.mp3", 0.0, 0.85, fin=0.003, fade_out=0.1)
+
+
+def viernes_telefono() -> np.ndarray:  # old phone ringing once
+    return _clip("viernes-telefonoviejo.mp3", 0.0, 3.60, fin=0.003, fade_out=0.6)
+
+
+def llamada() -> np.ndarray:  # ringback tones: a cast member calling into the studio
+    return _clip("viernes-telefonollamada.mp3", 0.05, 3.70, fin=0.003, fade_out=0.3)
+
+
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"lunes-reloj": -21.0, "lunes-papeles": -22.0, "lunes-papeles-2": -22.0, "lunes-papeles-3": -22.0, "lunes-papeles-4": -22.0, "martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+LEVEL = {"clima": -23.0, "clima-lluvia": -24.0, "clima-tormenta": -23.0, "clima-truenos": -21.0, "lunes-mazo": -22.0, "viernes-puerta-rechinido": -22.0, "llamada": -22.0, "viernes-telefono": -21.0, "lunes-reloj": -21.0, "lunes-papeles": -22.0, "lunes-papeles-2": -22.0, "lunes-papeles-3": -22.0, "lunes-papeles-4": -22.0, "martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
     "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
+    # Weather intro in the cold open (pick by the forecast)
+    "clima": clima, "clima-lluvia": clima_lluvia, "clima-tormenta": clima_tormenta, "clima-truenos": clima_truenos,
+    "llamada": llamada,
+    "lunes-mazo": lunes_mazo,
+    "viernes-aullido": viernes_aullido, "viernes-caballo": viernes_caballo,
+    "viernes-puerta-abrir": viernes_puerta_abrir, "viernes-puerta-cerrar": viernes_puerta_cerrar,
+    "viernes-puerta-rechinido": viernes_puerta_rechinido, "viernes-puerta-tocar": viernes_puerta_tocar,
+    "viernes-telefono": viernes_telefono,
     # Monday (papeles has 4 takes that rotate weekly)
     "lunes-reloj": lunes_reloj,
     "lunes-papeles": lambda: _papeles(0.90, 2.40), "lunes-papeles-2": lambda: _papeles(15.45, 17.00),
