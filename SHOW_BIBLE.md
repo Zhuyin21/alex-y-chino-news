@@ -51,6 +51,10 @@ Rotate through transitions so the show flows. Never use the same one twice in an
   - `grillos`: when a joke clearly didn't land, and someone notices it ("…¿nadie? ¿nada?").
   - `scratch`: Chino's "¡No mames…!" + "perdón, raza" moment, between the two lines.
   - `aplausos` / `aplausos-chico`: a real win worth celebrating (Chino's perfect quiniela week, a great explanation from Ashley, a big milestone); big or small to match the moment.
+  - `consulta` (an airplane cabin "ding-dong"): right before a **featured question** in any segment: Pregúntale a Doc, a listener's question, the ¿Mito o Ciencia? claim, the question that frames El Tema de la Semana. At most once per segment.
+  - `campanilla` (a hotel desk bell): when Chino **locks in a quiniela pick** ("¡pick final!"), or before a **dato curioso**. At most 3 in the quiniela and once elsewhere.
+  - `escribiendo` (pen on paper, "anotado"): when Doc **writes down Chino's quiniela**, or to open **Lo que viene esta semana** on Monday (the week's agenda).
+  - Overall, keep it to a handful of sound effects per episode: they're seasoning, like the rivalries.
 - **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
 - **Tech Thursday:** `tech-noticias`, `tech-ia`, `tech-vale`, `tech-si-vale`, `tech-esperate`, `tech-ni-lo-pienses`, `tech-avance`, `tech-realidad`, `tech-hype`, `tech-nm`.
 

@@ -218,13 +218,26 @@ def aplausos_chico() -> np.ndarray:  # small applause
     return timeline(3.0, [(0.0, cut(load("general-aplausos-chico.mp3"), 0.5, 3.5, fin=0.2), 0)], fade_out=1.0)
 
 
+def consulta() -> np.ndarray:  # airplane cabin chime ("ding-dong") before a featured question
+    return timeline(2.3, [(0.0, cut(load("general-consulta.mp3"), 0.02, 2.38, fin=0.005), 0)], fade_out=0.6)
+
+
+def campanilla() -> np.ndarray:  # hotel desk bell: a pick locked in, a "dato curioso"
+    return timeline(1.6, [(0.0, cut(load("general-campanilla.mp3"), 0.03, 1.80, fin=0.003), 0)], fade_out=0.5)
+
+
+def escribiendo() -> np.ndarray:  # pen on paper: "anotado"
+    return timeline(2.0, [(0.0, cut(load("general-escribiendo.mp3"), 0.65, 2.75, fin=0.1), 0)], fade_out=0.5)
+
+
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"grillos": -24.0, "bueno": -20.0, "alerta": -20.0}
+LEVEL = {"grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
     "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
+    "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
     # Miércoles en La Cancha
     "futbol": futbol, "nfl": nfl, "nba": nba, "box": box, "lobos": lobos,
     # Tech Thursday
