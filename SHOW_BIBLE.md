@@ -44,7 +44,13 @@ Rotate through transitions so the show flows. Never use the same one twice in an
 **Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`.
 
 **Sound effects:** `[SFX: name]` on its own line plays a short clip (1–5 s) from `assets/sfx/` (built by `pipeline/sfx_mix.py` from Pixabay sounds; when a sound has variants, `name-2`, `name-3`…, the build rotates them every week). Use them **only where PROGRAMACION.md says**, right before the line that opens that part ("¡Arrancamos con el fútbol!"). Never two in a row, never in serious segments or before hard news, and only names that exist in `assets/sfx/` (an unknown name stops the build).
-- **Every day** (comedy sounds `rimshot`, `grillos`, `scratch`, `aplausos`, `aplausos-chico` together **at most 2 per episode**, and plenty of episodes with none):
+**Keep them natural, not a sound circus** (Chuy, Nov 18):
+- **The dialogue never sets up a sound.** No line written to cue it ("¿nadie? ¿nada?" before crickets), no pause waiting for it. Take the sound out and the conversation must still work.
+- **Not every joke gets a sound.** A comedy sound only lands on a moment that's already funny on its own, as a surprise. Most jokes get none.
+- **Monday to Thursday and Saturday:** at most **1** comedy sound per episode (`rimshot`, `grillos`, `scratch`, `aplausos`, `aplausos-chico`, `caida-papel`, `caida-micro`), and most episodes have none. Transition sounds (weather, `bueno`, the sports and tech section sounds, the Saturday and Tuesday ones) work like music between parts and don't count.
+- **Friday (Viernes de Variedad) gets a bit more:** up to about 3 comedy sounds in the segment, plus scene sounds in a radionovela (doors, phone, thunder…) when the scene needs them. Still never two in a row, and never a sound on every line.
+
+- **Every day:**
   - `bueno`: right before **Lo Bueno del Día**, every day (it's its signature).
   - `alerta`: a serious newsroom intro, **only for real breaking news** that's big but not a tragedy (a major vote, ruling or announcement); most days it isn't used. Tragedies and violence get `[MUSIC: sting-serious]`, never this.
   - `rimshot`: right after one of Doc's dad jokes (at most once an episode).
@@ -55,14 +61,14 @@ Rotate through transitions so the show flows. Never use the same one twice in an
   - `campanilla` (a hotel desk bell): when Chino **locks in a quiniela pick** ("¡pick final!"), or before a **dato curioso**. At most 3 in the quiniela and once elsewhere.
   - `escribiendo` (pen on paper, "anotado"): when Doc **writes down Chino's quiniela**.
   - `llamada` (ringback tones): a **call into the studio**, only from the cast: Ashley calling from outside the studio, or Sophie on another day with a chisme too big to wait (about once a month). At most once a week. Never a "listener" call: listeners only appear with a real message and their permission.
-  - Little accidents (count as comedy sounds): `caida-papel` (someone's papers slip off the desk; they laugh it off), `caida-micro` (a mic hits the floor, or a real "mic drop" after winning an argument). Rare: about once a week between the two.
+  - Little accidents (count as comedy sounds): `caida-papel` (someone's papers slip off the desk; they laugh it off), `caida-micro` (a mic hits the floor, or a real "mic drop" after winning an argument). Rare: about once every week or two between the two.
   - Cars: `carro-arranca`, `carro-acelera`, `carro-freno`, `carro-claxon`, `carro-puerta` for radionovela scenes or a quick commute joke in the cold open; `chino-llega-tarde` only for the surprise bit in PROGRAMACION.md.
   - Overall, keep it to a handful of sound effects per episode: they're seasoning, like the rivalries.
 - **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
 - **Weather:** `clima`, `clima-lluvia`, `clima-tormenta`, `clima-truenos` (see "Weather").
 - **Monday:** `lunes-reloj`, `lunes-papeles`, `lunes-mazo` (4 takes that rotate weekly; where they go: PROGRAMACION.md).
 - **Agenda Cultural (Tuesday):** `martes-diva`, `martes-cine`, `martes-vinil`, `martes-chisme`, `martes-evento` (where each goes: PROGRAMACION.md).
-- **Viernes de Variedad:** `viernes-telenovela`, `viernes-sospecha`, `viernes-suspenso`, `viernes-trueno`, `viernes-fin`, `viernes-risas`, `viernes-maquina`, `viernes-pagina`, `viernes-puerta-abrir`, `viernes-puerta-cerrar`, `viernes-puerta-rechinido`, `viernes-puerta-tocar`, `viernes-telefono`, `viernes-aullido`, `viernes-caballo` (where each goes: PROGRAMACION.md). Fiction formats are radio theater, so they can use a few more (about 6 in the segment), but every sound has to land on a story beat.
+- **Viernes de Variedad:** `viernes-telenovela`, `viernes-sospecha`, `viernes-suspenso`, `viernes-trueno`, `viernes-fin`, `viernes-risas`, `viernes-maquina`, `viernes-pagina`, `viernes-puerta-abrir`, `viernes-puerta-cerrar`, `viernes-puerta-rechinido`, `viernes-puerta-tocar`, `viernes-telefono`, `viernes-aullido`, `viernes-caballo` (where each goes: PROGRAMACION.md). Fiction formats are radio theater: scene sounds go where the story needs them (a door, a phone, thunder), and every one has to land on a real story beat.
 - **Sábados Científicos:** `sabado-burbujas`, `sabado-espacio`, `sabado-eureka`, `sabado-mito`, `sabado-ciencia`, `sabado-nm` (where each goes: SABADO_TECH.md).
 - **Tech Thursday:** `tech-noticias`, `tech-ia`, `tech-vale`, `tech-si-vale`, `tech-esperate`, `tech-ni-lo-pienses`, `tech-avance`, `tech-realidad`, `tech-hype`, `tech-nm`.
 
