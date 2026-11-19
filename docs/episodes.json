@@ -145,5 +145,20 @@
       "paid-flex": 22
     },
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-18_episode-008.md"
+  },
+  {
+    "stem": "2026-11-19_episode-009",
+    "episode": "9",
+    "air_date": "2026-11-19",
+    "title": "Ep 9: A school tax credit splits New Mexico, Jeffries is one step from Speaker, Trump, Xi and Putin sign a declaration, and are folding phones worth it?",
+    "description": "La noticia local del d\u00eda: the school tax credit \u00b7 Rapid fire local \u00b7 La noticia nacional del d\u00eda: Jeffries, one step from Speaker \u00b7 Rapid fire nacional \u00b7 La noticia internacional del d\u00eda: Trump, Xi and Putin sign a declaration \u00b7 Rapid fire internacional \u00b7 Lo Nuevo en IA \u00b7 \u00bfVale la pena? Folding phones \u00b7 El Avance de la Semana: \u00bfHype o realidad? \u00b7 Tecnolog\u00eda en Nuevo M\u00e9xico: a space reactor, made in Los Alamos",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-19_episode-009/2026-11-19_episode-009.mp3",
+    "bytes": 13792069,
+    "duration_s": 1723,
+    "tts_usage": {
+      "paid-flex": 25,
+      "free": 10
+    },
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-19_episode-009.md"
   }
 ]
