@@ -119,6 +119,9 @@ GUESTS = {"ASHLEY", "SOPHIE"}  # similar (female) voices: never in the same TTS 
 LINE_RE = re.compile(r"^(ALEX|CHINO|ASHLEY|SOPHIE)\s*\[([^\]]*)\]\s*:\s*(.+)$")
 MUSIC_RE = re.compile(r"^\[MUSIC:\s*([\w-]+)\s*\]$", re.I)
 MUSIC_DIR = Path(__file__).resolve().parent.parent / "assets" / "music"
+# Sound-effect transitions (e.g. [SFX: futbol] in Miércoles en La Cancha), built by pipeline/sfx_mix.py.
+SFX_RE = re.compile(r"^\[SFX:\s*([\w-]+)\s*\]$", re.I)
+SFX_DIR = MUSIC_DIR.parent / "sfx"
 SPEECH_LUFS = -16  # music clips in assets/music are pre-leveled ~3-5 dB under this
 
 
@@ -181,6 +184,15 @@ def parse_script(md: str) -> list[Chunk]:
             continue
         if line.startswith("### "):
             flush()  # each story starts a new chunk
+            continue
+        sx = SFX_RE.match(line)
+        if sx:
+            flush()
+            name = sx.group(1).lower()
+            if not (SFX_DIR / f"{name}.mp3").exists():
+                raise SystemExit(f"Unknown sound effect '{name}' (no assets/sfx/{name}.mp3)")
+            chunks.append(Chunk(section=section, music=f"sfx:{name}", starts_section=new_section))
+            new_section = False
             continue
         mm = MUSIC_RE.match(line)
         if mm:
@@ -342,9 +354,19 @@ def music_file(cue: str) -> Path:
     return MUSIC_DIR / ("sting.mp3" if cue == "sting-serious" else f"{cue}.mp3")
 
 
+def sfx_file(name: str) -> Path:
+    """assets/sfx/<name>.mp3, or one of its variants (<name>-2.mp3, <name>-3.mp3…) when the library has
+    more than one: the pick changes every week, so the transitions don't get repetitive."""
+    import datetime as _dt
+    pat = re.compile(rf"^{re.escape(name)}(-\d+)?\.mp3$")
+    options = sorted(p for p in SFX_DIR.glob(f"{name}*.mp3") if pat.match(p.name))
+    week = _dt.date.today().isocalendar()[1]
+    return options[week % len(options)] if options else SFX_DIR / f"{name}.mp3"
+
+
 def music_wav(cue: str, work: Path) -> Path:
-    src = music_file(cue)
-    out = work / f"music_{src.stem}.wav"
+    src = sfx_file(cue[4:]) if cue.startswith("sfx:") else music_file(cue)
+    out = work / f"{'sfx' if cue.startswith('sfx:') else 'music'}_{src.stem}.wav"
     if not out.exists():
         print(f"  music {cue}: {src.relative_to(MUSIC_DIR.parent.parent)}")
         subprocess.run(

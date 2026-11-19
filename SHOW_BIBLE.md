@@ -41,7 +41,11 @@ Rotate through transitions so the show flows. Never use the same one twice in an
 
 **Weekly theme music:** the intro, stings and outro rotate genres every Sunday (norteño, corrido tumbado, mariachi, cumbia, cumbia rebajada, salsa, bachata, merengue). This week's genre is in `assets/music/current.json` → `assets/music/library/<pack>/pack.json`. In the first episode of a new pack, the cold open can nod to it in one natural line (e.g., Chino: "¡Y esta semana entramos con salsa, Doc!"). Don't mention it every day. `[MUSIC: sting-serious]` is a softer, quieter cut of the same weekly theme (no separate sad music).
 
-**Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`. *(The pipeline will start using the cues once the music is chosen.)*
+**Music cues:** put a cue on its own line, e.g. `[MUSIC: sting]` or `[MUSIC: sting-serious]`, right before a section or a tone change. The next line is usually Chino's transition ("En otras noticias…"). Cue types: `intro`, `sting`, `sting-serious`, `outro`.
+
+**Sound effects:** `[SFX: name]` on its own line plays a short clip (1–5 s) from `assets/sfx/` (built by `pipeline/sfx_mix.py` from Pixabay sounds; when a sound has variants, `name-2`, `name-3`…, the build rotates them every week). Use them **only where PROGRAMACION.md says**, right before the line that opens that part ("¡Arrancamos con el fútbol!"). Never two in a row, never in serious segments or before hard news, and only names that exist in `assets/sfx/` (an unknown name stops the build).
+- **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
+- **Tech Thursday:** `tech-noticias`, `tech-ia`, `tech-vale`, `tech-si-vale`, `tech-esperate`, `tech-ni-lo-pienses`, `tech-avance`, `tech-realidad`, `tech-hype`, `tech-nm`.
 
 ## Format, Monday to Saturday (~30 min, ~4,400–4,900 words; hard max 5,200)
 Every day has the same shape: **~7 minutes of news, ~18 minutes of the segment of the day, and a short close** (Monday keeps its longer news). The segments and the cast are in `PROGRAMACION.md`; read it every day. The weekday news blocks follow this file; Saturday's science segment also follows `SABADO_TECH.md`.
