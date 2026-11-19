@@ -294,14 +294,43 @@ def viernes_pagina() -> np.ndarray:  # turning the page
     return timeline(1.2, [(0.0, cut(load("viernes-pagina.mp3"), 1.15, 2.30, fin=0.01), 0)], fade_out=0.2)
 
 
+# ---------------------------------------------------------------- Agenda Cultural (Tuesday)
+def martes_diva() -> np.ndarray:  # heels walking in: Sophie's entrance
+    return timeline(2.8, [(0.0, cut(load("martes-tacones.mp3"), 0.0, 2.85, fin=0.003), 0)], fade_out=0.5)
+
+
+def martes_cine() -> np.ndarray:  # clapperboard, then the old projector rolling
+    clap = cut(load("martes-claqueta.mp3"), 0.03, 0.58, fin=0.002)
+    proj = cut(load("martes-proyector.mp3"), 1.0, 3.6, fin=0.4)
+    return timeline(2.8, [(0.0, clap, 0), (0.35, proj, 14)], fade_out=0.9)
+
+
+def martes_vinil() -> np.ndarray:  # needle drop (the second one in the source) + a little crackle
+    src = load("martes-vinil.mp3")
+    drop = cut(src, 1.25, 1.90, fin=0.003, fout=0.15)
+    crackle = cut(src, 6.0, 8.0, fin=0.2)
+    return timeline(2.3, [(0.0, drop, 0), (0.45, crackle, 8)], fade_out=0.7)
+
+
+def martes_chisme() -> np.ndarray:  # the "¡uuuy!" before the chisme
+    return timeline(1.5, [(0.0, cut(load("martes-chisme.mp3"), 0.05, 1.50, fin=0.05), 0)], fade_out=0.3)
+
+
+def martes_evento() -> np.ndarray:  # crowd before a concert: el evento local
+    return timeline(2.9, [(0.0, cut(load("martes-boletos.mp3"), 0.10, 3.00, fin=0.15), 0)], fade_out=1.0)
+
+
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+LEVEL = {"martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
     "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
+    # Agenda Cultural (Tuesday)
+    "martes-diva": martes_diva, "martes-cine": martes_cine, "martes-vinil": martes_vinil,
+    "martes-chisme": martes_chisme, "martes-evento": martes_evento,
     # Viernes de Variedad
     "viernes-telenovela": viernes_telenovela, "viernes-sospecha": viernes_sospecha, "viernes-suspenso": viernes_suspenso,
     "viernes-trueno": viernes_trueno, "viernes-fin": viernes_fin, "viernes-risas": viernes_risas,
@@ -338,11 +367,21 @@ def integrated_lufs(wav: Path) -> float:
 
 def export(name: str, x: np.ndarray) -> Path:
     OUT.mkdir(parents=True, exist_ok=True)
+    target = LEVEL.get(name, TARGET_LUFS)
     x = x / (np.max(np.abs(x)) + 1e-9) * 0.5
     with tempfile.TemporaryDirectory() as tmp:
         wav = Path(tmp) / f"{name}.wav"
         write_wav(wav, x)
-        gain = LEVEL.get(name, TARGET_LUFS) - integrated_lufs(wav)
+        # Very peaky clips (heels, a clapperboard, a needle drop) can't reach the target under the
+        # -2 dBFS ceiling: soften the transients a little at a time until they get within 3 dB.
+        for drive in (2, 3, 4, 6, 8):
+            reachable = -2.0 - 20 * np.log10(np.max(np.abs(x)) + 1e-9) + integrated_lufs(wav)
+            if reachable >= target - 3:
+                break
+            y = x / (np.max(np.abs(x)) + 1e-9)
+            x = (np.tanh(drive * y) / np.tanh(drive) * 0.5).astype(np.float32)
+            write_wav(wav, x)
+        gain = target - integrated_lufs(wav)
         peak_db = 20 * np.log10(np.max(np.abs(x)) + 1e-9)
         gain = min(gain, -2.0 - peak_db)  # never past -2 dBFS
         mp3 = OUT / f"{name}.mp3"

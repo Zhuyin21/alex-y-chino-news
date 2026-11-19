@@ -56,6 +56,7 @@ Rotate through transitions so the show flows. Never use the same one twice in an
   - `escribiendo` (pen on paper, "anotado"): when Doc **writes down Chino's quiniela**, or to open **Lo que viene esta semana** on Monday (the week's agenda).
   - Overall, keep it to a handful of sound effects per episode: they're seasoning, like the rivalries.
 - **Miércoles en La Cancha:** `futbol`, `nfl`, `nba`, `box` (boxing and UFC), `lobos`.
+- **Agenda Cultural (Tuesday):** `martes-diva`, `martes-cine`, `martes-vinil`, `martes-chisme`, `martes-evento` (where each goes: PROGRAMACION.md).
 - **Viernes de Variedad:** `viernes-telenovela`, `viernes-sospecha`, `viernes-suspenso`, `viernes-trueno`, `viernes-fin`, `viernes-risas`, `viernes-maquina`, `viernes-pagina` (where each goes: PROGRAMACION.md). Fiction formats are radio theater, so they can use a few more (about 6 in the segment), but every sound has to land on a story beat.
 - **Sábados Científicos:** `sabado-burbujas`, `sabado-espacio`, `sabado-eureka`, `sabado-mito`, `sabado-ciencia`, `sabado-nm` (where each goes: SABADO_TECH.md).
 - **Tech Thursday:** `tech-noticias`, `tech-ia`, `tech-vale`, `tech-si-vale`, `tech-esperate`, `tech-ni-lo-pienses`, `tech-avance`, `tech-realidad`, `tech-hype`, `tech-nm`.
