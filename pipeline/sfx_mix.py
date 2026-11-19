@@ -255,14 +255,57 @@ def sabado_mito() -> np.ndarray:  # ¿Mito o Ciencia? verdict: Mito
     return timeline(1.4, [(0.0, cut(load("sabado-mito.mp3"), 0.0, 1.40, fin=0.003), 0)], fade_out=0.4)
 
 
+# ---------------------------------------------------------------- Viernes de Variedad
+def viernes_telenovela() -> np.ndarray:  # the dramatic "¡tan tan tán!"
+    return timeline(4.0, [(0.0, cut(load("viernes-telenovela.mp3"), 0.45, 4.45, fin=0.005), 0)], fade_out=1.2)
+
+
+def viernes_sospecha() -> np.ndarray:  # someone is hiding something…
+    return timeline(1.6, [(0.0, cut(load("viernes-sospecha.mp3"), 0.0, 1.62, fin=0.01), 0)], fade_out=0.4)
+
+
+def viernes_suspenso() -> np.ndarray:
+    return timeline(3.2, [(0.0, cut(load("viernes-suspenso.mp3"), 0.28, 3.48, fin=0.005), 0)], fade_out=1.0)
+
+
+def viernes_trueno() -> np.ndarray:
+    return timeline(3.4, [(0.0, cut(load("viernes-trueno.mp3"), 0.15, 3.55, fin=0.05), 0)], fade_out=1.2)
+
+
+def viernes_fin() -> np.ndarray:  # sad trombone "wah wah wah"
+    return timeline(4.8, [(0.0, cut(load("viernes-fin.mp3"), 0.18, 5.00, fin=0.01), 0)], fade_out=0.6)
+
+
+def viernes_risas() -> np.ndarray:  # a small, natural laugh (use sparingly)
+    return timeline(3.2, [(0.0, cut(load("viernes-risas.mp3"), 0.30, 3.50, fin=0.15), 0)], fade_out=1.2)
+
+
+def viernes_maquina() -> np.ndarray:  # typing, the margin bell, carriage return: Historia con sabor
+    src = load("viernes-maquina.mp3")
+    typing = cut(src, 1.80, 3.60, fin=0.05, fout=0.05)
+    bell = cut(src, 23.15, 23.80, fin=0.003, fout=0.2)
+    ret = cut(src, 18.10, 18.95, fin=0.01, fout=0.1)
+    x = timeline(3.4, [(0.0, typing, 0), (1.85, bell, 2), (2.35, ret, 0)], fade_out=0.3)
+    x = x / (np.max(np.abs(x)) + 1e-9)
+    return (np.tanh(6 * x) / np.tanh(6)).astype(np.float32)  # tame the key clicks so it isn't too quiet
+
+
+def viernes_pagina() -> np.ndarray:  # turning the page
+    return timeline(1.2, [(0.0, cut(load("viernes-pagina.mp3"), 1.15, 2.30, fin=0.01), 0)], fade_out=0.2)
+
+
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+LEVEL = {"viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
     "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
+    # Viernes de Variedad
+    "viernes-telenovela": viernes_telenovela, "viernes-sospecha": viernes_sospecha, "viernes-suspenso": viernes_suspenso,
+    "viernes-trueno": viernes_trueno, "viernes-fin": viernes_fin, "viernes-risas": viernes_risas,
+    "viernes-maquina": viernes_maquina, "viernes-pagina": viernes_pagina,
     # Sábados Científicos (Ciencia verdict = tech-si-vale; Ciencia en NM close = tech-nm)
     "sabado-burbujas": sabado_burbujas, "sabado-eureka": sabado_eureka, "sabado-eureka-2": sabado_eureka_2,
     "sabado-espacio": sabado_espacio, "sabado-espacio-2": sabado_espacio_2, "sabado-mito": sabado_mito,
