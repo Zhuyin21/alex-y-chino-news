@@ -98,6 +98,7 @@ jobs:
               "bytes": info["bytes"],
               "duration_s": info["duration_s"],
               "tts_usage": info.get("tts_usage"),
+              "music_pack": info.get("music_pack"),
               "notes_url": f"https://github.com/{repo}/blob/main/episodes/{stem}.md",
           })
           json.dump(eps, open("docs/episodes.json", "w"), indent=2)

@@ -316,11 +316,62 @@ def normalize_speech(src: Path, dst: Path) -> None:
     )
 
 
+_DAILY_PACK: dict = {"name": None}
+
+
+def pack_genre(pack: str) -> str:
+    return re.sub(r"-\d+$", "", pack.split("_", 1)[-1])
+
+
+def choose_daily_pack(air_date: str) -> str | None:
+    """Pick this episode's music pack at random from the whole library, so the theme changes every day.
+    The record of what played is docs/episodes.json ("music_pack"): skip any pack used in the last 30 days
+    and any genre used in the last 4 episodes. December-only genres (pack.json "seasonal") only play in
+    December, when they're 3x as likely. Seeded by the air date, so a rebuild picks the same pack."""
+    import datetime as _dt
+    import random as _random
+
+    try:
+        day = _dt.date.fromisoformat(air_date)
+    except ValueError:
+        return None
+    packs = []
+    for d in sorted((MUSIC_DIR / "library").glob("*_*")):
+        if not (d / "intro.mp3").exists():
+            continue
+        try:
+            info = json.loads((d / "pack.json").read_text())
+        except (OSError, ValueError):
+            info = {}
+        packs.append((d.name, info.get("genre") or pack_genre(d.name), info.get("seasonal")))
+    if not packs:
+        return None
+    history = []
+    feed = MUSIC_DIR.parent.parent / "docs" / "episodes.json"
+    try:
+        for e in json.loads(feed.read_text()):
+            if e.get("music_pack") and e.get("air_date", "") < air_date:
+                history.append((e["air_date"], e["music_pack"]))
+    except (OSError, ValueError):
+        pass
+    history.sort()
+    recent_packs = {p for d, p in history if (day - _dt.date.fromisoformat(d)).days <= 30}
+    recent_genres = {pack_genre(p) for _, p in history[-4:]}
+    in_season = [x for x in packs if x[2] is None or (x[2] == "december" and day.month == 12)]
+    pool = ([x for x in in_season if x[0] not in recent_packs and x[1] not in recent_genres]
+            or [x for x in in_season if x[1] not in recent_genres] or in_season or packs)
+    weights = [3 if (x[2] == "december" and day.month == 12) else 1 for x in pool]
+    return _random.Random(f"alex-y-chino-{air_date}").choices(pool, weights=weights)[0][0]
+
+
 def music_pack() -> str | None:
-    """Active weekly music pack: repo variable MUSIC_PACK pins one, else assets/music/current.json."""
+    """This episode's music pack: repo variable MUSIC_PACK pins one; otherwise the daily random pick
+    (choose_daily_pack); otherwise assets/music/current.json."""
     pinned = (os.environ.get("MUSIC_PACK") or "").strip()
     if pinned:
         return pinned
+    if _DAILY_PACK["name"]:
+        return _DAILY_PACK["name"]
     cur = MUSIC_DIR / "current.json"
     if cur.exists():
         try:
@@ -405,12 +456,14 @@ def main() -> int:
 
     md = args.script.read_text(encoding="utf-8")
     meta = parse_front_matter(md)
+    _DAILY_PACK["name"] = choose_daily_pack((meta.get("air_date") or "").split(" ")[0])
     chunks = parse_script(md)
     n_turns = sum(len(c.turns) for c in chunks)
     n_music = sum(1 for c in chunks if c.music)
     n_words = sum(len(t.text.split()) for c in chunks for t in c.turns)
     print(f"{args.script.name}: {len(chunks) - n_music} speech chunks, {n_music} music cues, {n_turns} turns, "
           f"~{n_words} words (~{n_words / 150:.0f} min speech)")
+    print(f"Music pack: {music_pack()}")
     if args.dry_run:
         for i, c in enumerate(chunks):
             if c.music:
