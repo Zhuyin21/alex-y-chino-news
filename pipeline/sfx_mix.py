@@ -190,6 +190,18 @@ def alerta() -> np.ndarray:  # serious newsroom intro, for real breaking news on
     return timeline(4.0, [(0.0, cut(load("general-alerta.mp3"), 0.60, 4.60, fin=0.05), 0)], fade_out=1.3)
 
 
+def noticias() -> np.ndarray:  # short, sober newsroom bumper between news blocks (Tue-Sat)
+    return _clip_news(6.20, 7.85)
+
+
+def noticias_2() -> np.ndarray:  # another cut of the same theme; the build rotates them weekly
+    return _clip_news(2.60, 4.20)
+
+
+def _clip_news(start: float, end: float) -> np.ndarray:
+    return timeline(end - start, [(0.0, cut(load("general-alerta.mp3"), start, end, fin=0.12), 0)], fade_out=0.9)
+
+
 def bueno() -> np.ndarray:  # bright chime before Lo Bueno del Día
     return timeline(1.1, [(0.0, cut(load("general-bueno.mp3"), 0.0, 1.08, fin=0.005, fout=0.2), 0)], fade_out=0.2)
 
@@ -432,11 +444,11 @@ def chino_llega_tarde() -> np.ndarray:  # screech, car door, a stumble at the st
 
 
 # Quieter targets for sounds that should sit under the voices.
-LEVEL = {"caida-papel": -22.0, "caida-papel-2": -22.0, "carro-claxon": -22.0, "clima": -23.0, "clima-lluvia": -24.0, "clima-tormenta": -23.0, "clima-truenos": -21.0, "lunes-mazo": -22.0, "viernes-puerta-rechinido": -22.0, "llamada": -22.0, "viernes-telefono": -21.0, "lunes-reloj": -21.0, "lunes-papeles": -22.0, "lunes-papeles-2": -22.0, "lunes-papeles-3": -22.0, "lunes-papeles-4": -22.0, "martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
+LEVEL = {"noticias": -22.0, "noticias-2": -22.0, "caida-papel": -22.0, "caida-papel-2": -22.0, "carro-claxon": -22.0, "clima": -23.0, "clima-lluvia": -24.0, "clima-tormenta": -23.0, "clima-truenos": -21.0, "lunes-mazo": -22.0, "viernes-puerta-rechinido": -22.0, "llamada": -22.0, "viernes-telefono": -21.0, "lunes-reloj": -21.0, "lunes-papeles": -22.0, "lunes-papeles-2": -22.0, "lunes-papeles-3": -22.0, "lunes-papeles-4": -22.0, "martes-diva": -21.0, "martes-chisme": -21.0, "viernes-risas": -22.0, "viernes-pagina": -21.0, "sabado-espacio": -21.0, "sabado-espacio-2": -21.0, "sabado-burbujas": -21.0, "grillos": -24.0, "bueno": -20.0, "alerta": -20.0, "consulta": -21.0, "campanilla": -21.0, "escribiendo": -22.0}
 
 RECIPES = {
     # Every day
-    "alerta": alerta, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
+    "alerta": alerta, "noticias": noticias, "noticias-2": noticias_2, "bueno": bueno, "rimshot": rimshot, "grillos": grillos,
     "scratch": scratch, "scratch-2": scratch_2, "aplausos": aplausos, "aplausos-chico": aplausos_chico,
     "consulta": consulta, "campanilla": campanilla, "escribiendo": escribiendo,
     # Accidents, cars, Chino's late arrival
