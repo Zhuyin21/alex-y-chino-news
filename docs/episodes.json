@@ -160,5 +160,21 @@
       "free": 10
     },
     "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-19_episode-009.md"
+  },
+  {
+    "stem": "2026-11-20_episode-010",
+    "episode": "10",
+    "air_date": "2026-11-20",
+    "title": "Ep 10: Albuquerque bills the DEA $153 million over fentanyl, the Senate rejects ending the Iran war, the world court rules on Myanmar, and the first Thanksgiving\u2026 on the border?",
+    "description": "La noticia local del d\u00eda: Albuquerque's $153 million claim against the DEA \u00b7 Rapid fire local \u00b7 La noticia nacional del d\u00eda: the Senate votes on the Iran war \u00b7 Rapid fire nacional \u00b7 La noticia internacional del d\u00eda: the world court rules on Myanmar \u00b7 Rapid fire internacional \u00b7 Parte uno: la historia que todos conocemos \u00b7 Parte dos: \u00bfel primero fue en la frontera? \u00b7 Parte tres: \u00bfpor qu\u00e9 en jueves? \u00b7 Parte cuatro: el guajolote es mexicano \u00b7 Parte cinco: pavo con tamales",
+    "url": "https://github.com/Zhuyin21/alex-y-chino-news/releases/download/2026-11-20_episode-010/2026-11-20_episode-010.mp3",
+    "bytes": 13434296,
+    "duration_s": 1679,
+    "tts_usage": {
+      "paid-flex": 25,
+      "free": 10
+    },
+    "music_pack": "2026-11-19_cumbia-sonidera",
+    "notes_url": "https://github.com/Zhuyin21/alex-y-chino-news/blob/main/episodes/2026-11-20_episode-010.md"
   }
 ]
