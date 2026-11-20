@@ -76,7 +76,7 @@ VOICES = {
 }
 # Persona hints prepended to every line's style so the accent/register stays consistent.
 PERSONA = {
-    "ALEX": ("Dr. Alex, a mechanical engineer with a PhD, about 40, podcast co-host from Albuquerque, New Mexico; calm, clear, "
+    "ALEX": ("Dr. Alex, a mechanical engineer with a PhD, in his mid-forties, podcast co-host from Albuquerque, New Mexico; calm, clear, "
              "warm and professional, with a dry sense of humor and an easy laugh; switches naturally between English "
              "(about 60%) and Spanish (about 40%), Spanish with a native Mexican accent"),
     "CHINO": ("Chino, a podcast co-host in his mid-twenties from Ciudad Juárez, Chihuahua, living in Albuquerque; energetic, funny, "
